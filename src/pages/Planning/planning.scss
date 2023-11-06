@@ -1,0 +1,193 @@
+@use "../../theme/_variables.scss" as vars;
+
+.fc {
+
+  .fc-header-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .fc-button {
+    color: vars.$primary-400 !important;
+    background-color: rgb(255, 255, 255) !important;
+    border-radius: 100px !important;
+    box-shadow: 0 12px 32px rgba($color: vars.$primary-400, $alpha: 0.2);
+    font-family: "Satoshi", -apple-system, Roboto, Helvetica, sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 0.88rem !important;
+    border: none !important;
+  }
+
+  .fc-button-group {
+    display: flex;
+    flex: 1 !important;
+    width: unset !important;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .fc-button-active {
+    background: linear-gradient(45deg, vars.$accent-400, vars.$accent-700);
+    box-shadow: 0 12px 24px rgba($color: vars.$accent-400, $alpha: 0.24);
+    color: white !important;
+  }
+
+  .fc-event-time {
+    white-space: normal !important;
+    margin-bottom: 8px !important;
+  }
+
+  .fc-button:disabled {
+    opacity: 0.4;
+  }
+
+  .fc-timegrid {
+    border: 0 !important;
+    outline: 0 !important;
+    background-color: rgba($color: vars.$white, $alpha: 0.24);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    animation: appear 0.5s ease forwards;
+  }
+
+  .fc-timegrid-event {
+    border-radius: 6px;
+    line-height: 1.3;
+    padding: 2px;
+    border: 0;
+  }
+
+  .fc-timegrid-slot-minor {
+    border-top-style: dashed;
+    border-top-color: #afa6a244;
+  }
+
+  .fc-timegrid-slot-label-cushion {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .fc-timegrid-col.fc-day-today {
+    background-color: hsla(16, 70%, 80%, 0.25);
+  }
+
+
+
+  .fc-direction-ltr .fc-timegrid-slot-label-frame {
+    text-align: unset;
+  }
+
+  .fc-prev-button,
+  .fc-next-button {
+    width: 40px;
+
+    span {
+      display: flex;
+      justify-content: center;
+      width: unset;
+    }
+  }
+}
+.fc-timegrid-event,
+.fc-timegrid-more-link {
+  background: linear-gradient(
+                  45deg,
+                  vars.$primary-700,
+                  vars.$light-primary-400
+  ) !important;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 32px rgba($color: vars.$primary-400, $alpha: 0.24);
+}
+
+
+.est-epreuve {
+  color: vars.$white !important;
+  background: linear-gradient(
+                  45deg,
+                  vars.$accent-400,
+                  vars.$accent-800
+  ) !important;
+  box-shadow: 0 16px 32px rgba($color: vars.$accent-400, $alpha: 0.24) !important;
+}
+
+.est-perso {
+  color: vars.$white !important;
+  background: linear-gradient(
+                  45deg,
+                  vars.$success-400,
+                  vars.$success-800
+  ) !important;
+  box-shadow: 0 16px 32px rgba($color: vars.$success-400, $alpha: 0.24) !important;
+}
+
+
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.dark {
+  .fc-timegrid {
+    background-color: rgba($color: vars.$white, $alpha: 0.08);
+  }
+
+  .fc-timegrid-event:not(.est-epreuve),
+  .fc-timegrid-more-link:not(.est-epreuve) {
+    background: linear-gradient(
+      45deg,
+      vars.$primary-600,
+      vars.$primary-900
+    ) !important;
+    box-shadow: 0 16px 32px rgba($color: #000, $alpha: 0.24);
+  }
+}
+
+.buttons-column {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+
+.last-update {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.time-picker {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+}
+
+.time-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.select-button {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 50px;
+}
+
+.button-modal {
+  width: 130px;
+}
+

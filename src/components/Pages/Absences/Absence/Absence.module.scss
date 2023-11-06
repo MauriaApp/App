@@ -1,0 +1,86 @@
+@use "../../../../theme/variables" as vars;
+
+.container {
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .time-container {
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.animate {
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: bottom;
+  animation: appear 0.5s ease forwards;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(0.975);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.duration {
+  margin: 0;
+  font-weight: 800;
+  width: 80px;
+  text-align: center;
+}
+
+.interval {
+  text-align: center;
+}
+
+.interval,
+.date {
+  color: vars.$primary-400;
+  font-size: 0.75rem;
+  opacity: 0.5;
+}
+
+.title {
+  margin: 0;
+  font-weight: 800;
+  font-size: 1.1rem;
+  width: fit-content;
+}
+
+.class {
+  margin: 0;
+  font-weight: 700;
+  opacity: 0.8;
+  font-size: 0.85rem;
+}
+
+:global(.dark) {
+  .interval,
+  .date {
+    color: vars.$white;
+  }
+}

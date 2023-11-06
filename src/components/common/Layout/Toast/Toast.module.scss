@@ -1,0 +1,111 @@
+@use "../../../../theme/variables" as vars;
+
+.container {
+  position: fixed;
+  inset: 0;
+  margin: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 0;
+  padding: 12px;
+  height: fit-content;
+  min-height: 56px;
+  border-radius: 12px;
+  transform: translateY(
+    -12px
+  ); // sinon on le voit encore un peu apres un reload
+  transition: all 0.2s ease;
+}
+
+.isAnimated {
+  transform: translateY(calc(env(safe-area-inset-top) + 92px));
+}
+
+.isOpen {
+  animation: appear 0.4s 0.2s ease forwards;
+}
+
+@keyframes appear {
+  0% {
+    transform: translateY(0px);
+  }
+
+  64% {
+    transform: translateY(calc(env(safe-area-inset-top) + 104px));
+  }
+
+  100% {
+    transform: translateY(calc(env(safe-area-inset-top) + 92px));
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.text {
+  font-size: 0.9rem;
+}
+
+.success {
+  color: vars.$white;
+  background: linear-gradient(
+    45deg,
+    rgba(vars.$success-400, 0.64),
+    rgba(vars.$success-600, 0.34)
+  );
+}
+
+.information {
+  color: vars.$primary-800;
+  background: linear-gradient(
+    45deg,
+    rgba(vars.$primary-700, 0.24),
+    rgba(vars.$primary-700, 0.16)
+  );
+  box-shadow: 0 12px 32px rgba($color: vars.$primary-400, $alpha: 0.24);
+}
+
+.error {
+  color: vars.$accent-300;
+  background: linear-gradient(
+    45deg,
+    rgba($color: vars.$accent-400, $alpha: 0.4),
+    rgba($color: vars.$accent-700, $alpha: 0.25)
+  );
+  box-shadow: 0 12px 32px rgba($color: vars.$accent-400, $alpha: 0.16);
+}
+
+:global(.dark) {
+  .information {
+    color: vars.$white;
+    background: linear-gradient(
+      45deg,
+      rgba(vars.$white, 0.24),
+      rgba(vars.$light-primary-700, 0.16)
+    );
+    box-shadow: 0 12px 32px rgba($color: vars.$primary-400, $alpha: 0.24);
+  }
+
+  .success {
+    color: vars.$white;
+    background: linear-gradient(
+      45deg,
+      rgba(vars.$success-400, 0.64),
+      rgba(vars.$success-600, 0.16)
+    );
+  }
+
+  .error {
+    color: vars.$accent-500;
+  }
+}

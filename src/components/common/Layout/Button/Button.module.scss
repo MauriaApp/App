@@ -1,0 +1,90 @@
+@use "../../../../theme/variables" as vars;
+
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.24rem;
+  width: 100%;
+  border: 0;
+  height: 56px;
+  color: #fff;
+  background-color: transparent;
+  user-select: none;
+}
+
+.sm {
+  min-height: 48px;
+}
+
+.md {
+  min-height: 56px;
+}
+
+.lg {
+  min-height: 68px;
+}
+
+.background {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(45deg, vars.$primary-400, vars.$primary-800);
+  box-shadow: 0 16px 32px rgba($color: vars.$primary-400, $alpha: 0.24);
+}
+
+.round {
+  border-radius: 100px;
+}
+
+.animate {
+  animation: wiggle ease 0.8s forwards;
+}
+
+.pressed {
+  scale: 0.9 !important;
+  transition: scale 0.1s ease;
+}
+
+.primary {
+  background: linear-gradient(45deg, vars.$primary-400, vars.$primary-800);
+  box-shadow: 0 16px 32px rgba($color: vars.$primary-400, $alpha: 0.24);
+}
+
+.accent {
+  background: linear-gradient(45deg, vars.$accent-400, vars.$accent-800);
+  box-shadow: 0 16px 32px rgba($color: vars.$accent-400, $alpha: 0.24);
+}
+
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@keyframes wiggle {
+  0% {
+    scale: 0.9;
+  }
+
+  33% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 0.985;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+:global(.dark) {
+  .accent {
+    background: linear-gradient(45deg, vars.$accent-300, vars.$accent-600);
+  }
+}

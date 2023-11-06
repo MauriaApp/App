@@ -1,0 +1,28 @@
+@use "../../theme/variables" as vars;
+
+.info-card {
+  flex-direction: column;
+  gap: 24px;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  p { a {
+      color: vars.$accent-400;
+    }
+  }
+
+  h3,
+  p {
+    margin: 0;
+  }
+}
+
+.update-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}

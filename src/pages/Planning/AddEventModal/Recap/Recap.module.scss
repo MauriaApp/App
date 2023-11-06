@@ -1,0 +1,42 @@
+@use "../../../../theme/variables" as vars;
+
+.recap-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recap-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 600;
+  padding: 8px 0;
+}
+
+.recap-title {
+  font-weight: 800;
+}
+
+.recap-event-title {
+  font-weight: 800;
+  margin: 0;
+}
+
+.recap-event-container {
+  display: flex;
+  gap: 16px;
+}
+
+.bar {
+  width: 6px;
+  border-radius: 999px;
+  height: 100%;
+  background: vars.$accent-gradient;
+}
+
+.recap-time {
+  strong {
+    font-weight: 900;
+  }
+}

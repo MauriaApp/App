@@ -1,0 +1,43 @@
+@use "../../theme/variables" as vars;
+
+
+.setting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-container, .dark-mode-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 56px;
+  min-width: 56px;
+  height: 56px;
+  border-radius: 12px;
+
+
+  svg {
+    color: #fff;
+    width: 64%;
+    height: 64%;
+  }
+}
+
+.buttons-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

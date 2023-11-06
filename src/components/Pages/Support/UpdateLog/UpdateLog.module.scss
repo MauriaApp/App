@@ -1,0 +1,28 @@
+@use "../../../../theme/variables" as vars;
+
+.container {
+  flex-direction: column;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding-bottom: 8px;
+  }
+
+  .date {
+    color: vars.$light-primary-600;
+  }
+
+  .version {
+    font-size: 1rem;
+    font-weight: 900;
+  }
+
+  section p {
+    font-size: 0.9rem;
+    padding-left: 8px;
+  }
+}

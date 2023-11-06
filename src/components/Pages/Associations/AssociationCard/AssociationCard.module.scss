@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+
+}
+
+.image {
+  object-fit: cover;
+  border-radius: 8px;
+  aspect-ratio: 1;
+}
+
+
+.name {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+}

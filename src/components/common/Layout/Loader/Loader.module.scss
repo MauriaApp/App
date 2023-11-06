@@ -1,0 +1,16 @@
+@use "../../../../theme/variables" as vars;
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 80px 0;
+  font-weight: 600;
+
+  ion-spinner {
+    width: 40px;
+    height: 40px;
+    --color: #F06B42;
+  }
+}

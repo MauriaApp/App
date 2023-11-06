@@ -1,0 +1,48 @@
+@use "../../../../../theme/variables" as vars;
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 100000 !important;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  background-color: #fff;
+  box-shadow: 0 0 16px rgba($color: vars.$primary-700, $alpha: 0.2);
+  padding: 0 24px;
+  transition: all 0.4s ease;
+}
+
+.footer-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: env(safe-area-inset-bottom, 20px);
+  height: 64px;
+}
+
+.nav-link {
+  width: 40px;
+  height: 40px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  &.active {
+    transform: scale(1.12);
+  }
+  transition: all 0.24s ease;
+}
+
+:global(.dark) {
+  .footer {
+    background-color: vars.$primary-400;
+    box-shadow: 0 0 16px rgba($color: #000, $alpha: 0.2);
+    transition: all 0.4s ease;
+  }
+}

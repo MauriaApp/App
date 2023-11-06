@@ -1,0 +1,164 @@
+@use "../../../../../theme/variables" as vars;
+
+.event {
+  position: relative;
+  padding: 0;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: bottom;
+  animation: appear 0.5s ease forwards;
+
+  &.current {
+    .content {
+      padding: 16px 16px 16px 12px;
+    }
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(0.975);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.inner {
+  display: flex;
+}
+
+.live {
+  width: 10px;
+  height: 100%;
+  border-radius: 12px 0 0 12px;
+  background: linear-gradient(45deg, vars.$accent-400, vars.$accent-800);
+  box-shadow: 0 0 32px rgba($color: vars.$accent-400, $alpha: 0.6);
+  animation: blink 1s ease infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  margin: 0;
+  font-weight: 800;
+  font-size: 1.1rem;
+  width: fit-content;
+}
+
+.infos {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin: 0;
+  font-size: 0.9rem;
+
+  .room {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    flex: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .time {
+    white-space: nowrap;
+    background: -webkit-linear-gradient(
+      45deg,
+      vars.$primary-400,
+      vars.$primary-700
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.separator {
+  width: 12px;
+  height: 2px;
+  border-radius: 100px;
+  background-color: vars.$primary-400;
+}
+
+.room {
+  font-weight: 600;
+}
+
+.teacher {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  flex: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  font-size: 0.7rem;
+  margin: 0;
+  color: vars.$primary-400;
+  opacity: 0.5;
+}
+
+.description {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+:global(.dark) {
+  .title {
+    background: -webkit-linear-gradient(
+      45deg,
+      vars.$light-primary-700,
+      vars.$white
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .teacher,
+  .time {
+    color: vars.$white;
+  }
+
+  .time {
+    background: -webkit-linear-gradient(
+      45deg,
+      vars.$light-primary-500,
+      vars.$light-primary-600
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

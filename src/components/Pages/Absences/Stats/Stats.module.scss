@@ -1,0 +1,85 @@
+@use "../../../../theme/variables" as vars;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: bottom;
+  animation: appear 0.5s ease forwards;
+
+  & > div {
+    display: flex;
+  }
+}
+
+.top-row {
+  justify-content: center;
+}
+
+.bottom-row {
+  justify-content: space-evenly;
+}
+
+.top-row,
+.bottom-row {
+  & > div:not(.separator) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    width: 104px;
+  }
+}
+
+.label {
+  opacity: 0.5;
+  font-weight: 600;
+}
+
+.total,
+.justified,
+.unjustified {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.row-separator {
+  height: 3px;
+  background-color: currentColor;
+  border-radius: 100px;
+  opacity: 0.08;
+}
+
+.separator {
+  width: 3px;
+  height: 100%;
+  background-color: currentColor;
+  border-radius: 100px;
+  opacity: 0.08;
+}
+
+
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(0.975);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,53 @@
+$accent-100: hsl(14, 75%, 40%);
+$accent-200: hsl(14, 80%, 50%);
+$accent-300: hsl(14, 85%, 55%);
+$accent-400: #f06b42;
+$accent-500: hsl(14, 85%, 65%);
+$accent-600: hsl(14, 85%, 70%);
+$accent-700: hsl(14, 85%, 75%);
+$accent-800: hsl(14, 85%, 80%);
+$accent-900: hsl(14, 85%, 85%);
+
+$light-accent-400: hsl(14, 85%, 85%);
+$light-accent-500: hsl(14, 85%, 90%);
+$light-accent-600: hsl(14, 85%, 95%);
+$light-accent-700: hsl(14, 85%, 97.5%);
+
+$primary-100: hsl(268, 33%, 10%);
+$primary-200: hsl(268, 33%, 15%);
+$primary-300: hsl(268, 33%, 20%);
+$primary-400: #3f2a56;
+$primary-500: hsl(269, 34%, 30%);
+$primary-600: hsl(269, 34%, 35%);
+$primary-700: hsl(269, 34%, 40%);
+$primary-800: hsl(269, 30%, 45%);
+$primary-900: #7e59a6;
+
+$light-primary-400: hsl(269, 35%, 65%);
+$light-primary-500: hsl(269, 50%, 75%);
+$light-primary-600: hsl(269, 50%, 80%);
+$light-primary-700: hsl(269, 50%, 85%);
+$light-primary-800: hsl(269, 50%, 90%);
+$light-primary-900: hsl(269, 50%, 97.5%);
+
+$translucent-primary-400: hsla(269, 100%, 50%, 0.1);
+$pink: #f8f1fe;
+$orange: hsl(24, 100%, 95%);
+
+$white: #fff;
+
+$red: #e64949;
+
+$headerHeight: 72px;
+$footerHeight: 64px;
+
+$success-300: hsl(177, 50%, 35%);
+$success-400: hsl(177, 45%, 40%);
+$success-500: hsl(177, 45%, 45%);
+$success-600: hsl(177, 45%, 50%);
+$success-700: hsl(177, 45%, 55%);
+$success-800: hsl(177, 45%, 60%);
+$success-900: hsl(177, 45%, 65%);
+
+$primary-gradient: -webkit-linear-gradient(45deg, $primary-700, $primary-900);
+$accent-gradient: -webkit-linear-gradient(45deg, $accent-400, $accent-800);

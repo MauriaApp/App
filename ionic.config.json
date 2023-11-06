@@ -1,0 +1,7 @@
+{
+  "name": "Mauria",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

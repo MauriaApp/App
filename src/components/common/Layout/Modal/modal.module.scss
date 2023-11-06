@@ -1,0 +1,142 @@
+@use "../../../../theme/variables" as vars;
+
+.container {
+  visibility: hidden;
+  inset: 0;
+  height: 100vh;
+  background: rgba(#000, 0);
+  transition: all 0.2s ease;
+}
+
+.isShown {
+  visibility: visible;
+  background: rgba(#000, 0.4);
+  transition: all 0.2s ease;
+}
+
+.modalContainer {
+  position: absolute;
+  inset: 0;
+  left: 0;
+  bottom: 0;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+.isOpen {
+  animation: modalApparition 0.48s ease forwards;
+}
+
+.disappear {
+  animation: modalDisappear 0.48s ease forwards;
+}
+
+//.isAnimated{
+//  transform: translateY(20%) !important;
+//}
+
+@keyframes modalApparition {
+  0% {
+    transform: translateY(100%);
+  }
+
+  72% {
+    transform: translateY(18%);
+  }
+
+  100% {
+    transform: translateY(20%);
+  }
+}
+@keyframes modalDisappear {
+  0% {
+    transform: translateY(20%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: calc(56px + env(safe-area-inset-bottom));
+  border-radius: 32px 32px 0 0;
+  height: 100vh;
+  width: 100%;
+  box-shadow: 0 0 80px rgba($color: vars.$primary-400, $alpha: 0.2);
+  background-color: rgba($color: vars.$white, $alpha: 0.64) !important;
+  color: vars.$primary-400;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: scroll;
+  padding: 0 32px 32svh 32px;
+  margin-bottom: calc(56px + env(safe-area-inset-bottom));
+  p {
+    margin: 0;
+  }
+}
+
+.headerModal {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+
+  img {
+    width: 33%;
+    max-width: 160px;
+    border-radius: 12px;
+  }
+
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.modalText {
+  text-align: justify;
+}
+
+.modalImage {
+  border-radius: 16px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.handleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  width: 100%;
+
+  .handle {
+    z-index: 4;
+    height: 6px;
+    width: 48px;
+    border-radius: 100px;
+    opacity: 0.24;
+    background: currentColor;
+  }
+}
+
+:global(.dark) {
+  .modal {
+    color: vars.$white;
+    background-color: rgba($color: vars.$primary-600, $alpha: 0.64) !important;
+  }
+}

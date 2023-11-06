@@ -1,0 +1,87 @@
+@use "../../../../theme/variables" as vars;
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+
+  * {
+    margin: 0;
+  }
+}
+
+.animate {
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: bottom;
+  animation: appear 0.5s ease forwards;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(0.975);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.note-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.note {
+  margin: 0;
+  font-weight: 800;
+  width: 76px;
+  text-align: center;
+}
+
+.date,
+.coefficient {
+  color: vars.$primary-400;
+  font-size: 0.75rem;
+  opacity: 0.5;
+}
+
+.informations {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+}
+
+.title {
+  font-weight: 900;
+  font-size: 1.2rem;
+  margin: 0;
+  width: fit-content;
+}
+
+.date {
+  opacity: 0.75;
+}
+
+:global(.dark) {
+  .date,
+  .coefficient {
+    color: vars.$white;
+  }
+}

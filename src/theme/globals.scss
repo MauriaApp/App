@@ -1,0 +1,406 @@
+@use "./_variables.scss" as vars;
+
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap");
+
+body {
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+
+  * {
+    font-family: "Satoshi", -apple-system, Roboto, Helvetica, sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+    accent-color: vars.$accent-400;
+  }
+}
+
+//! Utility classes
+
+// Je dois faire ça because of putain d'ionic pour simuler un display block avec mo header et mon contenu
+// (sinon le contenu commence en dessous du header)
+
+.mock-header {
+  min-height: 72px;
+  margin-top: env(safe-area-inset-top, 20px);
+}
+
+.mock-footer {
+  min-height: 64px;
+  margin-top: env(safe-area-inset-bottom, 20px);
+}
+
+.shadow {
+  box-shadow: 0 12px 32px rgba($color: vars.$primary-400, $alpha: 0.12);
+}
+
+.shadow-accent {
+  box-shadow: 0 12px 32px rgba($color: vars.$accent-400, $alpha: 0.16);
+}
+
+.glassy {
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+}
+
+.no-margins {
+  margin: 0 !important;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.app-container {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.app-background {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+
+  margin-top: env(safe-area-inset-top, 20px);
+}
+
+.shape {
+  position: fixed;
+  left: 0;
+  height: 33%;
+  width: 100%;
+  z-index: -2;
+
+  &.bottom {
+    bottom: 0;
+    color: vars.$pink;
+  }
+
+  &.top {
+    transform: rotateX(180deg) rotateY(180deg);
+    top: env(safe-area-inset-top);
+    color: vars.$orange;
+  }
+}
+
+//! Re-usable classes
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 32px;
+  padding: 0;
+  height: 36px;
+  width: fit-content;
+  background: -webkit-linear-gradient(
+    45deg,
+    vars.$primary-400,
+    vars.$light-primary-400
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex: auto;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.sectionTitle {
+  font-weight: 800;
+
+  margin-top: 0;
+  margin-bottom: 24px;
+  padding: 0;
+  width: fit-content;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 12px;
+}
+
+.label {
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: -webkit-linear-gradient(
+    45deg,
+    vars.$primary-900,
+    vars.$light-primary-500
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card {
+  display: flex;
+  width: 100%;
+  border-radius: 12px;
+  padding: 12px;
+  background-color: rgba(vars.$white, 0.56);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.no-content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
+}
+
+.no-content-text {
+  font-weight: 600;
+  width: 80%;
+  text-align: center;
+  opacity: 0.64;
+}
+
+.text {
+  opacity: 0.64;
+}
+
+.text-primary {
+  background: -webkit-linear-gradient(
+    45deg,
+    vars.$primary-700,
+    vars.$primary-900
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-accent {
+  background: -webkit-linear-gradient(
+    45deg,
+    vars.$accent-300,
+    vars.$accent-800
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-success {
+  color: vars.$success-400;
+  background: -webkit-linear-gradient(
+    45deg,
+    vars.$success-400,
+    vars.$success-600
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+//! ionic restyling
+
+ion-app {
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 64px;
+    inset: 0;
+    z-index: -1;
+    background-color: vars.$primary-400;
+  }
+}
+
+ion-app.dark {
+  background-color: vars.$primary-200;
+}
+
+ion-refresher {
+  height: 80px;
+}
+
+ion-toggle {
+  &::part(track) {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(45deg, vars.$accent-400, vars.$accent-700);
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+  }
+
+  &.toggle-checked::part(track) {
+    &::after {
+      opacity: 1;
+      transition: all 0.4s ease;
+    }
+  }
+}
+
+ion-datetime {
+  background: linear-gradient(
+    45deg,
+    rgba($color: vars.$white, $alpha: 0.4),
+    rgba($color: vars.$light-primary-600, $alpha: 0.16)
+  );
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba($color: vars.$primary-900, $alpha: 0.18);
+  color: vars.$light-primary-400;
+}
+
+ion-content {
+  --padding-top: 32px;
+  --padding-bottom: 32px;
+  --padding-end: 16px;
+  --padding-start: 16px;
+
+  &::part(scroll) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  transform: translateX(64px);
+  opacity: 0;
+  animation: animateEnter 0.4s ease forwards;
+}
+
+@keyframes animateEnter {
+  0% {
+    transform: translateX(64px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+//! Android specific styles
+
+.md {
+  ion-toggle {
+    --handle-background-checked: #fff;
+    --background-checked: #f06b424b;
+  }
+}
+
+.dark {
+  ion-toggle {
+    --background: rgba(255, 255, 255, 0.2);
+
+    &::part(track) {
+      &::after {
+        background: linear-gradient(45deg, vars.$accent-300, vars.$accent-600);
+      }
+    }
+  }
+
+  ion-datetime {
+    background: linear-gradient(
+      45deg,
+      rgba($color: vars.$white, $alpha: 0.4),
+      rgba($color: vars.$light-primary-600, $alpha: 0.16)
+    );
+    color: vars.$white;
+  }
+
+  .shape {
+    &.bottom {
+      color: rgba(vars.$primary-900, 0.24);
+    }
+
+    &.top {
+      color: rgba(vars.$accent-400, 0.24);
+    }
+  }
+
+  .card {
+    background-color: rgba(
+      $color: vars.$light-primary-500,
+      $alpha: 0.12
+    ) !important;
+  }
+
+  .shadow {
+    box-shadow: 0 12px 32px rgba($color: #000, $alpha: 0.12);
+  }
+
+  .shadow-accent {
+    box-shadow: 0 12px 32px rgba($color: vars.$accent-300, $alpha: 0.12);
+  }
+
+  .title {
+    background: -webkit-linear-gradient(
+      45deg,
+      vars.$light-primary-700,
+      vars.$white
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .label {
+    background: -webkit-linear-gradient(
+      45deg,
+      vars.$light-primary-800,
+      vars.$white
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-primary {
+    background: -webkit-linear-gradient(45deg, vars.$light-primary-900, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-accent {
+    background: -webkit-linear-gradient(
+      45deg,
+      vars.$accent-300,
+      vars.$accent-600
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-success {
+    color: vars.$success-400;
+    background: -webkit-linear-gradient(
+      45deg,
+      vars.$success-300,
+      vars.$success-600
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  transition: all 0.4s ease;
+}

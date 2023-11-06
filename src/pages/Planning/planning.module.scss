@@ -1,0 +1,37 @@
+@use "../../theme/variables" as vars;
+
+.create-event-button {
+  position: fixed;
+  bottom: calc(80px + env(safe-area-inset-bottom));
+  right: 20px;
+  z-index: 100;
+  font-size: 1.8rem;
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 16px 32px rgba($color: vars.$accent-400, $alpha: 0.24);
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  bottom: 0;
+  border-radius: 32px 32px 0 0;
+  width: 100%;
+}
+
+ion-datetime {
+  --background: #f7f3fb;
+
+  .picker-highlight {
+    background: transparent;
+  }
+}
+
+:global(.dark) {
+  ion-datetime {
+    --background: #78648b;
+  }
+}
