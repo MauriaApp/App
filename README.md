@@ -43,6 +43,7 @@ Au sein de `src` se trouve un projet React "standard" :
 
 ## Roadmap
 - Passage sous Ionic `v5+`
+- Suppression d'un événement ajouté au calendrier (=> création d'un modal lors du clique sur un cours)
 - Actualisation automatique des données (le [plugin](https://github.com/ionic-team/capacitor-background-runner) étant très récent, il présente de nombreux soucis actuellement...)
 - Un "agenda" permettant de noter des notes et/ou travaux à effectuer
 - Ajouter un feed d'événements Junia sur la page principal (cela pour but de partager et découvrir les prochains évenements Junia sans passer par tous les réseaux sociaux )
