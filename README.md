@@ -1,44 +1,62 @@
+# Mauria (application)
+Code de l'application mobile Mauria
 
-# Mauria (Application mobile)
+## Technologies utilisées
 
-Mauria est une application mobile disponible sur [iOS](https://apps.apple.com/fr/app/mauria/id6444381612) et [Android](https://play.google.com/store/apps/details?id=io.ionic.mauria).
+- Ionic (React) `v6.5.0`
+- Capacitor `v4.6.1`
+- TypeScript `v4.9.4`
 
-Elle permet un accès rapide aux données étudiantes disponible sur l'ERP Aurion (par Auriga) pour les étudiants JUNIA.
+## Structure du projet
 
+Nous avons séparé le répertoire en plusieurs dossiers :
+- `resources` : contient le logo de l'application
+- `public ` : contient la version du build actuelle
+- `src` : contient le code de l'application
 
-
-## Technologies
-
-
-**Application:** Ionic (React), React
-
-**Serveurs:** Express (NodeJS), Strapi
-
-Mauria fonctionne comme ceci:
-![Structure de Mauria](./MauriaStruct.jpg)
-
-## Contributions
-
-Les contributions sont les bienvenues!
-
-Ceci est un projet étudiant, et en tant qu'étudiant, l'aide est toujours un atout ^^
-
-Une contribution permet au projet d'avancer avec les idées de tous. 
-
-Si vous avez une idée sans pour autant avoir les connaissances permettant la réalisation, vous pouvez toujours l'expliquer clairement, avec des schémas par exemple.
-
-Un guide pour contribuer au projet sera disponible (un jour...)
-## Auteurs
-
-- [@Milo Montuori](https://www.github.com/MylowMntr)
-- [@Louis Lecouturier](https://www.github.com/LouisLecouturier)
+Au sein de `src` se trouve un projet React "standard" :
+- `assets` : contient les SVGs utilisés
+- `components` : contient les composants réutilisables dans l'application
+- `contexts` : contient la structure des `modals` utilisés
+- `pages` : contient les différentes pages de l'application
+- `theme` : contient le CSS, ici du SCSS
+- `types ` : contient les différents types de structure utilisés suivant les pages
+- `utils` : contient les différents fichiers "utile" au bon fonctionnement de l'application, comme les fonctions d'appel aux `api`, aux retours haptiques...
 
 
+## Installation
 
-## Captures d'écrans
+### Prérequis
+
+- NodeJS `v18+`
+- npm *et/ou* yarn
+- TypeScript `v4+`
+
+### Installation
+
+1. Cloner le repo
+2. Se placer dans le dossier du projet : `cd app`
+3. Installer les dépendances : `npm i`
+4. Lancer le projet : `npm start`
+5. Le projet est accessible à l'adresse suivante : `http://localhost:3000`
 
 
-.            |  .            |.            |  .            | .
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![App Screenshot](https://play-lh.googleusercontent.com/2ibzBjTCktOaHGWWHGq3Oj8x3L3OIhvlIUExQ9bYxUMGoK0RgNLPL3f67aoExv5X5Q)  |  ![App Screenshot](https://play-lh.googleusercontent.com/CqowCgtuh99Nnl2OSTaySW35h_axsad_pz72tgZxY_ePL4eGTdF4hl0hZCMBRZ50e0Y) | ![App Screenshot](https://play-lh.googleusercontent.com/HGsj1Gs7fn3W1yvHN5IzR4S_qWFKGmW_j_v6tD6Hv9NqCV4YdWsLi3K8sOuJGIvs5A) | ![App Screenshot](https://play-lh.googleusercontent.com/M77Jkz0zJM2XHETyB_J8lae-DzGEBQnRupVjWg_w2mdi1eJ0w5ayw_ajn15UAkbMSA) |![App Screenshot](https://play-lh.googleusercontent.com/c21Tx2PofYcO9Ckpv2FPRdNZdRgEwVyWzF_dBwHlC6bQw6CDQiW0Wp0vJYFcGeO6Qyc)
+## Roadmap
+- Passage sous Ionic `v5+`
+- Actualisation automatique des données (le [plugin](https://github.com/ionic-team/capacitor-background-runner) étant très récent, il présente de nombreux soucis actuellement...)
+- Un "agenda" permettant de noter des notes et/ou travaux à effectuer
+- Ajouter un feed d'événements Junia sur la page principal (cela pour but de partager et découvrir les prochains évenements Junia sans passer par tous les réseaux sociaux )
+- Faire une version optimisée pour les iPads
+- Ajouter un pop-up pour expliquer les nouveautés de la dernière mise à jour
+- Implémenter des tests unitaires
 
+## Contribution
+
+Pour contribuer au projet, il faut faire un fork du repo à partir de la branche `master`.
+Une fois votre fork créé, vous pouvez travailler sur votre fork
+Pour proposer vos changements, vous devez faire une pull request sur la branche `master` du repo principal.
+
+Si votre contribution est acceptée, elle sera déployée dans la prochaine mise à jour de l'application ! (Nous essayons de limiter le nombre de mise à jour de l'application)
+
+## License
+Ce projet est sous licence GNU v3. Pour plus d'informations, voir le fichier `LICENSE` à la racine du projet.
