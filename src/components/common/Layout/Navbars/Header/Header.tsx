@@ -1,4 +1,4 @@
-import { IonButton, IonHeader } from "@ionic/react";
+import { IonHeader } from "@ionic/react";
 import styles from "./Header.module.scss";
 
 import { ReactComponent as Moon } from "../../../../../assets/svg/icons/Moon.svg";
@@ -10,7 +10,7 @@ import { ReactComponent as Aurion } from "../../../../../assets/svg/icons/Grade.
 import { ReactComponent as Basketball } from "../../../../../assets/svg/icons/Sport.svg";
 import { ReactComponent as BookAtlas } from "../../../../../assets/svg/icons/book-atlas.svg";
 import { useRef, useState } from "react";
-import { Browser } from '@capacitor/browser';
+import { Browser } from "@capacitor/browser";
 
 import { Link } from "react-router-dom";
 
@@ -63,9 +63,9 @@ const Header = ({ isAuth }: { isAuth?: boolean }) => {
             className={clsx(styles["hamburger"], isShown && styles["isShown"])}
             onClick={() => setIsShown(!isShown)}
           >
-            <div></div>
-            <div></div>
-            <div></div>
+            <div />
+            <div />
+            <div />
           </div>
         </header>
 

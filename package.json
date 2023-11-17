@@ -105,6 +105,7 @@
     "@capacitor/cli": "4.6.1",
     "@types/isomorphic-fetch": "^0.0.36",
     "@types/react-datepicker": "^4.11.2",
+    "babel-plugin-tsconfig-paths": "^1.0.3",
     "cordova-res": "0.15.4"
   },
   "description": "An Ionic project"

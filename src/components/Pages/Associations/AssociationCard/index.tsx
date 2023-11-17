@@ -16,7 +16,7 @@ const AssociationCard: React.FC<AssociationCardProps> = ({
 }) => {
   const cardRef = useRef(null);
   const entry = useIntersectionObserver(cardRef, {});
-  const isVisible = !!entry?.isIntersecting;
+  const isVisible = entry?.isIntersecting!!;
 
   return (
     <article

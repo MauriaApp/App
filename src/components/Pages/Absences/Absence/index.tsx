@@ -20,7 +20,7 @@ const Absence: React.FC<AbsenceProps> = (props) => {
   const entry = useIntersectionObserver(absenceRef, {});
   const isVisible = !!entry?.isIntersecting;
 
-  if (props.index !== undefined && props.index < 8) {
+  if (props.index!! && props.index < 8) {
     return (
       <article
         ref={absenceRef}
@@ -44,7 +44,7 @@ const Absence: React.FC<AbsenceProps> = (props) => {
             className={clsx(
               "text-primary",
               styles["title"],
-              props.title.includes(" non ") ? "text-accent" : ""
+              props.title.includes(" non ") && "text-accent"
             )}
           >
             {props.title}
@@ -63,7 +63,6 @@ const Absence: React.FC<AbsenceProps> = (props) => {
         "card shadow",
         isVisible && "glassy",
         !isVisible && "hidden",
-
         styles["container"]
       )}
     >
@@ -78,7 +77,7 @@ const Absence: React.FC<AbsenceProps> = (props) => {
           className={clsx(
             "text-primary",
             styles["title"],
-            props.title.includes(" non ") ? "text-accent" : ""
+            props.title.includes(" non ") && "text-accent"
           )}
         >
           {props.title}

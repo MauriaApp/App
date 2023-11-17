@@ -84,7 +84,11 @@ const StatsModalContent: FC<StatsModalProps> = ({
                 </ul>
               </>
             ) : (
-              <span>Aucune statistiques à afficher pour le moment</span>
+              <div className={"no-content-container"}>
+                <span className={"no-content-text"}>
+                  Aucune statistiques à afficher pour le moment
+                </span>
+              </div>
             )
           ) : (
             <div className={styles["notShared"]}>

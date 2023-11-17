@@ -3,7 +3,7 @@ import Input from "../../components/common/Layout/Input/Input";
 import { fetchAssos } from "../../utils/api/api";
 import { AssociationType } from "../../types/association";
 import { ChangeEvent, useContext, useState } from "react";
-import { useEffectOnce, useLocalStorage } from "usehooks-ts";
+import { useEffectOnce } from "usehooks-ts";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import styles from "./Association.module.scss";
 import { ModalContext, ModalContextType } from "../../contexts/modalContext";
@@ -19,10 +19,6 @@ const associationsQuery = async () => {
 export default function Associations() {
   const [query, setQuery] = useState("");
 
-  const [associations, setAssociations] = useLocalStorage<
-    AssociationType[] | null
-  >("associations", null);
-
   const { openModal } = useContext(ModalContext) as ModalContextType;
 
   const queryClient = useQueryClient();
@@ -35,9 +31,7 @@ export default function Associations() {
 
   const refreshMutation = useMutation({
     mutationFn: async () => {
-      const newAssos = await fetchAssos();
-      setAssociations(newAssos);
-      return newAssos;
+      return await fetchAssos();
     },
     onSuccess: (data) => {
       queryClient.setQueryData(["associations"], data);

@@ -63,17 +63,13 @@ export async function fetchPlanning() {
 
   if (response.status === 200) {
     return response.json().then((data) => {
-      localStorage.setItem("lastPlanningUpdate", `\"${today.toISOString()}\"`);
+      localStorage.setItem("lastPlanningUpdate", `${today.toISOString()}`);
       localStorage.setItem("planning", JSON.stringify(data));
       return data;
     });
   }
   localStorage.setItem("planning", " ");
   return null;
-}
-
-export function getPlanning() {
-  return localStorage.getItem("planning");
 }
 
 // Fonction qui permet de récupérer les notes d'un élève (sans parametres => récupère dans le localStorage)
@@ -92,7 +88,9 @@ export const fetchNotes = async (): Promise<{
   const setCurrentNotes = (data: MauriaNoteType[]) =>
     localStorage.setItem("notes", JSON.stringify(data));
 
-  const oldNotes = JSON.parse(localStorage.getItem("notes") || "[]") as MauriaNoteType[];
+  const oldNotes = JSON.parse(
+    localStorage.getItem("notes") || "[]"
+  ) as MauriaNoteType[];
 
   const response = await fetch(API_URL + "/poststats", {
     method: "POST",
@@ -114,7 +112,9 @@ export const fetchNotes = async (): Promise<{
 
       const newNotes = data.filter(
         (note: MauriaNoteType) =>
-          !oldNotes.find((oldNote: MauriaNoteType) => oldNote.code === note.code)
+          !oldNotes.find(
+            (oldNote: MauriaNoteType) => oldNote.code === note.code
+          )
       );
       setNewNotes(newNotes);
 
@@ -122,7 +122,7 @@ export const fetchNotes = async (): Promise<{
 
       // console.log("newNotes", newNotes);
       // console.log("oldNotes", oldNotes);
-      
+
       return data;
     });
   }
@@ -138,8 +138,7 @@ export function getNotes() {
   return null;
 }
 
-
-export async function pushNoteStats() {  
+export async function pushNoteStats() {
   await fetch(API_URL + "/poststats", {
     method: "POST",
     headers: {
@@ -148,7 +147,7 @@ export async function pushNoteStats() {
     body: JSON.stringify({
       username: localStorage.getItem("email"),
       password: localStorage.getItem("password"),
-      shared : localStorage.getItem("notesShared"),
+      shared: localStorage.getItem("notesShared"),
     }),
   });
   return null;
@@ -213,15 +212,15 @@ export function fetchFirstName() {
   if (email != null) {
     // Utilise une expression régulière pour séparer le prénom et le nom
     const match = email.match(/^([\w+-]*)([.-])/);
-    let FirstName = "";
+    let firstName = "";
     if (match) {
       // Met la première lettre de chaque mot en majuscule
-      FirstName = match[1]
+      firstName = match[1]
         .split(/[-.]/)
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join("-");
     }
-    localStorage.setItem("name", FirstName);
+    localStorage.setItem("name", firstName);
   } else {
     localStorage.setItem("name", " ");
   }
@@ -234,7 +233,6 @@ export function getFirstName() {
 }
 
 export async function fetchAssos() {
-
   const response = await fetch(API_URL + "/assos", {
     method: "GET",
   });
@@ -249,51 +247,20 @@ export async function fetchAssos() {
   return null;
 }
 
-// Fonction qui permet de supprimer les données du localStorage
-export function ClearStorage() {
-  localStorage.clear();
-}
-
-// Fonction qui permet de supprimer l'email et le mot de passe du localStorage
-export function ClearUser() {
-  localStorage.removeItem("email");
-  localStorage.removeItem("password");
-}
-
-// Fonction qui permet de supprimer le planning du localStorage
-export function ClearPlanning() {
-  localStorage.removeItem("planning");
-}
-
-// Fonction qui permet de supprimer les notes du localStorage
-export function ClearNotes() {
-  localStorage.removeItem("notes");
-}
-
-// Fonction qui permet de supprimer les absences du localStorage
-export function ClearAbs() {
-  localStorage.removeItem("absences");
-}
-
-// Fonction qui permet de supprimer le prénom du localStorage
-export function ClearFirstName() {
-  localStorage.removeItem("name");
-}
-
 // Fonction qui permet de charger le message important
 export async function fetchImportantMessage() {
-  return await fetch(API_URL + "/msg", {
+  const res = await fetch(API_URL + "/msg", {
     method: "GET",
-  }).then(async (res) => {
-    if (res.status === 200) {
-      return await res.json();
-    }
-
-    return {
-      title: "Erreur",
-      message: "Une erreur est survenue, rechargez la page plus tard",
-    };
   });
+
+  if (res.status === 200) {
+    return await res.json();
+  }
+
+  return {
+    title: "Erreur",
+    message: "Une erreur est survenue, rechargez la page plus tard",
+  };
 }
 
 // Fonction qui permet de charger les mises à jour
@@ -310,9 +277,4 @@ export async function fetchUpdates() {
   }
   localStorage.setItem("updates-log", "[]");
   return null;
-}
-
-
-export function setNameTest(){
-  localStorage.setItem("name", "PROUT");
 }

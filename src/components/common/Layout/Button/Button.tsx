@@ -41,19 +41,22 @@ const Button = (props: ButtonProps) => {
         onClick={() => !props.disabled && props.onClick?.()}
         className={clsx(
           styles["button"],
-          props.className,
           props.size && styles[props.size],
-          props.disabled && styles["disabled"]
+          props.disabled && styles["disabled"],
+          props.className
         )}
       >
         <>
           <div
-            className={`${styles["background"]} ${
-              isPressed ? styles["pressed"] : ""
-            } ${isAnimated ? styles["animate"] : ""} ${
-              props.variant ? styles[props.variant] : ""
-            } ${props.round ? styles["round"] : ""}`}
-          ></div>
+            className={clsx(
+              styles["background"],
+              isPressed && styles["pressed"],
+              isAnimated && styles["animate"],
+              props.variant && styles[props.variant],
+              props.round && styles["round"]
+            )}
+          />
+
           {props.children}
         </>
       </Link>
@@ -82,12 +85,14 @@ const Button = (props: ButtonProps) => {
       >
         <>
           <div
-            className={`${styles["background"]} ${
-              isPressed ? styles["pressed"] : ""
-            } ${isAnimated ? styles["animate"] : ""} ${
-              props.variant ? styles[props.variant] : ""
-            } ${props.round ? styles["round"] : ""}`}
-          ></div>
+            className={clsx(
+              styles["background"],
+              isPressed && styles["pressed"],
+              isAnimated && styles["animate"],
+              props.variant && styles[props.variant],
+              props.round && styles["round"]
+            )}
+          />
           {props.children}
         </>
       </button>
@@ -96,9 +101,12 @@ const Button = (props: ButtonProps) => {
 
   return (
     <div
-      className={`${styles["button"]} ${props.className} ${
-        props.size ? styles[props.size] : ""
-      }`}
+      className={clsx(
+        styles["button"],
+        props.size && styles[props.size],
+        props.disabled && styles["disabled"],
+        props.className
+      )}
       onMouseDown={async () => {
         await hapticsImpactMedium();
         setIsPressed(true);
@@ -112,12 +120,14 @@ const Button = (props: ButtonProps) => {
     >
       <>
         <div
-          className={`${styles["background"]} ${
-            isPressed ? styles["pressed"] : ""
-          } ${isAnimated ? styles["animate"] : ""} ${
-            props.variant ? styles[props.variant] : ""
-          } ${props.round ? styles["round"] : ""}`}
-        ></div>
+          className={clsx(
+            styles["background"],
+            isPressed && styles["pressed"],
+            isAnimated && styles["animate"],
+            props.variant && styles[props.variant],
+            props.round && styles["round"]
+          )}
+        />
         {props.children}
       </>
     </div>

@@ -18,7 +18,7 @@ const Message: React.FC<MessageProps> = ({ title, content, loading }) => {
           "shadow-accent glassy"
         )}
       >
-        <h2 className={styles["title"]}></h2>
+        <div className={styles["title"]} />
         <p className={styles["content"]}>
           <span className={styles["fake-line"]}></span>
           <span className={styles["fake-line"]}></span>
@@ -29,12 +29,7 @@ const Message: React.FC<MessageProps> = ({ title, content, loading }) => {
   }
 
   return (
-    <article
-      className={clsx(
-        styles["message"],
-        "shadow-accent glassy"
-      )}
-    >
+    <article className={clsx(styles["message"], "shadow-accent glassy")}>
       {title && <h2 className={styles["title"]}>{title}</h2>}
       <p className={styles["content"]}>{content}</p>
     </article>

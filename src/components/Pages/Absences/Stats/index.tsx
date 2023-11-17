@@ -19,10 +19,12 @@ const Stats: React.FC<StatsProps> = (props) => {
           <span className={styles["label"]}>Total</span>
         </div>
       </div>
-      <div className={styles["row-separator"]}></div>
+      <div className={styles["row-separator"]} />
       <div className={styles["bottom-row"]}>
         <div>
-          <span className={clsx("text-success", styles["justified"])}>{props.justified}</span>
+          <span className={clsx("text-success", styles["justified"])}>
+            {props.justified}
+          </span>
           <span className={styles["label"]}>Justifiées</span>
         </div>
         <div className={styles["separator"]}></div>

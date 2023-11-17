@@ -1,10 +1,10 @@
 import styles from "./Input.module.scss";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import { ReactComponent as Show } from "../../../../assets/svg/icons/Show.svg";
 import { ReactComponent as Hide } from "../../../../assets/svg/icons/Hide.svg";
 import { ReactComponentOrElement } from "@ionic/react";
-import { useEffectOnce } from "usehooks-ts";
+import clsx from "clsx";
 
 type InputProps = {
   icon?: ReactComponentOrElement;
@@ -19,24 +19,23 @@ type InputProps = {
 
 const Input = (props: InputProps) => {
   const [isShown, setIsShown] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffectOnce(() => {
-    const input = inputRef.current;
-    if (input && props.defaultValue) {
-      input.value = props.defaultValue;
-    }
-  });
 
   if (props.type === "password") {
     return (
-      <div className={`${styles["input-container"]} glassy ${props.isRounded ? styles["round"] : ""}`}>
+      <div
+        className={clsx(
+          styles["input-container"],
+          "glassy",
+          props.isRounded && styles["round"]
+        )}
+      >
         <>
           {props.icon}
           <input
             className={styles["input"]}
             type={isShown ? "text" : "password"}
             placeholder={props.placeholder ?? ""}
+            defaultValue={props.defaultValue}
             value={props.value}
             {...props.register}
           />
@@ -53,12 +52,19 @@ const Input = (props: InputProps) => {
 
   if (props.icon) {
     return (
-        <div className={`${styles["input-container"]} glassy ${props.isRounded ? styles["round"] : ""}`}>
+      <div
+        className={clsx(
+          styles["input-container"],
+          "glassy",
+          props.isRounded && styles["round"]
+        )}
+      >
         <>
           {props.icon}
           <input
             className={styles["input"]}
             type={props.type ?? "text"}
+            defaultValue={props.defaultValue}
             placeholder={props.placeholder ?? ""}
             {...props.register}
           />
@@ -68,12 +74,19 @@ const Input = (props: InputProps) => {
   }
 
   return (
-      <div className={`${styles["input-container"]} glassy ${props.isRounded ? styles["round"] : ""}`}>
+    <div
+      className={clsx(
+        styles["input-container"],
+        "glassy",
+        props.isRounded && styles["round"]
+      )}
+    >
       <input
         className={styles["input"]}
         type={props.type ?? "text"}
         placeholder={props.placeholder ?? ""}
-        onChange = {props.onChange ?? null}
+        defaultValue={props.defaultValue}
+        onChange={props.onChange ?? null}
         {...props.register}
       />
     </div>
