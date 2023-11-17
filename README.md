@@ -53,9 +53,9 @@ Au sein de `src` se trouve un projet React "standard" :
 
 ## Contribution
 
-Pour contribuer au projet, il faut faire un fork du repo à partir de la branche `master`.
+Pour contribuer au projet, il faut faire un fork du repo à partir de la branche `pre-release`.
 Une fois votre fork créé, vous pouvez travailler sur votre fork
-Pour proposer vos changements, vous devez faire une pull request sur la branche `master` du repo principal.
+Pour proposer vos changements, vous devez faire une pull request sur la branche `pre-release` du repo principal.
 
 Si votre contribution est acceptée, elle sera déployée dans la prochaine mise à jour de l'application ! (Nous essayons de limiter le nombre de mise à jour de l'application)
 
