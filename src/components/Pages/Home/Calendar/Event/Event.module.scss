@@ -147,6 +147,10 @@
     -webkit-text-fill-color: transparent;
   }
 
+  .separator {
+    background-color: vars.$light-primary-700;
+  }
+
   .teacher,
   .time {
     color: vars.$white;
