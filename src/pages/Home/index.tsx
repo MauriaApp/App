@@ -50,7 +50,6 @@ const Home: React.FC = () => {
   );
 
   const { openToast } = useContext(ToastContext) as ToastContextType;
-
   const { openModal } = useContext(ModalContext) as ModalContextType;
 
   const [messageQuery, planningQuery] = useQueries({
@@ -112,9 +111,17 @@ const Home: React.FC = () => {
     if (data) {
       return <HomeCalendar events={data} />;
     }
+
+    return (
+      <div className={"no-content-container"}>
+        <span className={"no-content-text"}>
+          Aucune note à afficher pour le moment !
+        </span>
+      </div>
+    );
   };
 
-  if (planningQuery.isLoading || planningQuery.data === undefined) {
+  if (planningQuery.isLoading || !planningQuery.data) {
     return (
       <PageTemplate title={`Hello ${getFirstName()} !`} isLoading={true}>
         {messageQuery.isLoading ? (
@@ -146,7 +153,9 @@ const Home: React.FC = () => {
         data.planning.length > 0 &&
         data.planning[0].isCurrent && (
           <section>
-            <h2 className={clsx("sectionTitle text-primary", styles["day-title"])}>
+            <h2
+              className={clsx("sectionTitle text-primary", styles["day-title"])}
+            >
               En ce moment
             </h2>
             <div className="sectionContent">

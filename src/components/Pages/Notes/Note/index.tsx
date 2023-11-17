@@ -21,7 +21,7 @@ type NoteProps = {
 const Note: React.FC<NoteProps> = ({ exam, stats, notesShared, ...props }) => {
   const noteRef = useRef(null);
   const entry = useIntersectionObserver(noteRef, {});
-  const isVisible = !!entry?.isIntersecting;
+  const isVisible = entry?.isIntersecting!!;
 
   const { openModal } = useContext(ModalContext) as ModalContextType;
 
@@ -34,7 +34,7 @@ const Note: React.FC<NoteProps> = ({ exam, stats, notesShared, ...props }) => {
       />
     );
 
-  if (props.index !== undefined && props.index < 8) {
+  if (props.index!! && props.index < 8) {
     return (
       <article
         ref={noteRef}
@@ -72,7 +72,6 @@ const Note: React.FC<NoteProps> = ({ exam, stats, notesShared, ...props }) => {
         "card",
         styles["container"],
         !isVisible && "hidden",
-
         isVisible && "glassy shadow"
       )}
       onClick={openNoteModal}

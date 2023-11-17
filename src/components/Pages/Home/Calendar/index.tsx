@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import EventComponent from "./Event";
 
 import { MauriaEventType } from "../../../../types/event";
@@ -9,9 +9,12 @@ type CalendarProps = {
 };
 
 const HomeCalendar: React.FC<CalendarProps> = (props) => {
-  const events = props.events;
+  const futureEvents = useMemo(
+    () => props.events.filter((event) => !event.isCurrent),
+    [props.events]
+  );
 
-  if (events.length === 0) {
+  if (props.events.length === 0) {
     return (
       <div className={"no-content-container"}>
         <span className={"no-content-text"}>
@@ -23,24 +26,22 @@ const HomeCalendar: React.FC<CalendarProps> = (props) => {
 
   return (
     <section className={"list"}>
-      {events
-        .filter((event) => !event.isCurrent)
-        .map((event: MauriaEventType, index: number) => {
-          return (
-            <EventComponent
-              key={event.id}
-              index={index + 1}
-              id={event.id}
-              data={JSON.stringify(event.data)}
-              type={event.type}
-              title={event.title}
-              startTime={event.start}
-              endTime={event.end}
-              teacher={event.teacher}
-              room={event.room}
-            />
-          );
-        })}
+      {futureEvents.map((event: MauriaEventType, index) => {
+        return (
+          <EventComponent
+            key={event.id}
+            index={index + 1}
+            id={event.id}
+            data={JSON.stringify(event.data)}
+            type={event.type}
+            title={event.title}
+            startTime={event.start}
+            endTime={event.end}
+            teacher={event.teacher}
+            room={event.room}
+          />
+        );
+      })}
     </section>
   );
 };

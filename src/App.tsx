@@ -18,7 +18,6 @@ import "./theme/globals.scss";
 
 import Login from "./pages/Auth/Login";
 
-import { ReactComponent as Shape } from "./assets/svg/layout/shape.svg";
 
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { useDarkMode } from "usehooks-ts";
@@ -27,12 +26,11 @@ import { ToastContextProvider } from "./contexts/toastContext";
 
 import AppRouter from "./pages/Router";
 import { RouterAnimation } from "./utils/animations/transition";
-import { fetchPlanning } from "./utils/api/api";
-import { useEffect } from "react";
 import dayjs from "dayjs";
 
 import "dayjs/locale/fr";
 import relativeTime from "dayjs/plugin/relativeTime";
+import AppBackground from "./theme/AppBackground";
 
 dayjs.locale("fr");
 dayjs.extend(relativeTime);
@@ -41,12 +39,10 @@ setupIonicReact();
 StatusBar.setStyle({ style: Style.Dark });
 StatusBar.setBackgroundColor({ color: "#3f2a56" });
 
-
-// Locks screeb orientation to portrait
+// Locks screen orientation to portrait
 // window.screen.orientation.lock('portrait');
 
 const queryClient = new QueryClient();
-
 
 const App = () => {
   const { isDarkMode } = useDarkMode();
@@ -67,10 +63,7 @@ const App = () => {
                 <Route render={() => <Redirect to={"/app/home"} />} />
               </IonRouterOutlet>
             </IonReactRouter>
-            <div className="app-background">
-              <Shape className={"shape top"} />
-              <Shape className={"shape bottom"} />
-            </div>
+            <AppBackground />
           </IonApp>
         </ModalContextProvider>
       </ToastContextProvider>

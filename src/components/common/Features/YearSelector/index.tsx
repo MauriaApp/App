@@ -11,7 +11,7 @@ const YearSelector: FC<YearSelectorProps> = (props) => {
   const [thisYear, setThisYear] = useLocalStorage("thisYear", true);
 
   const handleToggle = () => {
-    setThisYear(!thisYear);
+    setThisYear(prev => !prev);
     props.handleToggle();
   };
 

@@ -81,8 +81,6 @@ export const getICS = async (planning: AurionEventType[] | null) => {
           heureFin,
           calendarOptions
         );
-        // console.log("Événement ajouté au calendrier");
-        // alert("Événement ajouté au calendrier !");
       } catch (error) {
         console.log("Error adding event to calendar:", error);
       }

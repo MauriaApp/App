@@ -6,7 +6,6 @@ import Planning from "./Planning";
 import Home from "./Home";
 import { IonRouterOutlet } from "@ionic/react";
 
-import { getFirstName } from "../utils/api/api";
 import Grades from "./Notes";
 import Absences from "./Absences";
 import Settings from "./Settings";
@@ -34,10 +33,6 @@ const AppRouter = ({ match }: { match: any }) => {
 
   if (!localStorage.getItem("email") || !localStorage.getItem("password")) {
     return <Redirect to={"/login"} />;
-  }
-
-  if (!getFirstName()) {
-    getFirstName();
   }
 
   return (

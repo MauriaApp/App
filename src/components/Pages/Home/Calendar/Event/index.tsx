@@ -44,7 +44,7 @@ const Event: React.FC<EventProps> = (props) => {
             <span className={styles["time"]}>
               {props.startTime} - {props.endTime}
             </span>
-            <div className={styles["separator"]}></div>
+            <div className={styles["separator"]}/>
             <span className={clsx("text-accent", styles["room"])}>
               {props.room}
             </span>{" "}

@@ -24,7 +24,6 @@ export const Modal: React.FC<ModalProps> = ({
   const contentRef = useRef<HTMLInputElement>(null);
   const [disappear, setDisappear] = useState<boolean>(false);
 
-
   const handleClickOutside = () => {
     if (!isOpen) {
       return;
@@ -108,7 +107,7 @@ export const Modal: React.FC<ModalProps> = ({
       >
         <div ref={modalRef} className={`${styles["modal"]} glassy`}>
           <div ref={handleRef} className={styles["handleContainer"]}>
-            <div className={styles["handle"]}></div>
+            <div className={styles["handle"]} />
           </div>
           <div ref={contentRef} className={styles["modalContent"]}>
             {content}
