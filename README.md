@@ -1,9 +1,10 @@
-# Mauria (application)
+# Mauria (Client mobile)
 Code de l'application mobile Mauria
 
 ## Technologies utilisées
 
 - Ionic (React) `v6.5.0`
+- Sass Modules
 - Capacitor `v4.6.1`
 - TypeScript `v4.9.4`
 
@@ -37,19 +38,34 @@ Au sein de `src` se trouve un projet React "standard" :
 1. Cloner le repo
 2. Se placer dans le dossier du projet : `cd app`
 3. Installer les dépendances : `npm i`
-4. Lancer le projet : `npm start`
-5. Le projet est accessible à l'adresse suivante : `http://localhost:3000`
 
+## Lancement
+
+### Dans un navigateur
+1. Lancer le projet : `npm start`
+2. Le projet est accessible à l'adresse suivante : `http://localhost:3000`
+
+### Sur iOS/iPadOS (nécessite un Mac et un compte développeur Apple)
+1. Ouvrir le projet dabs XCode : `ionic capacitor open ios`
+2. Signer le projet avec votre compte développeur Apple *(dans Signing & Capabilities)*
+3. *(Optionnel)* Changer le bundle ID (**A FAIRE SI ERREUR DE BUNDLE ID**)
+4. Lancer le projet sur un simulateur ou un appareil connecté avec `ionic capacitor run ios`
+5. Choisir l'appareil sur lequel lancer l'application
+6. L'application se lance sur l'appareil (il se peut que vous deviez accepter le certificat de l'application dans les paramètres de l'appareil)
+
+### Sur Android
+```Demander à Milo de compléter...```
 
 ## Roadmap
 - Passage sous Ionic `v5+`
-- Suppression d'un événement ajouté au calendrier (=> création d'un modal lors du clique sur un cours)
+- Suppression d'un événement ajouté au calendrier (=> création d'un modal lors du clic sur un cours)
 - Actualisation automatique des données (le [plugin](https://github.com/ionic-team/capacitor-background-runner) étant très récent, il présente de nombreux soucis actuellement...)
 - Un "agenda" permettant de noter des notes et/ou travaux à effectuer
-- Ajouter un feed d'événements Junia sur la page principal (cela pour but de partager et découvrir les prochains évenements Junia sans passer par tous les réseaux sociaux )
-- Faire une version optimisée pour les iPads
-- Ajouter un pop-up pour expliquer les nouveautés de la dernière mise à jour
-- Implémenter des tests unitaires
+- Ajouter un feed d'événements Junia sur la page principal (cela pour but de partager et découvrir les prochains événements Junia sans passer par tous les réseaux sociaux)
+- Faire une version optimisée pour iPads et tablettes
+- Ajouter un message si une mise à jour est disponible (il faut stocker la version de l'application dans le `localStorage` et un appel à l'`api` permet de savoir si une mise à jour est disponible)
+- Ajouter un modal au lancement, si update pour expliquer les nouveautés de la dernière mise à jour
+- Implémenter des tests unitaires et d'intégration
 
 ## Contribution
 
