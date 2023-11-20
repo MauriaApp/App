@@ -49,7 +49,8 @@ Au sein de `src` se trouve un projet React "standard" :
 1. Ouvrir le projet dabs XCode : `ionic capacitor open ios`
 2. Signer le projet avec votre compte développeur Apple *(dans Signing & Capabilities)*
 3. *(Optionnel)* Changer le bundle ID (**A FAIRE SI ERREUR DE BUNDLE ID**)
-4. Lancer le projet sur un simulateur ou un appareil connecté avec `ionic capacitor run ios`
+4. Lancer le projet sur un simulateur ou un appareil connecté avec `ionic capacitor run ios -l --external`\
+   *(`-l` permet de lancer le projet en mode live-reload et `--external` de lancer le projet sur un appareil connecté en USB)*
 5. Choisir l'appareil sur lequel lancer l'application
 6. L'application se lance sur l'appareil (il se peut que vous deviez accepter le certificat de l'application dans les paramètres de l'appareil)
 
