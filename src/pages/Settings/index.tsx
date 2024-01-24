@@ -61,7 +61,7 @@ const Settings = () => {
         <div className={styles["section-content"]}>
           <div className={styles["setting-group"]}>
             <label className={"label"}>Activer le mode sombre</label>
-            <IonToggle mode={"ios"} checked={isDarkMode} onIonChange={toggle} />
+            <IonToggle mode={"ios"} checked={isDarkMode} onIonChange={toggle} placeholder={undefined} />
           </div>
           <div className={styles["setting-group"]}>
             <label className={"label"}>
@@ -70,8 +70,7 @@ const Settings = () => {
             <IonToggle
               mode={"ios"}
               checked={haptics}
-              onIonChange={toggleHaptics}
-            />
+              onIonChange={toggleHaptics} placeholder={undefined}            />
           </div>
 
           <form
@@ -100,8 +99,7 @@ const Settings = () => {
             <IonToggle
               mode={"ios"}
               checked={notesShared}
-              onIonChange={toggleNoteShared}
-            />
+              onIonChange={toggleNoteShared} placeholder={undefined}            />
           </div>
         </div>
       </section>

@@ -38,7 +38,7 @@ const AppRouter = ({ match }: { match: any }) => {
   return (
     <>
       <Header isAuth />
-      <IonRouterOutlet animated={true} animation={RouterAnimation}>
+      <IonRouterOutlet animated={true} animation={RouterAnimation} placeholder={undefined}>
         <Route path={`${match.url}/home`} component={Home} />
         <Route path={`${match.url}/planning`} component={Planning} />
         <Route path={`${match.url}/notes`} component={Grades} />

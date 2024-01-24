@@ -52,7 +52,7 @@ const App = () => {
         <ModalContextProvider>
           <IonApp className={isDarkMode ? "dark" : ""}>
             <IonReactRouter>
-              <IonRouterOutlet animation={RouterAnimation}>
+              <IonRouterOutlet animation={RouterAnimation} placeholder={undefined}>
                 <Route exact path="/login">
                   <Login />
                 </Route>

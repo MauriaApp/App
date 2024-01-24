@@ -213,8 +213,7 @@ export const AddEventModalContent = () => {
             id={"timePicker"}
             onIonChange={handlePickerChange}
             presentation="time"
-            color="primary"
-          >
+            color="primary" placeholder={undefined}          >
             <span slot={"title"} className={styles["time-picker-title"]}>
               Horaire de {currentPicker === "start" ? "début" : "fin"}
             </span>

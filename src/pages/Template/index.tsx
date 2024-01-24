@@ -22,10 +22,10 @@ export const PageTemplate: FC<TemplateProps> = (props) => {
 
   if (props.isLoading) {
     return (
-      <IonPage>
+      <IonPage placeholder={undefined}>
         <div className="mock-header"></div>
         {props.header}
-        <IonContent>
+        <IonContent placeholder={undefined}>
           <header>
             <h1 className="title">{props.title}</h1>
           </header>
@@ -43,10 +43,10 @@ export const PageTemplate: FC<TemplateProps> = (props) => {
   }
 
   return (
-    <IonPage>
+    <IonPage placeholder={undefined}>
       <div className="mock-header"></div>
       {props.header}
-      <IonContent>
+      <IonContent placeholder={undefined}>
         {props.onRefresh && (
           <IonRefresher
             slot="fixed"
@@ -62,12 +62,10 @@ export const PageTemplate: FC<TemplateProps> = (props) => {
             pullMin={40}
             pullMax={160}
             closeDuration="400ms"
-            snapbackDuration="400ms"
-          >
+            snapbackDuration="400ms" placeholder={undefined}          >
             <IonRefresherContent
               pullingText="Tirer pour actualiser..."
-              refreshingSpinner="crescent"
-            ></IonRefresherContent>
+              refreshingSpinner="crescent" placeholder={undefined}            ></IonRefresherContent>
           </IonRefresher>
         )}
         <header>
