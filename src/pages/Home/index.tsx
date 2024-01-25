@@ -96,6 +96,10 @@ const Home: React.FC = () => {
   });
 
   useEffectOnce(() => {
+
+    // faire un refresh du planning au lancement de l'application (ne sera pas fait a chaque fois qu'on vient sur le page home)
+    handleRefresh({ detail: { complete: () => { } } } as CustomEvent);
+
     if (isFirstLaunch) {
       openModal(<WelcomeModalContent />, () => setIsFirstLaunch(false));
     }
