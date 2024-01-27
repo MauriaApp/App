@@ -4,18 +4,19 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import FullCalendar from "@fullcalendar/react";
 import FrLocale from "@fullcalendar/core/locales/fr";
 
-import {useContext, useRef} from "react";
+import { useContext, useRef, useState } from "react";
 import Button from "../../components/common/Layout/Button/Button";
-import {fetchPlanning} from "../../utils/api/api";
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {useEffectOnce, useReadLocalStorage} from "usehooks-ts";
-import {AurionEventType} from "../../types/event";
-import {ToastContext, ToastContextType} from "../../contexts/toastContext";
+import { fetchPlanning } from "../../utils/api/api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffectOnce, useReadLocalStorage } from "usehooks-ts";
+import { AurionEventType } from "../../types/event";
+import { ToastContext, ToastContextType } from "../../contexts/toastContext";
 import "./planning.scss";
 import styles from "./planning.module.scss";
-import {ModalContext, ModalContextType} from "../../contexts/modalContext";
-import {getICS} from "./logic";
+import { ModalContext, ModalContextType } from "../../contexts/modalContext";
+import { getICS } from "./logic";
 import AddEventModalContent from "./AddEventModal";
+import ModifyEventModalContent from "./ModifyEventModal";
 import dayjs from "dayjs";
 import PageTemplate from "../Template";
 
@@ -34,12 +35,18 @@ const Planning = () => {
     "planning"
   );
 
-  const userEvents = useReadLocalStorage<AurionEventType[] | null>(
-    "userEvents"
+  const [userEvents, setUserEvents] = useState(
+    JSON.parse(localStorage.getItem("userEvents") || "[]")
   );
 
+  // const { isLoading, data } = useQuery({
+  //   queryKey: ["planning"],
+  //   queryFn: async () => await calendarQuery(storedPlanning),
+  //   networkMode: "always",
+  // });
+
   const { isLoading, data } = useQuery({
-    queryKey: ["planning"],
+    queryKey: ["planning"],  // Ajoutez userEvents comme dépendance
     queryFn: async () => await calendarQuery(storedPlanning),
     networkMode: "always",
   });
@@ -69,18 +76,34 @@ const Planning = () => {
   const { openModal } = useContext(ModalContext) as ModalContextType;
 
   const calendarRef = useRef<FullCalendar>(null);
-  const lastUpdate = useReadLocalStorage<string>("lastPlanningUpdate");
+  // const lastUpdate = useReadLocalStorage<Date>("lastPlanningUpdate");
+
+  // problème avec la date, le type était pas lu par useReadLocalStorage (v2.9.1 de usehooks-ts)
+  const lastUpdate = localStorage.getItem("lastPlanningUpdate");
+
 
   useEffectOnce(() => {
     // This is to prevent fullCalendar lag
-    setTimeout(function () {
-      window.dispatchEvent(new Event("resize"));
-    }, 1);
+    // setTimeout(function () {
+    //   window.dispatchEvent(new Event("resize"));
+    // }, 500);
+
+    setTimeout(() => calendarRef.current?.doResize(), 500);
   });
 
   const openAddEventModal = () => {
-    openModal(<AddEventModalContent />);
+    openModal(<AddEventModalContent setUserEvents={setUserEvents}
+    />);
   };
+
+
+  const openModifyModal = (event: any) => {
+    openModal(<ModifyEventModalContent
+      {...event}
+      setUserEvents={setUserEvents}
+    />);
+  };
+
 
   const AddEventButton = () => (
     <Button
@@ -138,7 +161,11 @@ const Planning = () => {
           eventDurationEditable={false}
           eventResizableFromStart={false}
           eventDragMinDistance={0}
-          eventClick={(info) => window.alert(info.event.title)}
+          // eventClick={(info) => window.alert(info.event.title)}
+          eventClick={(info) => {
+            openModifyModal(info.event)
+          }
+          }
         />
         <div className="last-update">
           Dernière actualisation :{" "}

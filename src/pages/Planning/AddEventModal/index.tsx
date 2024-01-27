@@ -13,8 +13,7 @@ import modalStyles from "../../../components/common/Layout/Modal/modal.module.sc
 import styles from "./AddEventModal.module.scss";
 import { ToastContext, ToastContextType } from "../../../contexts/toastContext";
 import { ModalContext, ModalContextType } from "../../../contexts/modalContext";
-import { useDarkMode, useLocalStorage } from "usehooks-ts";
-import { AurionEventType } from "../../../types/event";
+import { useDarkMode } from "usehooks-ts";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import Recap from "./Recap";
@@ -23,14 +22,13 @@ import {
   timePickerStyling,
 } from "./timePickerStylingFunctions";
 
-export const AddEventModalContent = () => {
+export const AddEventModalContent = ({setUserEvents}:any) => {
+
+  const userEvents = JSON.parse(localStorage.getItem("userEvents") || "[]");
+
   const { isDarkMode } = useDarkMode();
   const pickerRef = useRef<null | HTMLIonDatetimeElement>(null);
 
-  const [userEvents, setUserEvents] = useLocalStorage<AurionEventType[] | null>(
-    "userEvents",
-    null
-  );
 
   const initialStartDate = new Date();
   const initialEndDate = new Date(initialStartDate.getTime() + 30 * 60000);
@@ -98,6 +96,11 @@ export const AddEventModalContent = () => {
       className: "est-perso",
     };
 
+    localStorage.setItem(
+      "userEvents",
+      JSON.stringify([...(userEvents ?? []), newEvent])
+    );
+    
     setUserEvents([...(userEvents ?? []), newEvent]);
 
     //    if (calendarRef.current) {

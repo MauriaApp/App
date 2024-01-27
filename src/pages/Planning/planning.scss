@@ -191,3 +191,11 @@
   width: 130px;
 }
 
+// fix planning écrasé sur le côté
+.fc-col-header,
+.fc-daygrid-body,
+.fc-scrollgrid-sync-table,
+.fc-timegrid-body, 
+.fc-timegrid-body table {
+    width: 100% !important;
+}
