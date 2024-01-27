@@ -1,0 +1,103 @@
+@use "../../../theme/_variables.scss" as vars;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.picker {
+  justify-self: center;
+}
+
+.time-picker {
+  margin-top: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+
+  &.is-open {
+    margin-top: 16px;
+    grid-template-rows: 1fr;
+  }
+
+  transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.datepicker {
+  align-self: center;
+}
+
+.time-container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.datetime-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px;
+  font-size: 1.08rem;
+  font-weight: 600;
+
+  gap: 32px;
+
+  .cancel {
+    color: vars.$accent-400;
+  }
+
+  .confirm {
+    color: vars.$primary-900;
+  }
+}
+
+.time-value-container {
+  padding: 8px 16px;
+  background: rgba(#000, 0.064);
+  border-radius: 12px;
+  color: vars.$primary-900;
+}
+
+
+
+.time-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+.time-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.24rem;
+  font-weight: 600;
+}
+
+.time-picker-title {
+  color: vars.$primary-400;
+  font-weight: 600;
+}
+
+:global(.dark) {
+  .time-value-container {
+    background: rgba(#fff, 0.08);
+    color: vars.$light-primary-800;
+  }
+
+  .time-picker-title {
+    color: vars.$white;
+  }
+
+
+  .datetime-buttons {
+    .cancel {
+      color: vars.$accent-500
+    }
+
+    .confirm {
+      color: #fff;
+    }
+  }
+}

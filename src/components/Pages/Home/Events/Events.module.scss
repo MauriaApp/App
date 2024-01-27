@@ -1,0 +1,82 @@
+@use "../../../../theme/variables" as vars;
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: linear-gradient(
+    45deg,
+    rgba($color: vars.$accent-400, $alpha: 0.32),
+    rgba($color: vars.$accent-700, $alpha: 0.2)
+  );
+  border-radius: 16px;
+  padding: 12px;
+  color: vars.$accent-300;
+}
+
+.title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.content {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.loading {
+  * {
+    border-radius: 6px;
+    background-size: 400% auto;
+    animation: loading 0.8s ease infinite;
+  }
+
+  .title {
+    width: 75%;
+    height: 28px;
+    margin-bottom: 8px;
+    background-image: linear-gradient(
+      45deg,
+      rgba(vars.$accent-500, 0.1) 0%,
+      rgba(vars.$accent-600, 0.24) 50%,
+      rgba(vars.$accent-500, 0.1) 100%
+    );
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .fake-line {
+    width: 100%;
+    height: 24px;
+    background-image: linear-gradient(
+      45deg,
+      rgba(vars.$accent-500, 0.1) 0%,
+      rgba(vars.$accent-600, 0.24) 50%,
+      rgba(vars.$accent-500, 0.1) 100%
+    );
+
+    &:last-child {
+      width: 33%;
+    }
+  }
+}
+
+@keyframes loading {
+  from {
+    background-position: right center; /* change the direction of the change here */
+  }
+  to {
+    background-position: left center; /* change the direction of the change here */
+  }
+}
+
+:global(.dark) {
+  .message {
+    color: vars.$accent-500;
+  }
+}

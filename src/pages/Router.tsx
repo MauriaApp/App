@@ -11,6 +11,7 @@ import Absences from "./Absences";
 import Settings from "./Settings";
 import Support from "./Support";
 import Associations from "./Associations";
+import Agenda from "./Agenda";
 import { ModalContext, ModalContextType } from "../contexts/modalContext";
 
 import Footer from "../components/common/Layout/Navbars/Footer";
@@ -46,6 +47,7 @@ const AppRouter = ({ match }: { match: any }) => {
         <Route path={`${match.url}/settings`} component={Settings} />
         <Route path={`${match.url}/support`} component={Support} />
         <Route path={`${match.url}/associations`} component={Associations} />
+        <Route path={`${match.url}/agenda`} component={Agenda} />
         <Route
           exact
           path={`${match.url}/`}

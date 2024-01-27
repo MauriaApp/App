@@ -58,14 +58,15 @@ Au sein de `src` se trouve un projet React "standard" :
 ```Demander à Milo de compléter...```
 
 ## Roadmap
-- Passage sous Ionic `v5+`
-- Suppression d'un événement ajouté au calendrier (=> création d'un modal lors du clic sur un cours)
+Important
 - Actualisation automatique des données (le [plugin](https://github.com/ionic-team/capacitor-background-runner) étant très récent, il présente de nombreux soucis actuellement...)
-- Un "agenda" permettant de noter des notes et/ou travaux à effectuer
+- Implémenter un système de notifications (pour les taches de l'agenda)
 - Ajouter un feed d'événements Junia sur la page principal (cela pour but de partager et découvrir les prochains événements Junia sans passer par tous les réseaux sociaux)
-- Faire une version optimisée pour iPads et tablettes
-- Ajouter un message si une mise à jour est disponible (il faut stocker la version de l'application dans le `localStorage` et un appel à l'`api` permet de savoir si une mise à jour est disponible)
+--- 
+Secondaire
 - Ajouter un modal au lancement, si update pour expliquer les nouveautés de la dernière mise à jour
+- Ajouter un message si une mise à jour est disponible (il faut stocker la version de l'application dans le `localStorage` et un appel à l'`api` permet de savoir si une mise à jour est disponible)
+- Faire une version optimisée pour iPads et tablettes
 - Implémenter des tests unitaires et d'intégration
 
 ## Contribution

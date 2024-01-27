@@ -4,11 +4,13 @@ import { ReactComponent as Home } from "../../../../../assets/svg/icons/Home.svg
 import { ReactComponent as Planning } from "../../../../../assets/svg/icons/Calendar.svg";
 import { ReactComponent as Notes } from "../../../../../assets/svg/icons/Notes.svg";
 import { ReactComponent as Absence } from "../../../../../assets/svg/icons/Absence.svg";
+import { ReactComponent as Agenda } from "../../../../../assets/svg/icons/Agenda.svg";
 
 import { ReactComponent as HomeSelected } from "../../../../../assets/svg/icons/HomeFilled.svg";
 import { ReactComponent as PlanningSelected } from "../../../../../assets/svg/icons/CalendarFilled.svg";
 import { ReactComponent as NotesSelected } from "../../../../../assets/svg/icons/NotesFilled.svg";
 import { ReactComponent as AbsenceSelected } from "../../../../../assets/svg/icons/AbsenceFilled.svg";
+import { ReactComponent as AgendaSelected } from "../../../../../assets/svg/icons/AgendaFilled.svg";
 
 import styles from "./Footer.module.scss";
 import { NavLink, useHistory } from "react-router-dom";
@@ -83,6 +85,20 @@ const Footer = () => {
             <AbsenceSelected />
           ) : (
             <Absence />
+          )}
+        </NavLink>
+
+        <NavLink
+          to="/app/agenda"
+          onClick={handleClick}
+          className={(isActive: boolean) =>
+            clsx(styles["nav-link"], isActive && styles["active"])
+          }
+        >
+          {currentPath.includes("/agenda") ? (
+            <AgendaSelected />
+          ) : (
+            <Agenda />
           )}
         </NavLink>
       </nav>
