@@ -34,7 +34,7 @@ export default function Agenda() {
   return (
     <PageTemplate title={"Agenda"} header={<AddEventButton />}>
 
-      {userTask.length > 0 ? (
+      {data.length > 0 ? (
         <div className={"list"}>
           {data.map((task : any, index: number) => (
             <Task
