@@ -22,7 +22,7 @@ import {
   timePickerStyling,
 } from "./timePickerStylingFunctions";
 
-export const AddTaskModalContent = ({setUserTasks}:any) => {
+export const AddTaskModalContent = () => {
 
   const userTask = JSON.parse(localStorage.getItem("userTasks") ?? "[]");
 

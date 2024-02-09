@@ -1,39 +1,62 @@
 import React from "react";
 import styles from "./Events.module.scss";
 import clsx from "clsx";
+import EventComponent from "./Event";
 
-type MessageProps = {
+
+type EventJuniaProps = {
+  events?: any;
   loading?: boolean;
-  title?: string;
-  content?: string;
 };
 
-const Message: React.FC<MessageProps> = ({ title, content, loading }) => {
+const EventJunia: React.FC<EventJuniaProps> = ({ events, loading }) => {
+  // events = [];
   if (loading) {
     return (
-      <article
-        className={clsx(
-          styles["message"],
-          styles["loading"],
-          "shadow-accent glassy"
-        )}
-      >
-        <div className={styles["title"]} />
-        <p className={styles["content"]}>
-          <span className={styles["fake-line"]}></span>
-          <span className={styles["fake-line"]}></span>
-          <span className={styles["fake-line"]}></span>
-        </p>
-      </article>
+      <>
+        <h2 className={clsx("sectionTitle text-primary", styles["day-title"])} style={{ marginBottom: 0 }}>
+          Prochains événements
+        </h2>
+        <div className="sectionContent">
+          <p className="text-center text-primary">
+            Chargement...
+          </p>
+        </div>
+      </>
     );
   }
 
   return (
-    <article className={clsx(styles["message"], "shadow-accent glassy")}>
-      {title && <h2 className={styles["title"]}>{title}</h2>}
-      <p className={styles["content"]}>{content}</p>
-    </article>
+    <>
+      <h2 className={clsx("sectionTitle text-primary", styles["day-title"])} style={{ marginBottom: 0 }}>
+        Prochains événements
+      </h2>
+
+      {events.length === 0 ? (
+        <div className={"no-content-container"}>
+          <span className={"no-content-text"}>
+            Aucun événements prochainement
+          </span>
+        </div>
+      ) : (
+        <div className="sectionContent">
+          {events.map((event: any) => (
+            <EventComponent
+              id={event.id}
+              title={event.title}
+              description={event.description}
+              start={event.start}
+              end={event.end}
+              duration={event.duration}
+              location={event.location}
+              image={event.image}
+            />
+          ))}
+        </div>
+      )
+      }
+    </>
   );
 };
 
-export default Message;
+export default EventJunia;

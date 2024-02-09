@@ -263,6 +263,19 @@ export async function fetchImportantMessage() {
   };
 }
 
+// Fonction qui permet la récupération des événements Junia
+export async function fetchEventJunia() {
+  const res = await fetch(API_URL + "/events", {
+    method: "GET",
+  });
+
+  if (res.status === 200) {
+    return await res.json();
+  }
+  return [];
+}
+
+
 // Fonction qui permet de charger les mises à jour
 export async function fetchUpdates() {
   const response = await fetch(API_URL + "/update", {

@@ -2,18 +2,16 @@ import Button from "../../components/common/Layout/Button/Button";
 import PageTemplate from "../Template";
 import styles from "./Agenda.module.scss";
 import AddTaskModalContent from "./AddTaskModal";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ModalContext, ModalContextType } from "../../contexts/modalContext";
 import Task from "../../components/Pages/Agenda";
 
 export default function Agenda() {
   const { openModal } = useContext(ModalContext) as ModalContextType;
 
-  const [userTask, setUserTask] = useState(localStorage.getItem("userTasks") ?? "[]");
 
   const openAddEventModal = () => {
-    openModal(<AddTaskModalContent setUserTask={setUserTask}
-    />);
+    openModal(<AddTaskModalContent />);
   };
 
   const AddEventButton = () => (
@@ -36,11 +34,11 @@ export default function Agenda() {
 
       {data.length > 0 ? (
         <div className={"list"}>
-          {data.map((task : any, index: number) => (
+          {data.map((task: any, index: number) => (
             <Task
               key={task.date + index}
               index={index}
-              id = {task.id}
+              id={task.id}
               title={task.title}
               start={task.start}
             />

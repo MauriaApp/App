@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 
 import {
+  fetchEventJunia,
   fetchImportantMessage,
   fetchPlanning,
   getFirstName,
@@ -25,6 +26,7 @@ import PageTemplate from "../Template";
 
 import styles from "./Home.module.scss";
 import clsx from "clsx";
+import EventJunia from "../../components/Pages/Home/Events";
 
 const calendarQuery = async (planning: MauriaEventType[] | null) => {
   if (!planning) {
@@ -37,6 +39,10 @@ const calendarQuery = async (planning: MauriaEventType[] | null) => {
 const messageQueryFunction = async () => {
   return await fetchImportantMessage();
 };
+
+const eventJuniaQueryFunction = async () => {
+  return await fetchEventJunia();
+}
 
 const Home: React.FC = () => {
   const queryClient = useQueryClient();
@@ -52,7 +58,7 @@ const Home: React.FC = () => {
   const { openToast } = useContext(ToastContext) as ToastContextType;
   const { openModal } = useContext(ModalContext) as ModalContextType;
 
-  const [messageQuery, planningQuery] = useQueries({
+  const [messageQuery, planningQuery, eventQuery] = useQueries({
     queries: [
       {
         queryKey: ["message"],
@@ -64,6 +70,11 @@ const Home: React.FC = () => {
         queryFn: async () => await calendarQuery(livePlanning),
         networkMode: "always",
       },
+      {
+        queryKey: ["eventJunia"],
+        queryFn: async () => await eventJuniaQueryFunction(),
+        networkMode: "always",
+      }
     ],
   });
 
@@ -183,6 +194,15 @@ const Home: React.FC = () => {
         </h2>
         {getIncomingEvents(data.planning)}
       </section>
+
+      {eventQuery.isLoading ? (
+        <EventJunia loading />
+      ) : (
+        <EventJunia
+          events={eventQuery.data}
+        />
+      )}
+
     </PageTemplate>
   );
 };
