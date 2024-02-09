@@ -1,4 +1,4 @@
-import styles from "./ModifyEventModal.module.scss" ;
+import styles from "./ModifyEventModal.module.scss";
 import { AurionEventType, MauriaEventType } from "../../../types/event";
 import modalStyles from "../../../components/common/Layout/Modal/modal.module.scss";
 import clsx from "clsx";
@@ -57,23 +57,27 @@ const ModifyEventModalContent = ({
       <header
         className={clsx(modalStyles["headerModal"], modalStyles["column"])}
       >
-        <h2 className={"sectionTitle text-primary no-margins"}>
-          {newCurrentEvent.teacher}
+        <h3 className={clsx(styles["note"], "no-margins text-accent")}>
+          {newCurrentEvent.type}
+          {" - "}
+          {newCurrentEvent.title}
+        </h3>
 
-        </h2>
         <span className={styles["date"]}>De {newCurrentEvent.start} à {newCurrentEvent.end}</span>
       </header>
       <div className={modalStyles["content"]}>
         <section>
-          <h3 className={clsx(styles["note"], "no-margins text-accent")}>
-            {newCurrentEvent.type}
-            {" - "}
-            {newCurrentEvent.title}
-          </h3>
-
-          <h2 className={"sectionTitle text-primary"} style={{ marginTop: "20px" }}>
+          <h2 className={"sectionTitle text-primary no-margins"}>
+          <span className={styles["date"]}>En salle </span>
             {newCurrentEvent.room}
           </h2>
+
+          <div style={{marginTop: "20px"}}>
+            <h2 className={"sectionTitle text-primary no-margins"} >
+            <span className={styles["date"]}>Avec </span>
+              {newCurrentEvent.teacher}
+            </h2>
+          </div>
 
         </section>
 
@@ -91,8 +95,8 @@ const ModifyEventModalContent = ({
 
       </div>
 
-      <footer className={styles["footer"]}>
-        <span className={styles["code"]}>ID: {id}</span>
+      <footer className={styles["footer"]} >
+        <span className={styles["code"]}>Données brutes: <br></br>{event._def.title}</span>
       </footer>
     </>
   );

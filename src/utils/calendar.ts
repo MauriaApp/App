@@ -146,11 +146,14 @@ export const fetchEvent = (event: AurionEventType): MauriaEventType => {
   const startTime = new Date(event.start);
   const endTime = new Date(event.end);
 
+  const title = data[2].length > 0 ? data[2] : data[1];
+  
+
   return Object.assign({
     id: event.id,
     isCurrent,
     data: event,
-    title: data[2],
+    title: title,
     type: event.className,
     room: data[0],
     teacher: data[5],

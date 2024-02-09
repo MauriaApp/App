@@ -51,8 +51,7 @@ const Task: React.FC<TaskProps> = (props) => {
                 <h3
                     className={clsx(
                         "text-primary",
-                        styles["title"],
-                        props.title.includes(" non ") && "text-accent"
+                        styles["title"]
                     )}
                 >
                     {props.title}

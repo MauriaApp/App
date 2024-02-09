@@ -1,4 +1,4 @@
-import styles from "./ModifyTaskModal.module.scss" ;
+import styles from "./ModifyTaskModal.module.scss";
 import modalStyles from "../../../components/common/Layout/Modal/modal.module.scss";
 import clsx from "clsx";
 import Button from "../../../components/common/Layout/Button/Button";
@@ -48,35 +48,27 @@ const ModifyTaskModalContent = ({
       <header
         className={clsx(modalStyles["headerModal"], modalStyles["column"])}
       >
-        <h2 className={"sectionTitle text-primary no-margins"}>
-          {currentTask.teacher}
-
-        </h2>
         <span className={styles["date"]}> {currentTask.start} </span>
       </header>
       <div className={modalStyles["content"]}>
         <section>
-          <h3 className={clsx(styles["note"], "no-margins text-accent")}>
-            {currentTask.title}
-          </h3>
+          <h2 className={clsx(styles["note"], "no-margins text-primary")}>
+            <span className={styles["date"]}>À faire : </span>{currentTask.title}
+          </h2>
 
         </section>
 
 
-          <section className={styles["section"]}>
-            <Button variant={"accent"} onClick={deleteUserEvent(currentTask)} disabled={title.length === 0}>
-              Supprimer
-            </Button>
-          </section>
+        <section className={styles["section"]} style={{ marginTop: "40px" }}>
+          <Button variant={"accent"} onClick={deleteUserEvent(currentTask)}>
+            Fait !
+          </Button>
+        </section>
 
 
 
 
       </div>
-
-      <footer className={styles["footer"]}>
-        <span className={styles["code"]}>ID: {id}</span>
-      </footer>
     </>
   );
 };

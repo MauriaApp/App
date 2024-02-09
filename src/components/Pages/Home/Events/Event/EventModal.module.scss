@@ -1,15 +1,23 @@
-@use "../../../theme/_variables.scss" as vars;
+@use "../../../../../theme/_variables.scss" as vars;
+
+
+.texte {
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.84;
+}
 
 .date {
-  margin: 10px 0;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   opacity: 0.64;
 }
 
+
 .note {
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  width: fit-content;
+  font-weight: 800;
 }
 
 .coefficient {

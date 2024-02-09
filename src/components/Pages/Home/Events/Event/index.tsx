@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import styles from "./Event.module.scss";
 import clsx from "clsx";
 import { DateTimeFormatOptions } from 'intl';
+import EventModalContent from "./EventModalContent";
+import { ModalContext, ModalContextType } from "../../../../../contexts/modalContext";
 
 
 type EventProps = {
@@ -20,9 +22,16 @@ const options: DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'n
 
 
 const Event: React.FC<EventProps> = (props) => {
-  const showDataModal = () => {
 
+  const { openModal } = useContext(ModalContext) as ModalContextType;
+
+
+  const showEventModal = (props : EventProps) => {
+    openModal(<EventModalContent event={props} />);
   };
+  const startDateTime = new Date(props.start);
+  startDateTime.setHours(startDateTime.getHours() - 1);
+  const formattedStart = startDateTime.toLocaleDateString('fr-FR', options);
 
   return (
     <article
@@ -31,7 +40,7 @@ const Event: React.FC<EventProps> = (props) => {
         "card shadow animateApparition glassy",
         styles["event"]
       )}
-      onClick={showDataModal}
+      onClick={() => showEventModal(props)}
     >
       <div className={styles["inner"]}>
         <div className={styles["content"]}>
@@ -40,7 +49,8 @@ const Event: React.FC<EventProps> = (props) => {
           </h2>
           <h3 className={styles["infos"]}>
             <span className={styles["time"]}>
-              {new Date(props.start).toLocaleDateString('fr-FR', options)}
+              {
+                formattedStart}
             </span>
             <div className={styles["separator"]} />
             <span className={clsx("text-accent", styles["room"])}>
