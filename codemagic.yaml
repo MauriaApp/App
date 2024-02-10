@@ -19,9 +19,23 @@ workflows:
       - name: Install npm dependencies for Ionic Capacitor project
         script: | 
           npm install
+
+      - name : build web assets
+        script: | 
+          npm run build
+
+      - name: create iOS build
+        script: | 
+          npx cap add ios
+
+      - name : add assets
+        script: | 
+          npx @capacitor/assets generate --ios
+
       - name: Cocoapods installation
         script: | 
           cd ios/App && pod install
+
       - name: Update dependencies and copy web assets to native project
         script: | 
           # if you don't need to update native dependencies, use this:
@@ -29,6 +43,7 @@ workflows:
           #
           # to update native dependencies, use this command:
           npx cap sync
+
       - name: Set up code signing settings on Xcode project
         script: | 
           xcode-project use-profiles
