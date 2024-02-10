@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import styles from "./Event.module.scss";
 import clsx from "clsx";
+import { ModalContext, ModalContextType } from "../../../../../contexts/modalContext";
+import ModifyEventModalContent from "./ModifyEventModal";
 
 type EventProps = {
   id: number;
@@ -18,8 +20,13 @@ type EventProps = {
 };
 
 const Event: React.FC<EventProps> = (props) => {
-  const showDataModal = () => {
-    props.data && window.alert(JSON.parse(props.data).title);
+
+  const { openModal } = useContext(ModalContext) as ModalContextType;
+
+
+  const showDataModal = (event: EventProps) => {
+    openModal(<ModifyEventModalContent {...event}
+    />);
   };
 
   return (
@@ -32,7 +39,7 @@ const Event: React.FC<EventProps> = (props) => {
         props.className
       )}
       style={{ animationDelay: `${props.index && props.index * 0.05}s` }}
-      onClick={showDataModal}
+      onClick={() => showDataModal(props)}
     >
       <div className={styles["inner"]}>
         {props.isCurrent && <div className={styles["live"]}></div>}
