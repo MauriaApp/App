@@ -61,8 +61,6 @@ Au sein de `src` se trouve un projet React "standard" :
 Important
 - Actualisation automatique des données (le [plugin](https://github.com/ionic-team/capacitor-background-runner) étant très récent, il présente de nombreux soucis actuellement...)
 - Implémenter un système de notifications (pour les taches de l'agenda)
-- Ajouter un feed d'événements Junia sur la page principal (cela pour but de partager et découvrir les prochains événements Junia sans passer par tous les réseaux sociaux)
-- Navbar => faire un bouton Outil Junia avec Aurion, junia-learning, imprimante (donc une nouvelle page avec ces 3 liens)
 --- 
 Secondaire
 - Ajouter un modal au lancement, si update pour expliquer les nouveautés de la dernière mise à jour

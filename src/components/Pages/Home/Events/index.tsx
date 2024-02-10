@@ -18,7 +18,7 @@ const EventJunia: React.FC<EventJuniaProps> = ({ events, loading }) => {
           Prochains événements
         </h2>
         <div className="sectionContent">
-          <p className="text-center text-primary">
+          <p className=" no-content-text">
             Chargement...
           </p>
         </div>

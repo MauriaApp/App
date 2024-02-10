@@ -291,3 +291,19 @@ export async function fetchUpdates() {
   localStorage.setItem("updates-log", "[]");
   return null;
 }
+
+// Récupérer la liste des outils Junia
+export async function fetchToolsQuery() {
+  const response = await fetch(API_URL + "/tools", {
+    method: "GET",
+  });
+
+  if (response.status === 200) {
+    return response.json().then((data) => {
+      localStorage.setItem("tools", JSON.stringify(data));
+      return data;
+    });
+  }
+  
+  return localStorage.getItem("tools");
+}

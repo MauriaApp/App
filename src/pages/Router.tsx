@@ -20,6 +20,7 @@ import { RouterAnimation } from "../utils/animations/transition";
 import Toast from "../components/common/Layout/Toast";
 import Modal from "../components/common/Layout/Modal";
 import { ToastContext, ToastContextType } from "../contexts/toastContext";
+import Outils from "./Outils";
 
 const AppRouter = ({ match }: { match: any }) => {
   const modalContext = useContext(ModalContext) as ModalContextType;
@@ -48,6 +49,7 @@ const AppRouter = ({ match }: { match: any }) => {
         <Route path={`${match.url}/support`} component={Support} />
         <Route path={`${match.url}/associations`} component={Associations} />
         <Route path={`${match.url}/agenda`} component={Agenda} />
+        <Route path={`${match.url}/outils`} component={Outils} />
         <Route
           exact
           path={`${match.url}/`}
