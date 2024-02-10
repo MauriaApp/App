@@ -13,7 +13,7 @@ workflows:
         XCODE_WORKSPACE: "App.xcworkspace" # <-- Put the name of your Xcode workspace here
         XCODE_SCHEME: "App" # <-- Put the name of your Xcode scheme here
         APP_ID: 6444381612
-      xcode: latest
+      xcode: 15.1
       cocoapods: default
     scripts:
       - name: Install npm dependencies for Ionic Capacitor project
