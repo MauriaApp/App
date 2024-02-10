@@ -39,5 +39,4 @@ yarn-error.log*
 /appli
 
 # Config
-codemagic.yaml
 resources/android/**/*
