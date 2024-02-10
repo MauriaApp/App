@@ -34,7 +34,7 @@ yarn-error.log*
 
 # Build folder
 /build
-# /ios
+/ios
 /android
 /appli
 
