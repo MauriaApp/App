@@ -21,6 +21,7 @@ import {
   datePickerStyling,
   timePickerStyling,
 } from "./timePickerStylingFunctions";
+import { scheduleNotification } from "../../../utils/notifications";
 
 export const AddTaskModalContent = () => {
 
@@ -61,7 +62,7 @@ export const AddTaskModalContent = () => {
   const { closeModal } = useContext(ModalContext) as ModalContextType;
   const { openToast } = useContext(ToastContext) as ToastContextType;
 
-  const newEvent = (event: any) => {
+  const newEvent = async (event: any) => {
     let tempDate = new Date(event.date);
     let tempTimeStart = new Date(event.timeStart);
 
@@ -87,8 +88,41 @@ export const AddTaskModalContent = () => {
       "userTasks",
       JSON.stringify([...(userTask ?? []), newEvent])
     );
+
+    try {
+      // new Date(event.start + "T" + eventStart) - 1h
+      const date1 = new Date(newEvent.start);
+      date1.setHours(date1.getHours() - 1);
+
+      await scheduleNotification(
+        event.title,
+        "Tâche à faire dans 1h !",
+        newEvent.id,
+        date1
+      );
+    } catch (e) {
+      console.error(e);
+    }
+
     
-    // setUserTasks([...(userTask ?? []), newEvent]);
+    try {
+      // new Date(event.start + "T" + eventStart) - 24h
+      const date2 = new Date(newEvent.start);
+      date2.setHours(date2.getHours() - 24);
+
+      await scheduleNotification(
+        event.title,
+        "Tâche à faire dans 24h !",
+        newEvent.id * 2,
+        date2
+      );
+    } catch (e) {
+      console.error(e);
+    }
+
+
+
+
 
 
     openToast({

@@ -41,19 +41,19 @@ const AppRouter = ({ match }: { match: any }) => {
     <>
       <Header isAuth />
       <IonRouterOutlet animated={true} animation={RouterAnimation} placeholder={undefined}>
-        <Route path={`${match.url}/home`} component={Home} />
-        <Route path={`${match.url}/planning`} component={Planning} />
-        <Route path={`${match.url}/notes`} component={Grades} />
-        <Route path={`${match.url}/absences`} component={Absences} />
-        <Route path={`${match.url}/settings`} component={Settings} />
-        <Route path={`${match.url}/support`} component={Support} />
-        <Route path={`${match.url}/associations`} component={Associations} />
-        <Route path={`${match.url}/agenda`} component={Agenda} />
-        <Route path={`${match.url}/outils`} component={Outils} />
+        <Route path="/app/home" component={Home} />
+        <Route path="/app/planning" component={Planning} />
+        <Route path="/app/notes" component={Grades} />
+        <Route path="/app/absences" component={Absences} />
+        <Route path="/app/settings" component={Settings} />
+        <Route path="/app/support" component={Support} />
+        <Route path="/app/associations" component={Associations} />
+        <Route path="/app/agenda" component={Agenda} />
+        <Route path="/app/outils" component={Outils} />
         <Route
           exact
-          path={`${match.url}/`}
-          render={() => <Redirect to={`${match.url}/home`} />}
+          path="/app/"
+          render={() => <Redirect to="/app/home" />}
         />
       </IonRouterOutlet>
       <Modal {...modalContext} />

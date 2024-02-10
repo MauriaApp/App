@@ -60,7 +60,7 @@ const App = () => {
                   path="/app"
                   render={(props) => <AppRouter {...props} />}
                 />
-                <Route render={() => <Redirect to={"/app/home"} />} />
+                <Route render={() => <Redirect to="/app/home" />} />
               </IonRouterOutlet>
             </IonReactRouter>
             <AppBackground />

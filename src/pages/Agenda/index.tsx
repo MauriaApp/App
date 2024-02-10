@@ -31,6 +31,11 @@ export default function Agenda() {
 
   return (
     <PageTemplate title={"Agenda"} header={<AddEventButton />}>
+      <section>
+        <div>
+          <label className={"label"}>Une notification sera envoyée 24h avant et 1h avant chaque tâche.</label>
+        </div>
+      </section>
 
       {data.length > 0 ? (
         <div className={"list"}>

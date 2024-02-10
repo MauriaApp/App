@@ -40,3 +40,4 @@ yarn-error.log*
 
 # Config
 codemagic.yaml
+resources/android/**/*
