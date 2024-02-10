@@ -20,6 +20,14 @@ workflows:
         script: | 
           npm install
 
+      - name : build web assets
+        script: | 
+          npm run build
+
+      - name : add assets
+        script: | 
+          npx @capacitor/assets generate --ios
+
       - name: Cocoapods installation
         script: | 
           cd ios/App && pod install
