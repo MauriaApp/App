@@ -24,7 +24,6 @@ import { ModalContextProvider } from "./contexts/modalContext";
 import { ToastContextProvider } from "./contexts/toastContext";
 
 import AppRouter from "./pages/Router";
-import { RouterAnimation } from "./utils/animations/transition";
 import dayjs from "dayjs";
 
 import "dayjs/locale/fr";

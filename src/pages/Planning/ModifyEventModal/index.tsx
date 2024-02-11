@@ -28,7 +28,8 @@ const ModifyEventModalContent = ({ setUserEvents, ...event }: any) => {
     editable,
   };
 
-  const newCurrentEvent = fetchEvent(currentEvent);
+  const newCurrentEvent = fetchEvent(currentEvent)
+
 
   function deleteUserEvent(event: MauriaEventType) {
     return () => {
@@ -72,7 +73,7 @@ const ModifyEventModalContent = ({ setUserEvents, ...event }: any) => {
           <Button
             variant={"accent"}
             onClick={deleteUserEvent(newCurrentEvent)}
-            disabled={title.length === 0}
+            disabled={newCurrentEvent.title.length === 0}
           >
             Supprimer
           </Button>

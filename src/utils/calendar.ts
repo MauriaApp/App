@@ -139,6 +139,9 @@ export const fetchTomorrowLessons = (): MauriaEventType[] => {
 
 
 export const fetchEvent = (event: AurionEventType): MauriaEventType => {
+
+  console.log(event);
+
   const data = event.title.split("\n");
 
   const isCurrent = isInInterval(event.start, event.end);
@@ -146,8 +149,8 @@ export const fetchEvent = (event: AurionEventType): MauriaEventType => {
   const startTime = new Date(event.start);
   const endTime = new Date(event.end);
 
-  const title = data[2].length > 0 ? data[2] : data[1];
-  
+
+  const title = data[2] ? (data[2].length > 0 ? data[2] : data[1]) : data[1];
 
   return Object.assign({
     id: event.id,

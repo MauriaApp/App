@@ -25,31 +25,26 @@ const ModifyEventModalContent = ({ ...event }: EventProps) => {
       <header
         className={clsx(modalStyles["headerModal"], modalStyles["column"])}
       >
-        <h3 className={clsx(styles["note"], "no-margins text-accent")}>
-          {event.type}
-          {" - "}
+        <h2 className={clsx("sectionTitle no-margins text-primary")}>
           {event.title}
-        </h3>
+        </h2>
 
-        <span className={styles["date"]}>De {event.startTime} à {event.endTime}</span>
-      </header>
-      <div className={modalStyles["content"]}>
-        <section>
-          <h2 className={"sectionTitle text-primary no-margins"}>
-            <span className={styles["date"]}>En salle </span>
+        <div className={clsx(styles["eventMainInfos"], "text-primary")}>
+          <span className={clsx(styles["room"], "text-accent")}>
             {event.room}
-          </h2>
+          </span>
 
-          <div style={{ marginTop: "20px" }}>
-            <h2 className={"sectionTitle text-primary no-margins"} >
-              <span className={styles["date"]}>Avec </span>
-              {event.teacher}
-            </h2>
+          <div className={clsx(styles["date"], "text-primary")}>
+            De {event.startTime} à {event.endTime}{" "}
           </div>
+        </div>
+      </header>
+      <span className={styles["date"]}>
+        {event.type} avec {event.teacher || "Professeur non renseigné"}
+      </span>
+      <div className={modalStyles["content"]}>
 
-        </section>
       </div>
-
       <footer className={styles["footer"]} >
         <span className={styles["code"]}>Si vous n'êtes pas sûr(e), il y a possiblement plus d'infos dans le planning.<br></br>{}</span>
       </footer>

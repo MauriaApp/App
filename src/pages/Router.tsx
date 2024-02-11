@@ -16,7 +16,6 @@ import { ModalContext, ModalContextType } from "../contexts/modalContext";
 
 import Footer from "../components/common/Layout/Navbars/Footer";
 import Header from "../components/common/Layout/Navbars/Header/Header";
-import { RouterAnimation } from "../utils/animations/transition";
 import Toast from "../components/common/Layout/Toast";
 import Modal from "../components/common/Layout/Modal";
 import { ToastContext, ToastContextType } from "../contexts/toastContext";
