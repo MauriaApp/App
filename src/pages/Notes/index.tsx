@@ -88,8 +88,12 @@ const Notes: React.FC = () => {
     },
   });
 
-  const handleRefresh = (event: CustomEvent) => {
-    refreshMutation.mutateAsync(thisYear).then(() => event.detail.complete());
+  const handleRefresh = () => {
+    refreshMutation.mutateAsync(thisYear).then(() => {
+      notesQuery(currentNotes, thisYear).then((data) => {
+        queryClient.setQueryData(["notes"], data);
+      });
+    });
   };
 
   const handleToggle = () => {

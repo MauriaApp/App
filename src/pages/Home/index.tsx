@@ -93,11 +93,14 @@ const Home: React.FC = () => {
     },
   });
 
-  const handleRefresh = useCallback((event: CustomEvent) => {
+  const handleRefresh = () => {
     refreshMutation.mutateAsync().then(() => {
-      event.detail.complete();
+      // Mettez à jour les données après le rafraîchissement
+      calendarQuery(null).then((data) => {
+        queryClient.setQueryData(["livePlanning"], data);
+      });
     });
-  }, [refreshMutation]); 
+  };
 
   const updateMutation = useMutation({
     mutationFn: async () => {
@@ -108,11 +111,7 @@ const Home: React.FC = () => {
 
   useEffectOnce(() => {
     // faire un refresh du planning au lancement de l'application (ne sera pas fait a chaque fois qu'on vient sur le page home)
-    handleRefresh({
-      detail: {
-        complete: () => {},
-      },
-    } as CustomEvent);
+    handleRefresh();
 
     if (isFirstLaunch) {
       openModal(<WelcomeModalContent />, () => setIsFirstLaunch(false));

@@ -29,7 +29,7 @@ export const PageTemplate: FC<TemplateProps> = (props) => {
       title: "Actualisation en cours...",
       content: "",
     });
-    const e : CustomEvent = new CustomEvent('refresh'); // Initialize the CustomEvent object
+    const e: CustomEvent = new CustomEvent('refresh'); // Initialize the CustomEvent object
     props.onRefresh?.(e);
   }
 
@@ -41,9 +41,11 @@ export const PageTemplate: FC<TemplateProps> = (props) => {
         <IonContent placeholder={undefined}>
           <header className="header">
             <h1 className="title">{props.title}</h1>
-            <Button size={"sm"} round={true} className="refresh-button" onClick={() => refreshFunction()}>
-              Actualiser
-            </Button>
+            {props.onRefresh ? (
+              <Button size={"sm"} round={true} className="refresh-button" onClick={() => refreshFunction()}>
+                Actualiser
+              </Button>
+            ) : null}
           </header>
           <main className={"content"}>
             {props.children}
@@ -86,9 +88,11 @@ export const PageTemplate: FC<TemplateProps> = (props) => {
         )}
         <header className="header">
           <h1 className="title">{props.title}</h1>
-          <Button size={"sm"} round={true} className="refresh-button" onClick={() => refreshFunction()}>
-            Actualiser
-          </Button>
+          {props.onRefresh ? (
+            <Button size={"sm"} round={true} className="refresh-button" onClick={() => refreshFunction()}>
+              Actualiser
+            </Button>
+          ) : null}
         </header>
         <main className={"content"}>{props.children}</main>
       </IonContent>

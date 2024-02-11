@@ -83,9 +83,12 @@ const Absences = () => {
     },
   });
 
-  const handleRefresh = (event: CustomEvent) => {
+
+  const handleRefresh = () => {
     refreshMutation.mutateAsync(thisYear).then(() => {
-      event.detail.complete();
+      absencesQuery(null, thisYear).then((data) => {
+        queryClient.setQueryData(["absences"], data);
+      });
     });
   };
 

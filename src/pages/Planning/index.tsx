@@ -67,9 +67,12 @@ const Planning = () => {
     },
   });
 
-  const handleRefresh = (event: CustomEvent) => {
+  const handleRefresh = () => {
     refreshMutation.mutateAsync().then(() => {
-      event.detail.complete();
+      // Mettez à jour les données après le rafraîchissement
+      calendarQuery(null).then((data) => {
+        setUserEvents(data);
+      });
     });
   };
 
