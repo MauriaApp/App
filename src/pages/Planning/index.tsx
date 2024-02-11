@@ -155,8 +155,8 @@ const Planning = () => {
           eventStartEditable={false}
           eventDurationEditable={false}
           eventResizableFromStart={false}
-          eventDragMinDistance={0}
-          // eventClick={(info) => window.alert(info.event.title)}
+          // eventDragMinDistance={0}
+
           eventClick={(info) => {
             openModifyModal(info.event);
           }}
