@@ -18,6 +18,7 @@ import "./theme/globals.scss";
 
 import Login from "./pages/Auth/Login";
 
+import { StatusBar, Style } from "@capacitor/status-bar";
 import { useDarkMode } from "usehooks-ts";
 import { ModalContextProvider } from "./contexts/modalContext";
 import { ToastContextProvider } from "./contexts/toastContext";
@@ -32,6 +33,9 @@ import AppBackground from "./theme/AppBackground";
 dayjs.locale("fr");
 dayjs.extend(relativeTime);
 setupIonicReact();
+
+StatusBar.setStyle({ style: Style.Dark });
+StatusBar.setBackgroundColor({ color: "#3f2a56" });
 
 // Locks screen orientation to portrait
 // window.screen.orientation.lock('portrait');

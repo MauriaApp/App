@@ -7,9 +7,6 @@ import {
 import { FC, useContext } from "react";
 import Loader from "../../components/common/Layout/Loader";
 import { ToastContext, ToastContextType } from "../../contexts/toastContext";
-import Button from "../../components/common/Layout/Button/Button";
-
-import "./Template.scss";
 
 type TemplateProps = {
   title: string;
@@ -23,27 +20,14 @@ type TemplateProps = {
 export const PageTemplate: FC<TemplateProps> = (props) => {
   const { openToast } = useContext(ToastContext) as ToastContextType;
 
-  function refreshFunction() {
-    openToast({
-      type: "information",
-      title: "Actualisation en cours...",
-      content: "",
-    });
-    const e : CustomEvent = new CustomEvent('refresh'); // Initialize the CustomEvent object
-    props.onRefresh?.(e);
-  }
-
   if (props.isLoading) {
     return (
       <IonPage placeholder={undefined}>
         <div className="mock-header"></div>
         {props.header}
         <IonContent placeholder={undefined}>
-          <header className="header">
+          <header>
             <h1 className="title">{props.title}</h1>
-            <Button size={"sm"} round={true} className="refresh-button" onClick={() => refreshFunction()}>
-              Actualiser
-            </Button>
           </header>
           <main className={"content"}>
             {props.children}
@@ -84,11 +68,8 @@ export const PageTemplate: FC<TemplateProps> = (props) => {
               refreshingSpinner="crescent" placeholder={undefined}></IonRefresherContent>
           </IonRefresher>
         )}
-        <header className="header">
+        <header >
           <h1 className="title">{props.title}</h1>
-          <Button size={"sm"} round={true} className="refresh-button" onClick={() => refreshFunction()}>
-            Actualiser
-          </Button>
         </header>
         <main className={"content"}>{props.children}</main>
       </IonContent>
