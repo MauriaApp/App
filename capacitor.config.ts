@@ -1,7 +1,7 @@
 import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "fr.mylow.mauria",
+  appId: "ionic.mauria.app",
   appName: "Mauria",
   webDir: "build",
   bundledWebRuntime: false,
