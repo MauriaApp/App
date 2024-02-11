@@ -46,7 +46,7 @@ const Planning = () => {
   // });
 
   const { isLoading, data } = useQuery({
-    queryKey: ["planning"],  // Ajoutez userEvents comme dépendance
+    queryKey: ["planning"], // Ajoutez userEvents comme dépendance
     queryFn: async () => await calendarQuery(storedPlanning),
     networkMode: "always",
   });
@@ -81,36 +81,31 @@ const Planning = () => {
   // problème avec la date, le type était pas lu par useReadLocalStorage (v2.9.1 de usehooks-ts)
   const lastUpdate = localStorage.getItem("lastPlanningUpdate");
 
-
   useEffectOnce(() => {
     // This is to prevent fullCalendar lag
     // setTimeout(function () {
     //   window.dispatchEvent(new Event("resize"));
     // }, 500);
 
-    setTimeout(() => calendarRef.current?.doResize(), 500);
+    setTimeout(() => calendarRef.current?.doResize(), 100);
   });
 
   const openAddEventModal = () => {
-    openModal(<AddEventModalContent setUserEvents={setUserEvents}
-    />);
+    openModal(<AddEventModalContent setUserEvents={setUserEvents} />);
   };
-
 
   const openModifyModal = (event: any) => {
-    openModal(<ModifyEventModalContent
-      {...event}
-      setUserEvents={setUserEvents}
-    />);
+    openModal(
+      <ModifyEventModalContent {...event} setUserEvents={setUserEvents} />
+    );
   };
-
 
   const AddEventButton = () => (
     <Button
       className={styles["create-event-button"]}
       onClick={openAddEventModal}
       variant={"accent"}
-      round={true}
+      round
     >
       +
     </Button>
@@ -121,7 +116,7 @@ const Planning = () => {
       <PageTemplate
         title={"Planning"}
         onRefresh={handleRefresh}
-        isLoading={true}
+        isLoading
       />
     );
   }
@@ -163,9 +158,8 @@ const Planning = () => {
           // eventDragMinDistance={0}
 
           eventClick={(info) => {
-            openModifyModal(info.event)
-          }
-          }
+            openModifyModal(info.event);
+          }}
         />
         <div className="last-update">
           Dernière actualisation :{" "}

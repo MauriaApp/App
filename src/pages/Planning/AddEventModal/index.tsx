@@ -22,13 +22,11 @@ import {
   timePickerStyling,
 } from "./timePickerStylingFunctions";
 
-export const AddEventModalContent = ({setUserEvents}:any) => {
-
+export const AddEventModalContent = ({ setUserEvents }: any) => {
   const userEvents = JSON.parse(localStorage.getItem("userEvents") || "[]");
 
   const { isDarkMode } = useDarkMode();
   const pickerRef = useRef<null | HTMLIonDatetimeElement>(null);
-
 
   const initialStartDate = new Date();
   const initialEndDate = new Date(initialStartDate.getTime() + 30 * 60000);
@@ -100,7 +98,7 @@ export const AddEventModalContent = ({setUserEvents}:any) => {
       "userEvents",
       JSON.stringify([...(userEvents ?? []), newEvent])
     );
-    
+
     setUserEvents([...(userEvents ?? []), newEvent]);
 
     //    if (calendarRef.current) {
@@ -216,7 +214,9 @@ export const AddEventModalContent = ({setUserEvents}:any) => {
             id={"timePicker"}
             onIonChange={handlePickerChange}
             presentation="time"
-            color="primary" placeholder={undefined}          >
+            color="primary"
+            placeholder={undefined}
+          >
             <span slot={"title"} className={styles["time-picker-title"]}>
               Horaire de {currentPicker === "start" ? "début" : "fin"}
             </span>

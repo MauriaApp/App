@@ -98,7 +98,7 @@ const Footer = () => {
           {currentPath.includes("/agenda") ? (
             <AgendaSelected />
           ) : (
-            <Agenda />
+            <Agenda style={{fill: "none"}}/>
           )}
         </NavLink>
       </nav>

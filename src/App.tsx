@@ -23,7 +23,6 @@ import { ModalContextProvider } from "./contexts/modalContext";
 import { ToastContextProvider } from "./contexts/toastContext";
 
 import AppRouter from "./pages/Router";
-import { RouterAnimation } from "./utils/animations/transition";
 import dayjs from "dayjs";
 
 import "dayjs/locale/fr";
@@ -47,7 +46,7 @@ const App = () => {
         <ModalContextProvider>
           <IonApp className={isDarkMode ? "dark" : ""}>
             <IonReactRouter>
-              <IonRouterOutlet animation={RouterAnimation} placeholder={undefined}>
+              <IonRouterOutlet placeholder={undefined}>
                 <Route exact path="/login">
                   <Login />
                 </Route>

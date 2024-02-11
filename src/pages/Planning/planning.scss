@@ -119,8 +119,8 @@
   color: vars.$white !important;
   background: linear-gradient(
                   45deg,
-                  vars.$success-400,
-                  vars.$success-800
+                  vars.$success-700,
+                  vars.$success-900
   ) !important;
   box-shadow: 0 16px 32px rgba($color: vars.$success-400, $alpha: 0.24) !important;
 }
@@ -133,7 +133,7 @@
   background: linear-gradient(
                   45deg,
                   vars.$success-400,
-                  vars.$success-800
+                  vars.$success-700
   ) !important;
   box-shadow: 0 16px 32px rgba($color: vars.$success-400, $alpha: 0.24) !important;
 }
@@ -238,11 +238,19 @@
     background: linear-gradient(
       45deg,
       vars.$success-300,
-      vars.$success-600
+      vars.$success-500
     ) !important;
     box-shadow: 0 16px 32px rgba($color: vars.$success-400, $alpha: 0.24) !important;
   }
-  
+  .fc-timegrid-event.est-perso {
+    color: vars.$white !important;
+    background: linear-gradient(
+                    45deg,
+                    vars.$success-500,
+                    vars.$success-700
+    ) !important;
+    box-shadow: 0 16px 32px rgba($color: vars.$success-400, $alpha: 0.24) !important;
+  }
 }
 
 .buttons-column {
