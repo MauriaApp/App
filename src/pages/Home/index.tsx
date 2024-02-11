@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 
 import {
   fetchEventJunia,
@@ -93,11 +93,11 @@ const Home: React.FC = () => {
     },
   });
 
-  const handleRefresh = (event: CustomEvent) => {
+  const handleRefresh = useCallback((event: CustomEvent) => {
     refreshMutation.mutateAsync().then(() => {
       event.detail.complete();
     });
-  };
+  }, [refreshMutation]); 
 
   const updateMutation = useMutation({
     mutationFn: async () => {

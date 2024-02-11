@@ -294,16 +294,22 @@ export async function fetchUpdates() {
 
 // Récupérer la liste des outils Junia
 export async function fetchToolsQuery() {
-  const response = await fetch(API_URL + "/tools", {
-    method: "GET",
-  });
-
-  if (response.status === 200) {
-    return response.json().then((data) => {
-      localStorage.setItem("tools", JSON.stringify(data));
-      return data;
+  try {
+    const response = await fetch(API_URL + "/tools", {
+      method: "GET",
     });
+
+    if (response.status === 200) {
+      return response.json().then((data) => {
+        localStorage.setItem("tools", JSON.stringify(data));
+        return data;
+      });
+    }
+  } catch (e) {
+    try {
+      return (localStorage.getItem("tools") || "[]");
+    } catch (e) {
+      return [];
+    }
   }
-  
-  return localStorage.getItem("tools");
 }

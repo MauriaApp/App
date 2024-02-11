@@ -23,6 +23,16 @@ type TemplateProps = {
 export const PageTemplate: FC<TemplateProps> = (props) => {
   const { openToast } = useContext(ToastContext) as ToastContextType;
 
+  function refreshFunction() {
+    openToast({
+      type: "information",
+      title: "Actualisation en cours...",
+      content: "",
+    });
+    const e : CustomEvent = new CustomEvent('refresh'); // Initialize the CustomEvent object
+    props.onRefresh?.(e);
+  }
+
   if (props.isLoading) {
     return (
       <IonPage placeholder={undefined}>
@@ -31,7 +41,7 @@ export const PageTemplate: FC<TemplateProps> = (props) => {
         <IonContent placeholder={undefined}>
           <header className="header">
             <h1 className="title">{props.title}</h1>
-            <Button size={"sm"} round={true} className="refresh-button">
+            <Button size={"sm"} round={true} className="refresh-button" onClick={() => refreshFunction()}>
               Actualiser
             </Button>
           </header>
@@ -68,15 +78,15 @@ export const PageTemplate: FC<TemplateProps> = (props) => {
             pullMin={40}
             pullMax={160}
             closeDuration="400ms"
-            snapbackDuration="400ms" placeholder={undefined}          >
+            snapbackDuration="400ms" placeholder={undefined}>
             <IonRefresherContent
               pullingText="Tirer pour actualiser..."
-              refreshingSpinner="crescent" placeholder={undefined}            ></IonRefresherContent>
+              refreshingSpinner="crescent" placeholder={undefined}></IonRefresherContent>
           </IonRefresher>
         )}
         <header className="header">
           <h1 className="title">{props.title}</h1>
-          <Button size={"sm"} round={true} className="refresh-button" >
+          <Button size={"sm"} round={true} className="refresh-button" onClick={() => refreshFunction()}>
             Actualiser
           </Button>
         </header>
