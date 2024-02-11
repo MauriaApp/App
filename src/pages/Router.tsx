@@ -40,7 +40,7 @@ const AppRouter = ({ match }: { match: any }) => {
   return (
     <>
       <Header isAuth />
-      <IonRouterOutlet animated={true} animation={RouterAnimation} placeholder={undefined}>
+      <IonRouterOutlet placeholder={undefined}>
         <Route path="/app/home" component={Home} />
         <Route path="/app/planning" component={Planning} />
         <Route path="/app/notes" component={Grades} />
@@ -50,11 +50,7 @@ const AppRouter = ({ match }: { match: any }) => {
         <Route path="/app/associations" component={Associations} />
         <Route path="/app/agenda" component={Agenda} />
         <Route path="/app/outils" component={Outils} />
-        <Route
-          exact
-          path="/app/"
-          render={() => <Redirect to="/app/home" />}
-        />
+        <Route exact path="/app/" render={() => <Redirect to="/app/home" />} />
       </IonRouterOutlet>
       <Modal {...modalContext} />
 

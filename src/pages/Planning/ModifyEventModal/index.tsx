@@ -7,32 +7,28 @@ import Button from "../../../components/common/Layout/Button/Button";
 import { useContext } from "react";
 import { ModalContext, ModalContextType } from "../../../contexts/modalContext";
 
-const ModifyEventModalContent = ({
-  setUserEvents,
-  ...event
-}: any) => {
+const ModifyEventModalContent = ({ setUserEvents, ...event }: any) => {
   const { closeModal } = useContext(ModalContext) as ModalContextType;
 
-  const id = event._def.publicId
-  const title = event._def.title
-  const start = event._instance.range.start
-  const end = event._instance.range.end
-  const allDay = event._def.allDay
-  const className = event._def.ui.classNames[0]
-  const editable = event._def.ui.editable
+  const id = event._def.publicId;
+  const title = event._def.title;
+  const start = event._instance.range.start;
+  const end = event._instance.range.end;
+  const allDay = event._def.allDay;
+  const className = event._def.ui.classNames[0];
+  const editable = event._def.ui.editable;
 
   const currentEvent: AurionEventType = {
-    id: id,
-    title: title,
-    start: start,
-    end: end,
-    allDay: allDay,
-    className: className,
-    editable: editable
-  }
+    id,
+    title,
+    start,
+    end,
+    allDay,
+    className,
+    editable,
+  };
 
-  const newCurrentEvent = fetchEvent(currentEvent)
-
+  const newCurrentEvent = fetchEvent(currentEvent);
 
   function deleteUserEvent(event: MauriaEventType) {
     return () => {
@@ -49,54 +45,43 @@ const ModifyEventModalContent = ({
     };
   }
 
-
-
-
   return (
     <>
       <header
         className={clsx(modalStyles["headerModal"], modalStyles["column"])}
       >
-        <h3 className={clsx(styles["note"], "no-margins text-accent")}>
-          {newCurrentEvent.type}
-          {" - "}
+        <h2 className={clsx("sectionTitle no-margins text-primary")}>
           {newCurrentEvent.title}
-        </h3>
+        </h2>
 
-        <span className={styles["date"]}>De {newCurrentEvent.start} à {newCurrentEvent.end}</span>
-      </header>
-      <div className={modalStyles["content"]}>
-        <section>
-          <h2 className={"sectionTitle text-primary no-margins"}>
-          <span className={styles["date"]}>En salle </span>
+        <div className={clsx(styles["eventMainInfos"], "text-primary")}>
+          <span className={clsx(styles["room"], "text-accent")}>
             {newCurrentEvent.room}
-          </h2>
+          </span>
 
-          <div style={{marginTop: "20px"}}>
-            <h2 className={"sectionTitle text-primary no-margins"} >
-            <span className={styles["date"]}>Avec </span>
-              {newCurrentEvent.teacher}
-            </h2>
+          <div className={clsx(styles["date"], "text-primary")}>
+            De {newCurrentEvent.start} à {newCurrentEvent.end}{" "}
           </div>
-
-        </section>
-
-
-        {newCurrentEvent.type === "est-perso" ? (
-          <section className={styles["section"]}>
-            <Button variant={"accent"} onClick={deleteUserEvent(newCurrentEvent)} disabled={title.length === 0}>
-              Supprimer
-            </Button>
-          </section>
-        ) : null}
-
-
-
-
+        </div>
+      </header>
+      <span className={styles["date"]}>
+        {newCurrentEvent.type} avec {newCurrentEvent.teacher || "Professeur non renseigné"}
+      </span>
+      <div className={modalStyles["content"]}>
+        {newCurrentEvent.type === "est-perso" && (
+          <Button
+            variant={"accent"}
+            onClick={deleteUserEvent(newCurrentEvent)}
+            disabled={title.length === 0}
+          >
+            Supprimer
+          </Button>
+        )}
       </div>
 
-      <footer className={styles["footer"]} >
-        <span className={styles["code"]}>Données brutes: <br></br>{event._def.title}</span>
+      <footer className={clsx(styles["footer"], styles["code"])}>
+        <h3 className={styles["rawDataTitle"]}>Données brutes:</h3>
+        <p className={"no-margins"}>{event._def.title}</p>
       </footer>
     </>
   );

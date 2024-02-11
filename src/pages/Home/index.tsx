@@ -42,7 +42,7 @@ const messageQueryFunction = async () => {
 
 const eventJuniaQueryFunction = async () => {
   return await fetchEventJunia();
-}
+};
 
 const Home: React.FC = () => {
   const queryClient = useQueryClient();
@@ -74,7 +74,7 @@ const Home: React.FC = () => {
         queryKey: ["eventJunia"],
         queryFn: async () => await eventJuniaQueryFunction(),
         networkMode: "always",
-      }
+      },
     ],
   });
 
@@ -107,9 +107,12 @@ const Home: React.FC = () => {
   });
 
   useEffectOnce(() => {
-
     // faire un refresh du planning au lancement de l'application (ne sera pas fait a chaque fois qu'on vient sur le page home)
-    handleRefresh({ detail: { complete: () => { } } } as CustomEvent);
+    handleRefresh({
+      detail: {
+        complete: () => {},
+      },
+    } as CustomEvent);
 
     if (isFirstLaunch) {
       openModal(<WelcomeModalContent />, () => setIsFirstLaunch(false));
@@ -198,11 +201,8 @@ const Home: React.FC = () => {
       {eventQuery.isLoading ? (
         <EventJunia loading />
       ) : (
-        <EventJunia
-          events={eventQuery.data}
-        />
+        <EventJunia events={eventQuery.data} />
       )}
-
     </PageTemplate>
   );
 };

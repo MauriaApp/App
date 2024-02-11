@@ -1,9 +1,36 @@
 @use "../../../theme/_variables.scss" as vars;
 
+
+.eventMainInfos {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.eventType {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
 .date {
   font-size: 1rem;
   font-weight: 600;
   opacity: 0.64;
+}
+
+
+.infosSeparator {
+  height: 2px;
+  width: 16px;
+  border-radius: 9999px;
+  background-color: vars.$accent-500;
+}
+
+.room {
+  font-size: 1.24rem;
+  font-weight: 800;
+  width: fit-content;
 }
 
 .note {
@@ -45,6 +72,7 @@
     color: vars.$accent-400;
   }
 }
+
 .label {
   font-weight: 800;
   color: vars.$primary-900;
@@ -66,6 +94,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+
     .message {
       font-size: 1.08rem;
     }
@@ -80,12 +109,19 @@
 .footer {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
 
-  .code {
-    font-weight: 600;
-    opacity: 0.4;
-  }
+}
+
+
+.rawDataTitle {
+  font-size: 1.16rem;
+  font-weight: 800;
+}
+
+.code {
+  font-weight: 600;
+  opacity: 0.4;
 }
 
 :global(.dark) {

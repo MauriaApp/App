@@ -95,9 +95,9 @@ body {
   height: 36px;
   width: fit-content;
   background: -webkit-linear-gradient(
-    45deg,
-    vars.$primary-400,
-    vars.$light-primary-400
+                  45deg,
+                  vars.$primary-400,
+                  vars.$light-primary-400
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -144,9 +144,9 @@ body {
   font-weight: 700;
   font-size: 1.1rem;
   background: -webkit-linear-gradient(
-    45deg,
-    vars.$primary-900,
-    vars.$light-primary-500
+                  45deg,
+                  vars.$primary-900,
+                  vars.$light-primary-500
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -188,18 +188,19 @@ body {
 
 .text-primary {
   background: -webkit-linear-gradient(
-    45deg,
-    vars.$primary-700,
-    vars.$primary-900
+                  45deg,
+                  vars.$primary-700,
+                  vars.$primary-900
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .text-accent {
   background: -webkit-linear-gradient(
-    45deg,
-    vars.$accent-300,
-    vars.$accent-800
+                  45deg,
+                  vars.$accent-300,
+                  vars.$accent-800
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -208,9 +209,9 @@ body {
 .text-success {
   color: vars.$success-400;
   background: -webkit-linear-gradient(
-    45deg,
-    vars.$success-400,
-    vars.$success-600
+                  45deg,
+                  vars.$success-400,
+                  vars.$success-600
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -263,9 +264,9 @@ ion-toggle {
 
 ion-datetime {
   background: linear-gradient(
-    45deg,
-    rgba($color: vars.$white, $alpha: 0.4),
-    rgba($color: vars.$light-primary-600, $alpha: 0.16)
+                  45deg,
+                  rgba($color: vars.$white, $alpha: 0.4),
+                  rgba($color: vars.$light-primary-600, $alpha: 0.16)
   );
   width: 100%;
   border-radius: 16px;
@@ -323,9 +324,9 @@ ion-content {
 
   ion-datetime {
     background: linear-gradient(
-      45deg,
-      rgba($color: vars.$white, $alpha: 0.4),
-      rgba($color: vars.$light-primary-600, $alpha: 0.16)
+                    45deg,
+                    rgba($color: vars.$white, $alpha: 0.4),
+                    rgba($color: vars.$light-primary-600, $alpha: 0.16)
     );
     color: vars.$white;
   }
@@ -342,8 +343,8 @@ ion-content {
 
   .card {
     background-color: rgba(
-      $color: vars.$light-primary-500,
-      $alpha: 0.12
+            $color: vars.$light-primary-500,
+            $alpha: 0.12
     ) !important;
   }
 
@@ -357,9 +358,9 @@ ion-content {
 
   .title {
     background: -webkit-linear-gradient(
-      45deg,
-      vars.$light-primary-700,
-      vars.$white
+                    45deg,
+                    vars.$light-primary-700,
+                    vars.$white
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -367,9 +368,9 @@ ion-content {
 
   .label {
     background: -webkit-linear-gradient(
-      45deg,
-      vars.$light-primary-800,
-      vars.$white
+                    45deg,
+                    vars.$light-primary-800,
+                    vars.$white
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -383,9 +384,9 @@ ion-content {
 
   .text-accent {
     background: -webkit-linear-gradient(
-      45deg,
-      vars.$accent-300,
-      vars.$accent-600
+                    45deg,
+                    vars.$accent-300,
+                    vars.$accent-600
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -394,9 +395,9 @@ ion-content {
   .text-success {
     color: vars.$success-400;
     background: -webkit-linear-gradient(
-      45deg,
-      vars.$success-300,
-      vars.$success-600
+                    45deg,
+                    vars.$success-300,
+                    vars.$success-600
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
