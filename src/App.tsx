@@ -80,8 +80,8 @@ const intervalFetch = async () => {
   } catch (e) {
     console.log("Erreur lors de l'actualisation automatique des données");
   }
-  // interval de 2h pour les fetchs
-  setTimeout(intervalFetch, 7200000);
+  // interval de 4h pour les fetchs
+  setTimeout(intervalFetch, 14400000);
 
   // setTimeout(intervalFetch, 30000);
 }
