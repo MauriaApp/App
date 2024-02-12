@@ -140,7 +140,7 @@ export const fetchTomorrowLessons = (): MauriaEventType[] => {
 
 export const fetchEvent = (event: AurionEventType): MauriaEventType => {
 
-  console.log(event);
+  // console.log(event);
 
   const data = event.title.split("\n");
 

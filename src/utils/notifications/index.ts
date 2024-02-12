@@ -11,7 +11,7 @@ async function scheduleNotification(title: string, body: string, id: number, sch
                             title: title,
                             body: body,
                             id: id,
-                            schedule: { at: schedule }
+                            schedule: { at: schedule , allowWhileIdle: true}
                         }
                     ]
                 });
@@ -25,7 +25,7 @@ async function scheduleNotification(title: string, body: string, id: number, sch
                 title: title,
                 body: body,
                 id: id,
-                schedule: { at: schedule }
+                schedule: { at: schedule , allowWhileIdle: true}
             }
         ]
     });
