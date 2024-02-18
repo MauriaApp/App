@@ -29,6 +29,8 @@ const Task: React.FC<TaskProps> = (props) => {
     const date = new Date(props.start);
     const date2 = date.toLocaleDateString('fr-FR', options);
 
+    const isPast = date < new Date();    
+
     const openModifyTaskModal = (task: any) => {
         openModal(<ModifyTaskModalContent {...task} />);
     }
@@ -40,7 +42,8 @@ const Task: React.FC<TaskProps> = (props) => {
                 "card shadow",
                 isVisible && "glassy",
                 !isVisible && "hidden",
-                styles["container"]
+                styles["container"],
+                isPast && styles["past"]
             )}
             onClick={() => {
                 openModifyTaskModal(props);
@@ -56,6 +59,7 @@ const Task: React.FC<TaskProps> = (props) => {
                 >
                     {props.title}
                 </h3>
+                {isPast && <span className={styles["class"]}>Déjà passé !</span>}
                 <span className={styles["class"]}>Avant le {date2}</span>
             </div>
         </article>

@@ -127,10 +127,10 @@ export const fetchTomorrowLessons = (): MauriaEventType[] => {
         type: event.className,
         room: data[0],
         teacher: data[5],
-        start: `${("0" + (startTime.getHours() - 1)).slice(-2)}:${(
+        start: `${("0" + (startTime.getHours())).slice(-2)}:${(
           "0" + startTime.getMinutes()
         ).slice(-2)}`,
-        end: `${("0" + (endTime.getHours() - 1)).slice(-2)}:${(
+        end: `${("0" + (endTime.getHours())).slice(-2)}:${(
           "0" + endTime.getMinutes()
         ).slice(-2)}`,
       });

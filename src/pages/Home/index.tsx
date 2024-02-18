@@ -126,7 +126,7 @@ const Home: React.FC = () => {
     return (
       <div className={"no-content-container"}>
         <span className={"no-content-text"}>
-          Aucune note à afficher pour le moment !
+          Aucun cours à venir pour le moment
         </span>
       </div>
     );

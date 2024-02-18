@@ -47,6 +47,12 @@ StatusBar.setBackgroundColor({ color: "#3f2a56" });
 
 const queryClient = new QueryClient();
 
+LocalNotifications.checkPermissions().then((permission) => {
+  if (permission.display !== "granted") {
+    LocalNotifications.requestPermissions()
+  }
+});
+
 
 let notificationCounter = 1; // Compteur pour générer des IDs uniques
 
@@ -63,11 +69,13 @@ const intervalFetch = async () => {
           return !existingNotifications.includes(note.code); // Vérifie si la notification est déjà planifiée
         });
         const notifications = notificationsToSchedule.map((note: MauriaNoteType) => {
+          const date = new Date();
+          date.setSeconds(date.getSeconds() + 10);
           return {
             title: "Nouvelle note !",
             body: `Vous avez une nouvelle note en ${note.epreuve}`,
             id: notificationCounter++, // Utilise un compteur pour générer des IDs uniques
-            schedule: { at: new Date(), allowWhileIdle: true },
+            schedule: { at: date, allowWhileIdle: true },
           };
         });
         await LocalNotifications.schedule({
