@@ -64,7 +64,6 @@ Important
 Secondaire
 - Ajouter un modal au lancement, si update pour expliquer les nouveautés de la dernière mise à jour
 - Ajouter un message si une mise à jour est disponible (il faut stocker la version de l'application dans le `localStorage` et un appel à l'`api` permet de savoir si une mise à jour est disponible)
-- Faire une version optimisée pour iPads et tablettes
 - Implémenter des tests unitaires et d'intégration
 
 ## Contribution

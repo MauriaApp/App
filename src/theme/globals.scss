@@ -14,6 +14,7 @@ body {
     text-decoration: none;
     accent-color: vars.$accent-400;
   }
+  
 }
 
 //! Utility classes
@@ -29,6 +30,10 @@ body {
 .mock-footer {
   min-height: 64px;
   margin-top: env(safe-area-inset-bottom, 20px);
+
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    display: none;
+  }
 }
 
 .shadow {
@@ -101,6 +106,9 @@ body {
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  @media screen and (min-width: 768px) and (max-width: 1024px){
+    margin-left: 64px;
+  }
 }
 
 .loader-container {
@@ -115,6 +123,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 32px;
+  @media screen and (min-width: 768px) and (max-width: 1024px){
+    margin-left: 64px;
+  }
 }
 
 .section {

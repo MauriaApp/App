@@ -2,7 +2,6 @@
 
 .footer {
   position: fixed;
-  left: 0;
   bottom: 0;
   z-index: 100000 !important;
   display: flex;
@@ -14,6 +13,16 @@
   box-shadow: 0 0 16px rgba($color: vars.$primary-700, $alpha: 0.2);
   padding: 0 24px;
   transition: all 0.4s ease;
+
+  // Media query pour les tablettes iPad
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    left: 0; // Colle le footer à gauche de l'écran
+    top: 72px;
+    justify-content: flex-start; // Aligne les éléments du haut
+    width: 64px; // Largeur fixe pour la barre de navigation
+    height: calc(100% - 72px); // Hauteur égale à la hauteur de la fenêtre
+    padding: 24px 0; // Ajuste le padding pour les éléments à l'intérieur
+  }
 }
 
 .footer-nav {
@@ -22,6 +31,18 @@
   justify-content: space-between;
   margin-bottom: env(safe-area-inset-bottom, 20px);
   height: 64px;
+
+  // Media query pour les tablettes iPad
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    display: flex;
+    flex-direction: column; // Change la direction à la verticale
+    align-items: center; // Centre les éléments horizontalement
+    height: 100%; // Remplit la hauteur de la barre de navigation
+    justify-content: space-around; // Espace les éléments verticalement
+    align-items: center; // Alignement à gauche
+    width: 100%; // Ajuste la largeur pour remplir la hauteur
+    padding: 0; // Supprime le padding
+  }
 }
 
 .nav-link {
@@ -36,6 +57,7 @@
   &.active {
     transform: scale(1.12);
   }
+
   transition: all 0.24s ease;
 }
 
