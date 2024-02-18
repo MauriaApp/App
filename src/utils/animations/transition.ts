@@ -3,16 +3,18 @@ import { createAnimation } from "@ionic/react";
 export const RouterAnimation = (baseEl: HTMLElement, opts?: any) => {
   const enteringAnimation = createAnimation()
     .addElement(opts.enteringEl)
-    .fromTo("transform", "translateX(100%)", "translateX(0%)")
-    .duration(800)
-    .easing("cubic-bezier(0.85, 0, 0.15, 1)");
+    .duration(500)
+    .easing("cubic-bezier(0.32, 0.64, 0.75, 1)")
+    .fromTo("opacity", 0, 1)
+    .fromTo("transform", "scale(0.9)", "scale(1)");
+
   const leavingAnimation = createAnimation()
     .addElement(opts.leavingEl)
-    .fromTo("transform", "translateX(0%)", "translateX(-100%)")
-    .duration(800)
-    .easing("cubic-bezier(0.85, 0, 0.15, 1)");
+    .duration(400)
+    .easing("cubic-bezier(0.32, 0.64, 0.75, 1)")
+    .fromTo("opacity", 1, 0)
+    .fromTo("transform", "translateY(0)", "translateY(-15%)");
 
   return createAnimation()
-    .addAnimation(enteringAnimation)
-    .addAnimation(leavingAnimation);
+    .addAnimation([enteringAnimation, leavingAnimation]);
 };

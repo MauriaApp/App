@@ -34,6 +34,7 @@ import { LocalNotifications } from "@capacitor/local-notifications";
 import { fetchAbsences, fetchPlanning, fetchNotes } from "./utils/api/api";
 import { MauriaNoteType } from "./types/note";
 import { useEffect } from "react";
+import { RouterAnimation } from "./utils/animations/transition";
 
 dayjs.locale("fr");
 dayjs.extend(relativeTime);
@@ -106,7 +107,7 @@ const App = () => {
         <ModalContextProvider>
           <IonApp className={isDarkMode ? "dark" : ""}>
             <IonReactRouter>
-              <IonRouterOutlet placeholder={undefined}>
+              <IonRouterOutlet animation={RouterAnimation} placeholder={undefined}>
                 <Route exact path="/login">
                   <Login />
                 </Route>

@@ -20,6 +20,7 @@ import Toast from "../components/common/Layout/Toast";
 import Modal from "../components/common/Layout/Modal";
 import { ToastContext, ToastContextType } from "../contexts/toastContext";
 import Outils from "./Outils";
+import { RouterAnimation } from "../utils/animations/transition";
 
 const AppRouter = ({ match }: { match: any }) => {
   const modalContext = useContext(ModalContext) as ModalContextType;
@@ -39,7 +40,7 @@ const AppRouter = ({ match }: { match: any }) => {
   return (
     <>
       <Header isAuth />
-      <IonRouterOutlet placeholder={undefined}>
+      <IonRouterOutlet animation={RouterAnimation} placeholder={undefined}>
         <Route path="/app/home" component={Home} />
         <Route path="/app/planning" component={Planning} />
         <Route path="/app/notes" component={Grades} />
