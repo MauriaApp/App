@@ -1,0 +1,13 @@
+@use "../../theme/variables" as vars;
+
+.create-event-button {
+  position: fixed;
+  bottom: calc(80px + env(safe-area-inset-bottom));
+  right: 20px;
+  z-index: 100;
+  font-size: 1.8rem;
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 16px 32px rgba($color: vars.$accent-400, $alpha: 0.24);
+}

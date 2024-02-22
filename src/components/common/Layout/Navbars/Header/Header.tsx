@@ -8,7 +8,7 @@ import { ReactComponent as Settings } from "../../../../../assets/svg/icons/Sett
 import { ReactComponent as Associations } from "../../../../../assets/svg/icons/Association.svg";
 import { ReactComponent as Aurion } from "../../../../../assets/svg/icons/Grade.svg";
 import { ReactComponent as Basketball } from "../../../../../assets/svg/icons/Sport.svg";
-import { ReactComponent as BookAtlas } from "../../../../../assets/svg/icons/book-atlas.svg";
+// import { ReactComponent as BookAtlas } from "../../../../../assets/svg/icons/book-atlas.svg";
 import { useRef, useState } from "react";
 import { Browser } from "@capacitor/browser";
 
@@ -40,7 +40,7 @@ const Header = ({ isAuth }: { isAuth?: boolean }) => {
 
   if (!isAuth) {
     return (
-      <IonHeader className={styles["header-container"]}>
+      <IonHeader className={styles["header-container"]} placeholder={undefined}>
         <header className={styles["header"]}>
           <div className={styles["logo"]}>Mauria</div>
         </header>
@@ -55,8 +55,7 @@ const Header = ({ isAuth }: { isAuth?: boolean }) => {
           styles["header-container"],
           isShown && styles["isShown"]
         )}
-        ref={navRef}
-      >
+        ref={navRef} placeholder={undefined}      >
         <header className={styles["header"]}>
           <div className={styles["logo"]}>Mauria</div>
           <div
@@ -103,7 +102,16 @@ const Header = ({ isAuth }: { isAuth?: boolean }) => {
             <span>AS (sports)</span>
           </div>
 
-          <div
+          <Link
+            to={"outils"}
+            className={styles["nav-element"]}
+            onClick={onTabClick}
+          >
+            <Aurion />
+            <span>Outils Junia</span>
+          </Link>
+
+          {/* <div
             className={styles["nav-element"]}
             onClick={async () => {
               await hapticsImpactLight();
@@ -123,7 +131,7 @@ const Header = ({ isAuth }: { isAuth?: boolean }) => {
           >
             <BookAtlas />
             <span>Junia-Learning</span>
-          </div>
+          </div> */}
 
           <Link
             to={"settings"}

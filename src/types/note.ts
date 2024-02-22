@@ -6,6 +6,7 @@ export type MauriaNoteType = {
   date: string;
   epreuve: string;
   note: string;
+  commentaire: string;
 };
 
 export type MauriaNoteStatsType = {

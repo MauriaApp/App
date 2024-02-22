@@ -1,0 +1,95 @@
+@use "../../../theme/_variables.scss" as vars;
+
+.date {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  opacity: 0.64;
+}
+
+.note {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.coefficient {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.64;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+  list-style: none;
+  font-weight: 600;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+}
+
+.disclaimer {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+  font-weight: 600;
+  opacity: 0.56;
+
+  a {
+    color: vars.$accent-400;
+  }
+}
+.label {
+  font-weight: 800;
+  color: vars.$primary-900;
+}
+
+.value {
+  font-weight: 800;
+  color: vars.$accent-500;
+}
+
+.notShared {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+  font-weight: 600;
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    .message {
+      font-size: 1.08rem;
+    }
+
+    .tip {
+      font-size: 0.9rem;
+      opacity: 0.64;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .code {
+    font-weight: 600;
+    opacity: 0.4;
+  }
+}
+
+:global(.dark) {
+  .label {
+    color: vars.$light-primary-800;
+  }
+}

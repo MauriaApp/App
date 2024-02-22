@@ -35,8 +35,14 @@ const StatsModalContent: FC<StatsModalProps> = ({
             {exam.note}
           </h3>
           <span className={styles["coefficient"]}>
-            Coeff {exam.coefficient}
+            Coeff : {exam.coefficient}
           </span>
+          <br></br>
+          {exam.commentaire ? (
+            <span className={styles["coefficient"]}>Commentaire : {exam.commentaire}</span>
+          ) : (
+            <></>
+          )}
         </section>
 
         <section>

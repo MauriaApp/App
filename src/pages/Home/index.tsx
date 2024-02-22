@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 
 import {
+  fetchEventJunia,
   fetchImportantMessage,
   fetchPlanning,
   getFirstName,
@@ -25,6 +26,7 @@ import PageTemplate from "../Template";
 
 import styles from "./Home.module.scss";
 import clsx from "clsx";
+import EventJunia from "../../components/Pages/Home/Events";
 
 const calendarQuery = async (planning: MauriaEventType[] | null) => {
   if (!planning) {
@@ -36,6 +38,10 @@ const calendarQuery = async (planning: MauriaEventType[] | null) => {
 
 const messageQueryFunction = async () => {
   return await fetchImportantMessage();
+};
+
+const eventJuniaQueryFunction = async () => {
+  return await fetchEventJunia();
 };
 
 const Home: React.FC = () => {
@@ -52,7 +58,7 @@ const Home: React.FC = () => {
   const { openToast } = useContext(ToastContext) as ToastContextType;
   const { openModal } = useContext(ModalContext) as ModalContextType;
 
-  const [messageQuery, planningQuery] = useQueries({
+  const [messageQuery, planningQuery, eventQuery] = useQueries({
     queries: [
       {
         queryKey: ["message"],
@@ -62,6 +68,11 @@ const Home: React.FC = () => {
       {
         queryKey: ["livePlanning"],
         queryFn: async () => await calendarQuery(livePlanning),
+        networkMode: "always",
+      },
+      {
+        queryKey: ["eventJunia"],
+        queryFn: async () => await eventJuniaQueryFunction(),
         networkMode: "always",
       },
     ],
@@ -82,11 +93,11 @@ const Home: React.FC = () => {
     },
   });
 
-  const handleRefresh = (event: CustomEvent) => {
+  const handleRefresh = useCallback((event: CustomEvent) => {
     refreshMutation.mutateAsync().then(() => {
       event.detail.complete();
     });
-  };
+  }, [refreshMutation]);
 
   const updateMutation = useMutation({
     mutationFn: async () => {
@@ -115,7 +126,7 @@ const Home: React.FC = () => {
     return (
       <div className={"no-content-container"}>
         <span className={"no-content-text"}>
-          Aucune note à afficher pour le moment !
+          Aucun cours à venir pour le moment
         </span>
       </div>
     );
@@ -179,6 +190,12 @@ const Home: React.FC = () => {
         </h2>
         {getIncomingEvents(data.planning)}
       </section>
+
+      {eventQuery.isLoading ? (
+        <EventJunia loading />
+      ) : (
+        <EventJunia events={eventQuery.data} />
+      )}
     </PageTemplate>
   );
 };

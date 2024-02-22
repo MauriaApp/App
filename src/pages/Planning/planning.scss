@@ -102,6 +102,9 @@
 }
 
 
+
+
+
 .est-epreuve {
   color: vars.$white !important;
   background: linear-gradient(
@@ -116,11 +119,86 @@
   color: vars.$white !important;
   background: linear-gradient(
                   45deg,
-                  vars.$success-400,
-                  vars.$success-800
+                  vars.$success-700,
+                  vars.$success-900
   ) !important;
   box-shadow: 0 16px 32px rgba($color: vars.$success-400, $alpha: 0.24) !important;
 }
+
+.TD_AUTO_GERE_PLANIFIE,
+.TP_AUTO_GERE_PLANIFIE,
+.CM_AUTO_GERE_PLANIFIE,
+.PROJET_AUTO_GERE {
+  color: vars.$white !important;
+  background: linear-gradient(
+                  45deg,
+                  vars.$success-400,
+                  vars.$success-700
+  ) !important;
+  box-shadow: 0 16px 32px rgba($color: vars.$success-400, $alpha: 0.24) !important;
+}
+
+// .CC {
+//   background-color: #FF0000;
+// }
+// .INTERRO_SURV {
+//   background-color: #FF0000;
+// }
+// .CC_SURV {
+//   background-color: #FF0000;
+// }
+// .TD_AUTO_GERE_PLANIFIE {
+//   background-color: #F9B006 !important;
+// }
+// .DS {
+//   background-color: #FF0000;
+// }
+// .CM_AUTO_GERE_PLANIFIE {
+//   background-color: #F9B006;
+// }
+// .EXAM {
+//   background-color: #FF0000;
+// }
+// .EXAM_SURV {
+//   background-color: #FF0000;
+// }
+// .TP_AUTO_GERE_PLANIFIE {
+//   background-color: #F9B006;
+// }
+// .INTERROGATIONS {
+//   background-color: #FF0000;
+// }
+// .IO {
+//   background-color: #FF0000;
+// }
+// .PARTIEL {
+//   background-color: #FF0000;
+// }
+// .RATTRAPAGE {
+//   background-color: #FF0000;
+// }
+// .RATTRAPAGE_SURV {
+//   background-color: #FF0000;
+// }
+// .DS_SURV {
+//   background-color: #FF0000;
+// }
+// .PARTIEL_SURV {
+//   background-color: #FF0000;
+// }
+// .AUTO_APPR {
+//   background-color: #F9B006;
+// }
+// .PROJET_AUTO_GERE {
+//   background-color: #F9B006;
+// }
+// .TIE {
+//   background-color: #F9B006;
+// }
+// .RENFORT_SOUTIEN {
+//   background-color: #9428FF;
+// }
+
 
 
 
@@ -147,6 +225,31 @@
       vars.$primary-900
     ) !important;
     box-shadow: 0 16px 32px rgba($color: #000, $alpha: 0.24);
+  }
+  .fc-timegrid-event.TD_AUTO_GERE_PLANIFIE,
+  .fc-timegrid-more-link.TD_AUTO_GERE_PLANIFIE,
+  .fc-timegrid-event.TP_AUTO_GERE_PLANIFIE,
+  .fc-timegrid-more-link.TP_AUTO_GERE_PLANIFIE,
+  .fc-timegrid-event.CM_AUTO_GERE_PLANIFIE,
+  .fc-timegrid-more-link.CM_AUTO_GERE_PLANIFIE,
+  .fc-timegrid-event.PROJET_AUTO_GERE,
+  .fc-timegrid-more-link.PROJET_AUTO_GERE {
+    color: vars.$white !important;
+    background: linear-gradient(
+      45deg,
+      vars.$success-300,
+      vars.$success-500
+    ) !important;
+    box-shadow: 0 16px 32px rgba($color: vars.$success-400, $alpha: 0.24) !important;
+  }
+  .fc-timegrid-event.est-perso {
+    color: vars.$white !important;
+    background: linear-gradient(
+                    45deg,
+                    vars.$success-500,
+                    vars.$success-700
+    ) !important;
+    box-shadow: 0 16px 32px rgba($color: vars.$success-400, $alpha: 0.24) !important;
   }
 }
 
@@ -191,3 +294,11 @@
   width: 130px;
 }
 
+// fix planning écrasé sur le côté
+.fc-col-header,
+.fc-daygrid-body,
+.fc-scrollgrid-sync-table,
+.fc-timegrid-body, 
+.fc-timegrid-body table {
+    width: 100% !important;
+}

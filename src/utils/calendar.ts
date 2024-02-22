@@ -88,10 +88,10 @@ export const fetchLivePlanning = (): { planning: MauriaEventType[], isTomorrow: 
 
   if (livePlanning.length > 0) {
     if (isTomorrow(livePlanning[0].data.end)) {
-      return {planning: livePlanning, isTomorrow: isTomorrowPlanning};
+      return { planning: livePlanning, isTomorrow: isTomorrowPlanning };
     }
     isTomorrowPlanning = false;
-    return {planning: livePlanning, isTomorrow: isTomorrowPlanning};
+    return { planning: livePlanning, isTomorrow: isTomorrowPlanning };
   }
 
   if (livePlanning.length === 0) {
@@ -127,12 +127,44 @@ export const fetchTomorrowLessons = (): MauriaEventType[] => {
         type: event.className,
         room: data[0],
         teacher: data[5],
-        start: `${("0" + startTime.getHours()).slice(-2)}:${(
+        start: `${("0" + (startTime.getHours())).slice(-2)}:${(
           "0" + startTime.getMinutes()
         ).slice(-2)}`,
-        end: `${("0" + endTime.getHours()).slice(-2)}:${(
+        end: `${("0" + (endTime.getHours())).slice(-2)}:${(
           "0" + endTime.getMinutes()
         ).slice(-2)}`,
       });
     });
+};
+
+
+export const fetchEvent = (event: AurionEventType): MauriaEventType => {
+
+  // console.log(event);
+
+  const data = event.title.split("\n");
+
+  const isCurrent = isInInterval(event.start, event.end);
+
+  const startTime = new Date(event.start);
+  const endTime = new Date(event.end);
+
+
+  const title = data[2] ? (data[2].length > 0 ? data[2] : data[1]) : data[1];
+
+  return Object.assign({
+    id: event.id,
+    isCurrent,
+    data: event,
+    title: title,
+    type: event.className,
+    room: data[0],
+    teacher: data[5],
+    start: `${("0" + (startTime.getHours() - 1)).slice(-2)}:${(
+      "0" + startTime.getMinutes()
+    ).slice(-2)}`,
+    end: `${("0" + (endTime.getHours() - 1)).slice(-2)}:${(
+      "0" + endTime.getMinutes()
+    ).slice(-2)}`,
+  });
 };

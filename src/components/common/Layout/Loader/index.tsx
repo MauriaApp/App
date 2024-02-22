@@ -5,7 +5,7 @@ import styles from "./Loader.module.scss";
 const Loader = () => {
   return (
     <div className={styles["spinner"]}>
-      <IonSpinner name={"crescent"} />
+      <IonSpinner name={"crescent"} placeholder={undefined} />
       <span>Chargement...</span>
     </div>
   );

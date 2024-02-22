@@ -1,0 +1,71 @@
+workflows:
+  ios-workflow:
+    name: iOS Workflow
+    max_build_duration: 120
+    integrations:
+      app_store_connect: Milo
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: fr.mylow.mauria
+      vars:
+        BUNDLE_ID: "fr.mylow.mauria"
+        XCODE_WORKSPACE: "App.xcworkspace" # <-- Put the name of your Xcode workspace here
+        XCODE_SCHEME: "App" # <-- Put the name of your Xcode scheme here
+        APP_ID: 6444381612
+      xcode: 15.1
+      cocoapods: default
+    scripts:
+      - name: Install npm dependencies for Ionic Capacitor project
+        script: | 
+          npm install
+
+      - name : build web assets
+        script: | 
+          npm run build
+
+      - name : add assets
+        script: | 
+          npx @capacitor/assets generate --ios
+
+      - name: Cocoapods installation
+        script: | 
+          cd ios/App && pod install
+
+      - name: Update dependencies and copy web assets to native project
+        script: | 
+          # if you don't need to update native dependencies, use this:
+          # npx cap copy
+          #
+          # to update native dependencies, use this command:
+          npx cap sync
+
+      - name: Set up code signing settings on Xcode project
+        script: | 
+          xcode-project use-profiles
+      - name: Increment build number
+        script: | 
+          cd $CM_BUILD_DIR/ios/App
+          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_ID")
+          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+      - name: Build ipa for distribution
+        script: | 
+          cd $CM_BUILD_DIR/ios/App
+          xcode-project build-ipa \
+            --workspace "$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - ios/App/build/ios/ipa/*.ipa
+    publishing:
+      app_store_connect:
+        auth: integration
+
+        # Configuration related to TestFlight (optional)
+        # Note: This action is performed during post-processing.
+        submit_to_testflight: true
+        beta_groups: # Specify the names of beta tester groups that will get access to the build once it has passed beta review.
+          - Yessie
+
+        # Configuration related to App Store (optional)
+        # Note: This action is performed during post-processing.
+        submit_to_app_store: false

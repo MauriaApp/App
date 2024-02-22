@@ -1,0 +1,131 @@
+@use "../../../theme/_variables.scss" as vars;
+
+
+.eventMainInfos {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.eventType {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.date {
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.64;
+}
+
+
+.infosSeparator {
+  height: 2px;
+  width: 16px;
+  border-radius: 9999px;
+  background-color: vars.$accent-500;
+}
+
+.room {
+  font-size: 1.24rem;
+  font-weight: 800;
+  width: fit-content;
+}
+
+.note {
+  font-size: 1.5rem;
+  width: fit-content;
+  font-weight: 800;
+}
+
+.coefficient {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.64;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+  list-style: none;
+  font-weight: 600;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+}
+
+.disclaimer {
+  margin: 0;
+  font-size: 0.8rem;
+  font-style: italic;
+  font-weight: 600;
+  opacity: 0.56;
+
+  a {
+    color: vars.$accent-400;
+  }
+}
+
+.label {
+  font-weight: 800;
+  color: vars.$primary-900;
+}
+
+.value {
+  font-weight: 800;
+  color: vars.$accent-500;
+}
+
+.notShared {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+  font-weight: 600;
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .message {
+      font-size: 1.08rem;
+    }
+
+    .tip {
+      font-size: 0.9rem;
+      opacity: 0.64;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+}
+
+
+.rawDataTitle {
+  font-size: 1.16rem;
+  font-weight: 800;
+}
+
+.code {
+  font-weight: 600;
+  opacity: 0.4;
+}
+
+:global(.dark) {
+  .label {
+    color: vars.$light-primary-800;
+  }
+}

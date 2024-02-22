@@ -9,7 +9,7 @@ import {useForm} from "react-hook-form";
 
 import {IonContent, IonPage} from "@ionic/react";
 import {login} from "../../utils/api/api";
-import {useHistory} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import Header from "../../components/common/Layout/Navbars/Header/Header";
 import clsx from "clsx";
 
@@ -26,27 +26,28 @@ const Login: React.FC = () => {
 
   const [error, setError] = React.useState<string | null>(null);
 
-  const history = useHistory();
+
+  const [redirect, setRedirect] = React.useState(false);
 
   const onSubmit = async (data: any) => {
     let isLoggedIn = await login(data.email.toLowerCase(), data.password);
 
     if (isLoggedIn) {
-      history.push("/app/home");
-      return;
+      setRedirect(true);
+    } else {
+      setError("Adresse mail ou mot de passe incorrect.");
     }
-
-    localStorage.removeItem("email");
-    localStorage.removeItem("password");
-
-    setError("Adresse mail ou mot de passe incorrect.");
-    return;
   };
 
+  if (redirect) {
+    return <Redirect to="/app/home" />;
+  }
+
+
   return (
-    <IonPage>
+    <IonPage placeholder={undefined}>
       <Header />
-      <IonContent className={styles["content"]}>
+      <IonContent className={styles["content"]} placeholder={undefined}>
         <h1 className={clsx("text-primary", styles["title"])}>
           Bienvenue sur <span style={{ whiteSpace: "nowrap" }}>Mauria !</span>
         </h1>
