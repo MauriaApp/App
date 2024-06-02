@@ -12,13 +12,11 @@ import clsx from "clsx";
 type NoteProps = {
   index?: number;
   exam: MauriaNoteType;
-  stats?: MauriaNoteStatsType;
-  notesShared: boolean;
   isNew?: boolean;
   className?: string;
 };
 
-const Note: React.FC<NoteProps> = ({ exam, stats, notesShared, ...props }) => {
+const Note: React.FC<NoteProps> = ({ exam, ...props }) => {
   const noteRef = useRef(null);
   const entry = useIntersectionObserver(noteRef, {});
   const isVisible = entry?.isIntersecting!!;
@@ -29,8 +27,6 @@ const Note: React.FC<NoteProps> = ({ exam, stats, notesShared, ...props }) => {
     openModal(
       <StatsModalContent
         exam={exam}
-        stats={stats}
-        notesShared={notesShared ?? false}
       />
     );
 

@@ -45,8 +45,6 @@ const Notes: React.FC = () => {
     "newNotes",
     []
   );
-  const userStats = useReadLocalStorage<MauriaNoteStatsType[]>("userStats");
-  const notesShared = useReadLocalStorage<boolean>("notesShared");
 
   const { openToast } = useContext(ToastContext) as ToastContextType;
 
@@ -96,11 +94,6 @@ const Notes: React.FC = () => {
     yearFilterMutation.mutate();
   };
 
-  useEffectOnce(() => {
-    if (notesShared && userStats?.length === 0) {
-      fetchNoteStats();
-    }
-  });
 
   if (isLoading) {
     return <PageTemplate title={"Notes"} isLoading />;
@@ -128,8 +121,6 @@ const Notes: React.FC = () => {
                       key={element.note.code}
                       index={index}
                       exam={element.note}
-                      stats={element.stats}
-                      notesShared={notesShared ?? false}
                     />
                   )
                 )}
@@ -148,8 +139,6 @@ const Notes: React.FC = () => {
                     key={element.note.code}
                     index={newNotes.length + index}
                     exam={element.note}
-                    stats={element.stats}
-                    notesShared={notesShared ?? false}
                   />
                 ))
               ) : (
