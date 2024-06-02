@@ -42,30 +42,30 @@ const StatsModalContent: FC<StatsModalProps> = ({
           <h3 className={"sectionTitle text-primary"}>Statistiques :</h3>
               <>
                 <p className={styles["disclaimer"]}>
-                  Ces statistiques se proviennent d'Aurion
+                  Ces statistiques proviennent d'Aurion
                 </p>
                 <ul className={styles["stats"]}>
                   <li>
                     <span className={styles["label"]}>Moyenne</span>
-                    <span className={styles["value"]}>{exam.moyenne}</span>
+                    <span className={styles["value"]}>{exam.moyenne ? exam.moyenne : ""}</span>
                   </li>
                   <li>
                     <span className={styles["label"]}>Médiane</span>
-                    <span className={styles["value"]}>{exam.mediane}</span>
+                    <span className={styles["value"]}>{exam.mediane ? exam.mediane : ""}</span>
                   </li>
                   <li>
                     <span className={styles["label"]}>Écart-type</span>
                     <span className={styles["value"]}>
-                      {exam.ecartType}
+                      {exam.ecartType ? exam.ecartType : ""}
                     </span>
                   </li>
                   <li>
                     <span className={styles["label"]}>Minimum</span>
-                    <span className={styles["value"]}>{exam.min}</span>
+                    <span className={styles["value"]}>{exam.min ? exam.min : ""}</span>
                   </li>
                   <li>
                     <span className={styles["label"]}>Maximum</span>
-                    <span className={styles["value"]}>{exam.max}</span>
+                    <span className={styles["value"]}>{exam.max ? exam.max : ""}</span>
                   </li>
                 </ul>
               </>

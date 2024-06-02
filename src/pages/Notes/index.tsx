@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useEffectOnce, useLocalStorage, useReadLocalStorage, } from "usehooks-ts";
-import { fetchNotes, fetchNoteStats } from "../../utils/api/api";
+import { fetchNotes } from "../../utils/api/api";
 import { MauriaNoteStatsType, MauriaNoteType } from "../../types/note";
 import { getCurrentYearMergedNotesData, mergeNewNotesData, mergeNotesData } from "./logic";
 

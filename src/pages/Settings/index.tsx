@@ -5,7 +5,7 @@ import styles from "./Settings.module.scss";
 import { useDarkMode, useEffectOnce, useLocalStorage } from "usehooks-ts";
 import Input from "../../components/common/Layout/Input/Input";
 import { useForm } from "react-hook-form";
-import { fetchNoteStats, getFirstName } from "../../utils/api/api";
+import { getFirstName } from "../../utils/api/api";
 import { ReactComponent as Check } from "../../assets/svg/icons/Checkmark.svg";
 import Button from "../../components/common/Layout/Button/Button";
 import { logout } from "../../utils/logout";
@@ -26,18 +26,7 @@ const Settings = () => {
   });
 
   const toggleNoteShared = async () => {
-    if (notesShared) {
-      setNotesShared(false);
-      localStorage.removeItem("userStats");
-      return;
-    }
     setNotesShared(true);
-    openToast({
-      type: "information",
-      title: "Récupération des statistiques...",
-    });
-
-    await fetchNoteStats();
 
     openToast({
       type: "success",
@@ -91,7 +80,7 @@ const Settings = () => {
           </form>
         </div>
       </section>
-      <section>
+      {/* <section>
         <h2 className={"sectionTitle text-primary"}>Données</h2>
         <div className={styles["section-content"]}>
           <div className={styles["setting-group"]}>
@@ -102,7 +91,7 @@ const Settings = () => {
               onIonChange={toggleNoteShared} placeholder={undefined}            />
           </div>
         </div>
-      </section>
+      </section> */}
       <div className={styles["buttons-column"]}>
         <Button size={"lg"} round={true} onClick={logout} variant={"primary"}>
           Se déconnecter

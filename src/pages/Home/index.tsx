@@ -1,8 +1,10 @@
 import React, { useCallback, useContext } from "react";
 
 import {
+  fetchAbsences,
   fetchEventJunia,
   fetchImportantMessage,
+  fetchNotes,
   fetchPlanning,
   getFirstName,
 } from "../../utils/api/api";
@@ -27,6 +29,63 @@ import PageTemplate from "../Template";
 import styles from "./Home.module.scss";
 import clsx from "clsx";
 import EventJunia from "../../components/Pages/Home/Events";
+import { Capacitor } from "@capacitor/core";
+import { LocalNotifications } from "@capacitor/local-notifications";
+import { AppUpdate } from "@capawesome/capacitor-app-update";
+import { MauriaNoteType } from "../../types/note";
+
+
+LocalNotifications.checkPermissions().then((permission) => {
+  if (permission.display !== "granted") {
+    LocalNotifications.requestPermissions()
+  }
+});
+
+
+let notificationCounter = 1; // Compteur pour générer des IDs uniques
+
+const intervalFetch = async () => {
+  try {
+    fetchAbsences();
+    fetchPlanning();
+    fetchNotes();
+    console.log("Données en cours d'actualisation...");
+    if (localStorage.getItem("newNotes") !== null) {
+      const newNotes = JSON.parse(localStorage.getItem("newNotes") || "[]");
+      if (newNotes.length > 0) {
+        const existingNotifications = JSON.parse(localStorage.getItem("scheduledNotifications") || "[]");
+        const notificationsToSchedule = newNotes.slice(0, 5).filter((note: MauriaNoteType) => {
+          return !existingNotifications.includes(note.code); // Vérifie si la notification est déjà planifiée
+        });
+        const notifications = notificationsToSchedule.map((note: MauriaNoteType) => {
+          const date = new Date();
+          date.setSeconds(date.getSeconds() + 10);
+          return {
+            title: "Nouvelle note !",
+            body: `Vous avez une nouvelle note en ${note.epreuve}`,
+            id: notificationCounter++, // Utilise un compteur pour générer des IDs uniques
+            schedule: { at: date, allowWhileIdle: true },
+          };
+        });
+        await LocalNotifications.schedule({
+          notifications: notifications,
+        });
+        localStorage.setItem("scheduledNotifications", JSON.stringify([...existingNotifications, ...notificationsToSchedule.map((note: MauriaNoteType) => note.code)]));
+      }
+    }
+    console.log("Données actualisées avec succès");
+  } catch (e) {
+    console.log("Erreur lors de l'actualisation automatique des données");
+  }
+  // interval de 4h pour les fetchs
+  setTimeout(intervalFetch, 14400000);
+
+  // setTimeout(intervalFetch, 30000);
+  if (Capacitor) {
+    const available = await AppUpdate.getAppUpdateInfo();
+    console.log(available);
+  }
+}
 
 const calendarQuery = async (planning: MauriaEventType[] | null) => {
   if (!planning) {
@@ -45,6 +104,7 @@ const eventJuniaQueryFunction = async () => {
 };
 
 const Home: React.FC = () => {
+
   const queryClient = useQueryClient();
   const livePlanning = useReadLocalStorage<MauriaEventType[] | null>(
     "livePlanning"
@@ -107,6 +167,15 @@ const Home: React.FC = () => {
   });
 
   useEffectOnce(() => {
+
+    console.log("isFirstLaunch", isFirstLaunch);
+
+    
+    if (!isFirstLaunch) {
+      console.log("MONSIEEEEEUR");
+      intervalFetch(); // Appel initial de la fonction intervalFetch
+    }
+
     if (isFirstLaunch) {
       openModal(<WelcomeModalContent />, () => setIsFirstLaunch(false));
     }

@@ -21,6 +21,7 @@
     "@capacitor/splash-screen": "^5.0.0",
     "@capacitor/status-bar": "^5.0.0",
     "@capacitor/toast": "^5.0.0",
+    "@capawesome/capacitor-app-update": "^5.1.0",
     "@fullcalendar/core": "^6.0.2",
     "@fullcalendar/daygrid": "^6.0.3",
     "@fullcalendar/interaction": "^6.0.3",
