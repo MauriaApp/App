@@ -48,7 +48,7 @@ const Note: React.FC<NoteProps> = ({ exam, ...props }) => {
           <h2 className={clsx(styles["note"], "text-accent")}>{exam.note}</h2>
 
           <span className={styles["coefficient"]}>
-            Coeff {exam.coefficient}
+            Moyenne {exam.moyenne}
           </span>
         </div>
         <div className={styles["informations"]}>

@@ -55,7 +55,7 @@ const Login: React.FC = () => {
         <form className={styles["form"]} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles["form-group"]}>
             <Input
-              placeholder={"Adresse JUNIA"}
+              placeholder={"Adresse utilisée pour Aurion"}
               icon={<Mail />}
               register={register("email", {
                 required: "Ce champ est requis",
