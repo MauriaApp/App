@@ -6,7 +6,7 @@ import {
   ModalContextType,
 } from "../../../../contexts/modalContext";
 import StatsModalContent from "../../../../pages/Notes/StatsModalContent";
-import { MauriaNoteStatsType, MauriaNoteType } from "../../../../types/note";
+import { MauriaNoteType } from "../../../../types/note";
 import clsx from "clsx";
 
 type NoteProps = {
@@ -48,7 +48,7 @@ const Note: React.FC<NoteProps> = ({ exam, ...props }) => {
           <h2 className={clsx(styles["note"], "text-accent")}>{exam.note}</h2>
 
           <span className={styles["coefficient"]}>
-            Moyenne {exam.moyenne}
+            Moy. {exam.moyenne}
           </span>
         </div>
         <div className={styles["informations"]}>
@@ -74,7 +74,7 @@ const Note: React.FC<NoteProps> = ({ exam, ...props }) => {
     >
       <div className={styles["note-container"]}>
         <h2 className={clsx(styles["note"], "text-accent")}>{exam.note}</h2>
-        <span className={styles["coefficient"]}>Coeff {exam.coefficient}</span>
+        <span className={styles["coefficient"]}>Moy. {exam.moyenne}</span>
       </div>
       <div className={styles["informations"]}>
         <h3 className={clsx(styles["title"], "text-primary")}>

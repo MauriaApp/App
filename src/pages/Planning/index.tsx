@@ -8,7 +8,7 @@ import { useContext, useRef, useState } from "react";
 import Button from "../../components/common/Layout/Button/Button";
 import { fetchPlanning } from "../../utils/api/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffectOnce, useReadLocalStorage } from "usehooks-ts";
+import { useReadLocalStorage } from "usehooks-ts";
 import { AurionEventType } from "../../types/event";
 import { ToastContext, ToastContextType } from "../../contexts/toastContext";
 import "./planning.scss";
@@ -19,6 +19,7 @@ import AddEventModalContent from "./AddEventModal";
 import ModifyEventModalContent from "./ModifyEventModal";
 import dayjs from "dayjs";
 import PageTemplate from "../Template";
+import moment from "moment-timezone";
 
 // TODO : Delete event
 
@@ -81,20 +82,11 @@ const Planning = () => {
   // problème avec la date, le type était pas lu par useReadLocalStorage (v2.9.1 de usehooks-ts)
   const lastUpdate = localStorage.getItem("lastPlanningUpdate");
 
-  useEffectOnce(() => {
-    // This is to prevent fullCalendar lag
-    // setTimeout(function () {
-    //   window.dispatchEvent(new Event("resize"));
-    // }, 500);
-
-    setTimeout(() => calendarRef.current?.doResize(), 100);
-  });
-
   const openAddEventModal = () => {
     openModal(<AddEventModalContent setUserEvents={setUserEvents} />);
   };
 
-  const openModifyModal = (event: any) => {
+  const openModifyModal = (event: any) => {    
     openModal(
       <ModifyEventModalContent {...event} setUserEvents={setUserEvents} />
     );
@@ -129,6 +121,9 @@ const Planning = () => {
     >
       <section>
         <FullCalendar
+          datesSet={() => {
+            window.dispatchEvent(new Event('resize'));
+          }}
           ref={calendarRef}
           locale={FrLocale}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -158,7 +153,12 @@ const Planning = () => {
           // eventDragMinDistance={0}
 
           eventClick={(info) => {
-            openModifyModal(info.event);
+            const startTime = moment(info.event.start).tz('Europe/Paris').format('HH:mm');
+            const endTime = moment(info.event.end).tz('Europe/Paris').format('HH:mm');           
+            
+            const newEvent = {...info.event, start: startTime, end: endTime};
+
+            openModifyModal(newEvent);
           }}
         />
         <div className="last-update">

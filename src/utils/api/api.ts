@@ -24,7 +24,7 @@ export async function login(email: string, password: string) {
     .then((response) => {
       response.status === 302
         ? AddToStorage(email, password)
-        : window.alert("Identifiants incorrect !");
+        : console.log("Erreur de connexion");
       fetchFirstName();
     })
     .catch((error) => {

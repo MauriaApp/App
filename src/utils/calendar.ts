@@ -140,15 +140,13 @@ export const fetchTomorrowLessons = (): MauriaEventType[] => {
 
 export const fetchEvent = (event: AurionEventType): MauriaEventType => {
 
-  // console.log(event);
 
   const data = event.title.split("\n");
 
   const isCurrent = isInInterval(event.start, event.end);
 
-  const startTime = new Date(event.start);
-  const endTime = new Date(event.end);
-
+  const startTime = event.start;
+  const endTime = event.end;
 
   const title = data[2] ? (data[2].length > 0 ? data[2] : data[1]) : data[1];
 
@@ -160,11 +158,7 @@ export const fetchEvent = (event: AurionEventType): MauriaEventType => {
     type: event.className,
     room: data[0],
     teacher: data[5],
-    start: `${("0" + (startTime.getHours() - 1)).slice(-2)}:${(
-      "0" + startTime.getMinutes()
-    ).slice(-2)}`,
-    end: `${("0" + (endTime.getHours() - 1)).slice(-2)}:${(
-      "0" + endTime.getMinutes()
-    ).slice(-2)}`,
+    start: startTime,
+    end: endTime,
   });
 };
