@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styles from "../../../components/common/Layout/Modal/modal.module.scss";
 import Button from "../../../components/common/Layout/Button/Button";
 import { AssociationType } from "../../../types/association";
@@ -7,9 +7,7 @@ type AssociationModalContentProps = {
   association?: AssociationType;
 };
 
-const AssociationModalContent: FC<AssociationModalContentProps> = ({
-  association,
-}) => {
+const AssociationModalContent: FC<AssociationModalContentProps> = ({association}) => {
   if (association) {
     return (
       <>

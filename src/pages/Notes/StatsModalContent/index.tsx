@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styles from "./statsModal.module.scss";
-import { MauriaNoteStatsType, MauriaNoteType } from "../../../types/note";
+import { MauriaNoteType } from "../../../types/note";
 import modalStyles from "../../../components/common/Layout/Modal/modal.module.scss";
 import clsx from "clsx";
 

@@ -40,7 +40,7 @@ const AppRouter = ({ match }: { match: any }) => {
   return (
     <>
       <Header isAuth />
-      <IonRouterOutlet animation={RouterAnimation} placeholder={undefined}>
+      <IonRouterOutlet animation={RouterAnimation} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
         <Route path="/app/home" component={Home} />
         <Route path="/app/planning" component={Planning} />
         <Route path="/app/notes" component={Grades} />

@@ -22,10 +22,10 @@ export const PageTemplate: FC<TemplateProps> = (props) => {
 
   if (props.isLoading) {
     return (
-      <IonPage placeholder={undefined}>
+      <IonPage placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
         <div className="mock-header"></div>
         {props.header}
-        <IonContent placeholder={undefined}>
+        <IonContent placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
           <header>
             <h1 className="title">{props.title}</h1>
           </header>
@@ -43,10 +43,10 @@ export const PageTemplate: FC<TemplateProps> = (props) => {
   }
 
   return (
-    <IonPage placeholder={undefined}>
+    <IonPage placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
       <div className="mock-header"></div>
       {props.header}
-      <IonContent placeholder={undefined}>
+      <IonContent placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
         {props.onRefresh && (
           <IonRefresher
             slot="fixed"
@@ -57,15 +57,15 @@ export const PageTemplate: FC<TemplateProps> = (props) => {
                 content: "",
               });
               props.onRefresh?.(e);
-            }}
+            } }
             pullFactor={0.5}
             pullMin={40}
             pullMax={160}
             closeDuration="400ms"
-            snapbackDuration="400ms" placeholder={undefined}>
+            snapbackDuration="400ms" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             <IonRefresherContent
               pullingText="Tirer pour actualiser..."
-              refreshingSpinner="crescent" placeholder={undefined}></IonRefresherContent>
+              refreshingSpinner="crescent" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}></IonRefresherContent>
           </IonRefresher>
         )}
         <header >

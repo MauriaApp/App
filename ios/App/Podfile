@@ -24,6 +24,7 @@ def capacitor_pods
   pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
   pod 'CapacitorToast', :path => '../../node_modules/@capacitor/toast'
   pod 'CapawesomeCapacitorAppUpdate', :path => '../../node_modules/@capawesome/capacitor-app-update'
+  pod 'EbarooniCapacitorCalendar', :path => '../../node_modules/@ebarooni/capacitor-calendar'
   pod 'CordovaPlugins', :path => '../capacitor-cordova-ios-plugins'
 end
 

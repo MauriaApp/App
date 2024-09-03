@@ -2,7 +2,7 @@ import { IonToggle } from "@ionic/react";
 import { useContext } from "react";
 
 import styles from "./Settings.module.scss";
-import { useDarkMode, useEffectOnce, useLocalStorage } from "usehooks-ts";
+import { useDarkMode, useEffectOnce } from "usehooks-ts";
 import Input from "../../components/common/Layout/Input/Input";
 import { useForm } from "react-hook-form";
 import { getFirstName } from "../../utils/api/api";
@@ -18,21 +18,11 @@ const Settings = () => {
   const { isDarkMode, toggle } = useDarkMode();
   const { haptics, toggle: toggleHaptics } = useHaptics();
 
-  const [notesShared, setNotesShared] = useLocalStorage("notesShared", false);
   const { openToast } = useContext(ToastContext) as ToastContextType;
 
   useEffectOnce(() => {
     reset({ name: getFirstName() });
   });
-
-  const toggleNoteShared = async () => {
-    setNotesShared(true);
-
-    openToast({
-      type: "success",
-      title: "Statistiques récupérées avec succès !",
-    });
-  };
 
   const onSubmit = (data: any) => {
     localStorage.setItem("name", data.name);
@@ -50,7 +40,7 @@ const Settings = () => {
         <div className={styles["section-content"]}>
           <div className={styles["setting-group"]}>
             <label className={"label"}>Activer le mode sombre</label>
-            <IonToggle mode={"ios"} checked={isDarkMode} onIonChange={toggle} placeholder={undefined} />
+            <IonToggle mode={"ios"} checked={isDarkMode} onIonChange={toggle} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
           </div>
           <div className={styles["setting-group"]}>
             <label className={"label"}>
@@ -59,7 +49,7 @@ const Settings = () => {
             <IonToggle
               mode={"ios"}
               checked={haptics}
-              onIonChange={toggleHaptics} placeholder={undefined}            />
+              onIonChange={toggleHaptics} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}            />
           </div>
 
           <form

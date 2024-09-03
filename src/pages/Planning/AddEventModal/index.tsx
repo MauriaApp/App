@@ -176,8 +176,7 @@ export const AddEventModalContent = ({ setUserEvents }: any) => {
         firstDayOfWeek={1}
         min={new Date().toISOString()}
         onIonChange={(value) => setDate((value.detail.value as string) ?? "")}
-        presentation="date"
-      />
+        presentation="date" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}      />
       <div className={styles["time-container"]}>
         <div className={styles["time-header"]}>
           <div className={styles["time-group"]}>
@@ -215,8 +214,7 @@ export const AddEventModalContent = ({ setUserEvents }: any) => {
             onIonChange={handlePickerChange}
             presentation="time"
             color="primary"
-            placeholder={undefined}
-          >
+            placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
             <span slot={"title"} className={styles["time-picker-title"]}>
               Horaire de {currentPicker === "start" ? "début" : "fin"}
             </span>

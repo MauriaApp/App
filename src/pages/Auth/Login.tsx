@@ -45,9 +45,9 @@ const Login: React.FC = () => {
 
 
   return (
-    <IonPage placeholder={undefined}>
+    <IonPage placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
       <Header />
-      <IonContent className={styles["content"]} placeholder={undefined}>
+      <IonContent className={styles["content"]} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
         <h1 className={clsx("text-primary", styles["title"])}>
           Bienvenue sur <span style={{ whiteSpace: "nowrap" }}>Mauria !</span>
         </h1>

@@ -19,7 +19,7 @@ import "./theme/globals.scss";
 import Login from "./pages/Auth/Login";
 
 import { StatusBar, Style } from "@capacitor/status-bar";
-import { useDarkMode, useEffectOnce } from "usehooks-ts";
+import { useDarkMode } from "usehooks-ts";
 import { ModalContextProvider } from "./contexts/modalContext";
 import { ToastContextProvider } from "./contexts/toastContext";
 
@@ -53,7 +53,7 @@ const App = () => {
         <ModalContextProvider>
           <IonApp className={isDarkMode ? "dark" : ""}>
             <IonReactRouter>
-              <IonRouterOutlet animation={RouterAnimation} placeholder={undefined}>
+              <IonRouterOutlet animation={RouterAnimation} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                 <Route exact path="/login">
                   <Login />
                 </Route>

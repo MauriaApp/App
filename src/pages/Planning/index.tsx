@@ -14,14 +14,15 @@ import { ToastContext, ToastContextType } from "../../contexts/toastContext";
 import "./planning.scss";
 import styles from "./planning.module.scss";
 import { ModalContext, ModalContextType } from "../../contexts/modalContext";
-import { getICS } from "./logic";
+import { exportCalendar } from "./logic";
 import AddEventModalContent from "./AddEventModal";
 import ModifyEventModalContent from "./ModifyEventModal";
 import dayjs from "dayjs";
 import PageTemplate from "../Template";
 import moment from "moment-timezone";
+import CalendarSelectModal from "./Calendar";
+import { Calendar } from "@ebarooni/capacitor-calendar";
 
-// TODO : Delete event
 
 const calendarQuery = async (planning: AurionEventType[] | null) => {
   if (planning) {
@@ -32,6 +33,7 @@ const calendarQuery = async (planning: AurionEventType[] | null) => {
 
 const Planning = () => {
   const queryClient = useQueryClient();
+
   const storedPlanning = useReadLocalStorage<AurionEventType[] | null>(
     "planning"
   );
@@ -40,11 +42,6 @@ const Planning = () => {
     JSON.parse(localStorage.getItem("userEvents") || "[]")
   );
 
-  // const { isLoading, data } = useQuery({
-  //   queryKey: ["planning"],
-  //   queryFn: async () => await calendarQuery(storedPlanning),
-  //   networkMode: "always",
-  // });
 
   const { isLoading, data } = useQuery({
     queryKey: ["planning"], // Ajoutez userEvents comme dépendance
@@ -75,6 +72,8 @@ const Planning = () => {
   };
 
   const { openModal } = useContext(ModalContext) as ModalContextType;
+  const { closeModal } = useContext(ModalContext) as ModalContextType;
+
 
   const calendarRef = useRef<FullCalendar>(null);
   // const lastUpdate = useReadLocalStorage<Date>("lastPlanningUpdate");
@@ -86,7 +85,7 @@ const Planning = () => {
     openModal(<AddEventModalContent setUserEvents={setUserEvents} />);
   };
 
-  const openModifyModal = (event: any) => {    
+  const openModifyModal = (event: any) => {
     openModal(
       <ModifyEventModalContent {...event} setUserEvents={setUserEvents} />
     );
@@ -102,6 +101,22 @@ const Planning = () => {
       +
     </Button>
   );
+
+  // Gestion de l'export du calendrier
+  const handleExportCalendar = () => {
+    openModal(<CalendarSelectModal
+        isOpen={true}
+        onClose={() => closeModal()}
+        onSelect={handleSelectCalendar}
+      />);
+  };
+
+  const handleSelectCalendar = async (calendar: Calendar) => {
+    if (data) {
+      await exportCalendar(data, calendar); // Passez le calendrier sélectionné à exportCalendar
+    }
+    closeModal();
+  };
 
   if (isLoading) {
     return (
@@ -154,9 +169,9 @@ const Planning = () => {
 
           eventClick={(info) => {
             const startTime = moment(info.event.start).tz('Europe/Paris').format('HH:mm');
-            const endTime = moment(info.event.end).tz('Europe/Paris').format('HH:mm');           
-            
-            const newEvent = {...info.event, start: startTime, end: endTime};
+            const endTime = moment(info.event.end).tz('Europe/Paris').format('HH:mm');
+
+            const newEvent = { ...info.event, start: startTime, end: endTime };
 
             openModifyModal(newEvent);
           }}
@@ -167,9 +182,11 @@ const Planning = () => {
         </div>
       </section>
 
-      <Button size={"sm"} round={true} onClick={() => getICS(data)}>
+      <Button size="sm" round onClick={handleExportCalendar}>
         Exporter le planning
       </Button>
+
+
     </PageTemplate>
   );
 };

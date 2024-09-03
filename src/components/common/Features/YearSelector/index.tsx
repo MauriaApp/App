@@ -18,7 +18,7 @@ const YearSelector: FC<YearSelectorProps> = (props) => {
   return (
     <div className={styles["year-row"]}>
       <h2 className="sectionTitle text-primary no-margins">Année actuelle</h2>
-      <IonToggle mode="ios" checked={thisYear} onIonChange={handleToggle} placeholder={undefined} />
+      <IonToggle mode="ios" checked={thisYear} onIonChange={handleToggle} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
     </div>
   );
 };
