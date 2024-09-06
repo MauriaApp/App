@@ -7,13 +7,17 @@ import { AurionEventType } from '../../types/event';
 export const exportCalendar = async (events: AurionEventType[], calendar: Calendar) => {
   try {
     // Demande de permission d'accès au calendrier
-    const permissions = await CapacitorCalendar.requestAllPermissions();
+    const hasPermissions = await CapacitorCalendar.checkAllPermissions();
 
-    if (!permissions.writeCalendar) {
-      alert('Permission d\'écriture sur le calendrier refusée.');
-      return;
+    if (hasPermissions.writeCalendar !== "granted" || hasPermissions.readCalendar !== "granted") {
+      const permissions = await CapacitorCalendar.requestAllPermissions();
+
+      if (permissions.writeCalendar !== "granted") {
+        alert('Permission d\'écriture sur le calendrier refusée.');
+        return;
+      }
     }
-    
+
     // Suppression des événements MAURIA de l'année précédente et de l'année suivante
     const eventsList = await CapacitorCalendar.listEventsInRange({
       startDate: new Date().setFullYear(new Date().getFullYear() - 1),

@@ -15,6 +15,18 @@ const CalendarSelectModal: React.FC<CalendarSelectModalProps> = ({ isOpen, onClo
   useEffect(() => {
     const fetchCalendars = async () => {
       try {
+        // Demande de permission d'accès au calendrier
+        const hasPermissions = await CapacitorCalendar.checkAllPermissions();
+
+        if (hasPermissions.writeCalendar !== "granted" || hasPermissions.readCalendar !== "granted") {
+          const permissions = await CapacitorCalendar.requestAllPermissions();
+
+          if (permissions.writeCalendar !== "granted") {
+            alert('Permission d\'écriture sur le calendrier refusée.');
+            return;
+          }
+        }
+
         const result = await CapacitorCalendar.listCalendars();
         setCalendars(result.result || []);
       } catch (error) {
@@ -37,7 +49,7 @@ const CalendarSelectModal: React.FC<CalendarSelectModalProps> = ({ isOpen, onClo
     <>
       <p>
         En cliquant, les anciennes données seront supprimées et les nouvelles données seront ajoutées à ce calendrier.
-        <br/>
+        <br />
         Essayez d'utiliser le même calendrier pour éviter les doublons.
       </p>
       {calendars

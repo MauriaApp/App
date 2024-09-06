@@ -36,7 +36,7 @@ const notesQuery = async (localNote: MauriaNoteType[], isThisYear: boolean) => {
 };
 
 const Notes: React.FC = () => {
-  const thisYear = useReadLocalStorage<boolean>("thisYear") ?? true;
+  const thisYear = useReadLocalStorage<boolean>("thisYear") as boolean;
 
   const currentNotes = useReadLocalStorage<MauriaNoteType[]>(
     "notes"
@@ -119,11 +119,15 @@ const Notes: React.FC = () => {
             placeholder={"Chercher une note..."}
             onChange={(e: any) => {
               const search = e.target.value.toLowerCase();
-              setFiltredNotes(
-                data?.filter((note) =>
-                  note.note.epreuve.toLowerCase().includes(search)
-                ) || []
-              );
+              if (search !== "") {
+                setFiltredNotes(
+                  data?.filter((note) =>
+                    note.note.epreuve.toLowerCase().includes(search)
+                  ) || []
+                );
+              } else {
+                setFiltredNotes(data || []);
+              }
             }}
           />
           {newNotes.length > 0 && (

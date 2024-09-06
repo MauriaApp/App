@@ -39,7 +39,7 @@ const Note: React.FC<NoteProps> = ({ exam, ...props }) => {
           "card",
           styles["container"],
           styles["animate"],
-          !isVisible && "hidden",
+          // !isVisible && "hidden",
           isVisible && "glassy shadow"
         )}
         onClick={openNoteModal}
@@ -67,7 +67,7 @@ const Note: React.FC<NoteProps> = ({ exam, ...props }) => {
       className={clsx(
         "card",
         styles["container"],
-        !isVisible && "hidden",
+        // !isVisible && "hidden",
         isVisible && "glassy shadow"
       )}
       onClick={openNoteModal}

@@ -139,26 +139,31 @@ export const fetchTomorrowLessons = (): MauriaEventType[] => {
 
 
 export const fetchEvent = (event: AurionEventType): MauriaEventType => {
-
-
-  const data = event.title.split("\n");
+  const data = event.title.split("\n\n");
 
   const isCurrent = isInInterval(event.start, event.end);
 
   const startTime = event.start;
   const endTime = event.end;
 
-  const title = data[2] ? (data[2].length > 0 ? data[2] : data[1]) : data[1];
+  // const title = data[2] ? (data[2].length > 0 ? data[2] : data[1]) : data[1];
+  const salle = data[0];
+  const reste = data[1].split("\n");
 
-  return Object.assign({
+  const title = reste[0];
+  const teacher = reste[reste.length - 1];
+
+  const cours =  Object.assign({
     id: event.id,
     isCurrent,
     data: event,
     title: title,
     type: event.className,
-    room: data[0],
-    teacher: data[5],
+    room: salle,
+    teacher: teacher,
     start: startTime,
     end: endTime,
   });
+
+  return cours;
 };

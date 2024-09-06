@@ -49,7 +49,7 @@ const intervalFetch = async () => {
     fetchAbsences();
     fetchPlanning();
     fetchNotes();
-    console.log("Données en cours d'actualisation...");
+    // console.log("Données en cours d'actualisation...");
     if (localStorage.getItem("newNotes") !== null) {
       const newNotes = JSON.parse(localStorage.getItem("newNotes") || "[]");
       if (newNotes.length > 0) {
@@ -73,7 +73,7 @@ const intervalFetch = async () => {
         localStorage.setItem("scheduledNotifications", JSON.stringify([...existingNotifications, ...notificationsToSchedule.map((note: MauriaNoteType) => note.code)]));
       }
     }
-    console.log("Données actualisées avec succès");
+    // console.log("Données actualisées avec succès");
   } catch (e) {
     console.log("Erreur lors de l'actualisation automatique des données");
   }
@@ -172,7 +172,6 @@ const Home: React.FC = () => {
 
     
     if (!isFirstLaunch) {
-      console.log("MONSIEEEEEUR");
       intervalFetch(); // Appel initial de la fonction intervalFetch
     }
 
