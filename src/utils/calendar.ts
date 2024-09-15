@@ -1,4 +1,10 @@
 import { AurionEventType, MauriaEventType } from "../types/event";
+import moment from "moment-timezone";
+
+const TODAYDATE : Date = new Date();
+
+// POUR TESTER ONLY
+// const TODAYDATE : Date = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000);
 
 export const getRoom = (event: AurionEventType): string => {
   return event.title.split("\n\n")[0];
@@ -17,7 +23,7 @@ export const formatTime = (time: Date): string => {
 
 const isToday = (date: Date) => {
   const eventDate = new Date(date);
-  const todayDate = new Date();
+  const todayDate = TODAYDATE
 
   return (
     eventDate.getDate() === todayDate.getDate() &&
@@ -25,8 +31,9 @@ const isToday = (date: Date) => {
     eventDate.getFullYear() === todayDate.getFullYear()
   );
 };
+
 const isTomorrow = (date: Date) => {
-  const tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+  const tomorrow = new Date(TODAYDATE.getTime() + 1 * 24 * 60 * 60 * 1000);
   const day = new Date(date);
 
   return (
@@ -37,7 +44,7 @@ const isTomorrow = (date: Date) => {
 };
 
 export const isInInterval = (start: Date, end: Date) => {
-  const currentTime = new Date().getTime();
+  const currentTime = TODAYDATE.getTime();
 
   const startTime = new Date(start).getTime();
   const endTime = new Date(end).getTime();
@@ -48,7 +55,7 @@ export const isInInterval = (start: Date, end: Date) => {
 export const fetchLivePlanning = (): { planning: MauriaEventType[], isTomorrow: boolean } => {
   let data = JSON.parse(localStorage.getItem("planning") || "[]");
 
-  const currentTime = new Date().getTime();
+  const currentTime = TODAYDATE.getTime();
   let isTomorrowPlanning = true;
 
   let livePlanning = data
@@ -58,28 +65,12 @@ export const fetchLivePlanning = (): { planning: MauriaEventType[], isTomorrow: 
       return isToday(event.end) && currentTime <= endTime;
     })
     .map((event: any) => {
-      const data = event.title.split("\n");
+      const newEvent = fetchEvent(event);
 
-      const isCurrent = isInInterval(event.start, event.end);
+      newEvent.start = moment(newEvent.start).tz('Europe/Paris').format('HH:mm');
+      newEvent.end = moment(newEvent.end).tz('Europe/Paris').format('HH:mm');     
 
-      const startTime = new Date(event.start);
-      const endTime = new Date(event.end);
-
-      return Object.assign({
-        id: parseInt(event.id),
-        isCurrent,
-        data: event,
-        title: data[2],
-        type: event.className,
-        room: data[0],
-        teacher: data[5],
-        start: `${("0" + startTime.getHours()).slice(-2)}:${(
-          "0" + startTime.getMinutes()
-        ).slice(-2)}`,
-        end: `${("0" + endTime.getHours()).slice(-2)}:${(
-          "0" + endTime.getMinutes()
-        ).slice(-2)}`,
-      });
+      return newEvent;
     });
 
   // console.log(livePlanning);
@@ -105,7 +96,7 @@ export const fetchLivePlanning = (): { planning: MauriaEventType[], isTomorrow: 
 export const fetchTomorrowLessons = (): MauriaEventType[] => {
   let data = JSON.parse(localStorage.getItem("planning") || "[]");
 
-  const currentTime = new Date().getTime();
+  const currentTime = TODAYDATE.getTime();
 
   return data
     .filter((event: any) => {
@@ -114,46 +105,31 @@ export const fetchTomorrowLessons = (): MauriaEventType[] => {
       return isTomorrow(event.end) && currentTime <= endTime;
     })
     .map((event: any) => {
-      const data = event.title.split("\n");
+      const newEvent = fetchEvent(event);
 
-      const startTime = new Date(event.start);
-      const endTime = new Date(event.end);
+      newEvent.start = moment(newEvent.start).tz('Europe/Paris').format('HH:mm');
+      newEvent.end = moment(newEvent.end).tz('Europe/Paris').format('HH:mm');     
 
-      return Object.assign({
-        id: parseInt(event.id),
-        isCurrent: false,
-        data: event,
-        title: data[2],
-        type: event.className,
-        room: data[0],
-        teacher: data[5],
-        start: `${("0" + (startTime.getHours())).slice(-2)}:${(
-          "0" + startTime.getMinutes()
-        ).slice(-2)}`,
-        end: `${("0" + (endTime.getHours())).slice(-2)}:${(
-          "0" + endTime.getMinutes()
-        ).slice(-2)}`,
-      });
+      return newEvent;
     });
 };
 
 
 export const fetchEvent = (event: AurionEventType): MauriaEventType => {
-  const data = event.title.split("\n\n");
+
+  // Diviser tout le titre sur les sauts de ligne simples "\n"
+  const data = event.title.split("\n").filter(Boolean); // On retire les éléments vides
+
+  const salle = data.length > 0 ? data[0] : "Salle inconnue";   // Première ligne : la salle
+  const teacher = data.length > 1 ? data[data.length - 1] : "Professeur inconnu";  // Dernière ligne : le professeur
+  const title = data.length > 2 ? data.slice(1, data.length - 2).join(" ") : "Titre inconnu";  // Tout ce qui est entre la salle et le prof
 
   const isCurrent = isInInterval(event.start, event.end);
 
   const startTime = event.start;
   const endTime = event.end;
 
-  // const title = data[2] ? (data[2].length > 0 ? data[2] : data[1]) : data[1];
-  const salle = data[0];
-  const reste = data[1].split("\n");
-
-  const title = reste[0];
-  const teacher = reste[reste.length - 1];
-
-  const cours =  Object.assign({
+  const cours = Object.assign({
     id: event.id,
     isCurrent,
     data: event,

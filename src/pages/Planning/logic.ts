@@ -29,16 +29,21 @@ export const exportCalendar = async (events: AurionEventType[], calendar: Calend
     CapacitorCalendar.deleteEventsById(options);
 
     // Boucle sur chaque événement pour l'ajouter au calendrier natif
+    const currentDate = new Date();
+    const endDate = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000); // 7 days from now
+
     for (const event of events) {
-      await CapacitorCalendar.createEvent({
-        calendarId: calendar.id,
-        title: event.title || 'Événement sans titre',
-        location: 'Mauria', // Ajouter l'emplacement si disponible
-        notes: event.className || '', // Ajouter des notes si disponibles
-        startDate: new Date(event.start).valueOf(),
-        endDate: new Date(event.end).valueOf(),
-        isAllDay: event.allDay || false,
-      });
+      if (new Date(event.start) <= endDate) {
+        await CapacitorCalendar.createEvent({
+          calendarId: calendar.id,
+          title: event.title || 'Événement sans titre',
+          location: 'Mauria', // Ajouter l'emplacement si disponible
+          notes: event.className || '', // Ajouter des notes si disponibles
+          startDate: new Date(event.start).valueOf(),
+          endDate: new Date(event.end).valueOf(),
+          isAllDay: event.allDay || false,
+        });
+      }
     }
 
     alert(`Les événements ont été exportés avec succès vers ${calendar.title}`);

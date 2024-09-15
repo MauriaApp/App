@@ -81,10 +81,10 @@ const intervalFetch = async () => {
   setTimeout(intervalFetch, 14400000);
 
   // setTimeout(intervalFetch, 30000);
-  if (Capacitor) {
-    const available = await AppUpdate.getAppUpdateInfo();
-    console.log(available);
-  }
+  // if (Capacitor) {
+  //   const available = await AppUpdate.getAppUpdateInfo();
+  //   console.log(available);
+  // }
 }
 
 const calendarQuery = async (planning: MauriaEventType[] | null) => {
