@@ -6,19 +6,17 @@ import {
   ModalContextType,
 } from "../../../../contexts/modalContext";
 import StatsModalContent from "../../../../pages/Notes/StatsModalContent";
-import { MauriaNoteStatsType, MauriaNoteType } from "../../../../types/note";
+import { MauriaNoteType } from "../../../../types/note";
 import clsx from "clsx";
 
 type NoteProps = {
   index?: number;
   exam: MauriaNoteType;
-  stats?: MauriaNoteStatsType;
-  notesShared: boolean;
   isNew?: boolean;
   className?: string;
 };
 
-const Note: React.FC<NoteProps> = ({ exam, stats, notesShared, ...props }) => {
+const Note: React.FC<NoteProps> = ({ exam, ...props }) => {
   const noteRef = useRef(null);
   const entry = useIntersectionObserver(noteRef, {});
   const isVisible = entry?.isIntersecting!!;
@@ -29,8 +27,6 @@ const Note: React.FC<NoteProps> = ({ exam, stats, notesShared, ...props }) => {
     openModal(
       <StatsModalContent
         exam={exam}
-        stats={stats}
-        notesShared={notesShared ?? false}
       />
     );
 
@@ -43,7 +39,7 @@ const Note: React.FC<NoteProps> = ({ exam, stats, notesShared, ...props }) => {
           "card",
           styles["container"],
           styles["animate"],
-          !isVisible && "hidden",
+          // !isVisible && "hidden",
           isVisible && "glassy shadow"
         )}
         onClick={openNoteModal}
@@ -52,7 +48,7 @@ const Note: React.FC<NoteProps> = ({ exam, stats, notesShared, ...props }) => {
           <h2 className={clsx(styles["note"], "text-accent")}>{exam.note}</h2>
 
           <span className={styles["coefficient"]}>
-            Coeff {exam.coefficient}
+            Moy. {exam.moyenne}
           </span>
         </div>
         <div className={styles["informations"]}>
@@ -71,14 +67,14 @@ const Note: React.FC<NoteProps> = ({ exam, stats, notesShared, ...props }) => {
       className={clsx(
         "card",
         styles["container"],
-        !isVisible && "hidden",
+        // !isVisible && "hidden",
         isVisible && "glassy shadow"
       )}
       onClick={openNoteModal}
     >
       <div className={styles["note-container"]}>
         <h2 className={clsx(styles["note"], "text-accent")}>{exam.note}</h2>
-        <span className={styles["coefficient"]}>Coeff {exam.coefficient}</span>
+        <span className={styles["coefficient"]}>Moy. {exam.moyenne}</span>
       </div>
       <div className={styles["informations"]}>
         <h3 className={clsx(styles["title"], "text-primary")}>

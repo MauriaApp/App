@@ -5,7 +5,7 @@ import styles from "./Loader.module.scss";
 const Loader = () => {
   return (
     <div className={styles["spinner"]}>
-      <IonSpinner name={"crescent"} placeholder={undefined} />
+      <IonSpinner name={"crescent"} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
       <span>Chargement...</span>
     </div>
   );

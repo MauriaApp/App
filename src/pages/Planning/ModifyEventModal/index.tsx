@@ -12,8 +12,8 @@ const ModifyEventModalContent = ({ setUserEvents, ...event }: any) => {
 
   const id = event._def.publicId;
   const title = event._def.title;
-  const start = event._instance.range.start;
-  const end = event._instance.range.end;
+  const start = event.start;
+  const end = event.end;
   const allDay = event._def.allDay;
   const className = event._def.ui.classNames[0];
   const editable = event._def.ui.editable;
@@ -26,7 +26,7 @@ const ModifyEventModalContent = ({ setUserEvents, ...event }: any) => {
     allDay,
     className,
     editable,
-  };
+  }; 
 
   const newCurrentEvent = fetchEvent(currentEvent)
 

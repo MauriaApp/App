@@ -28,7 +28,7 @@ const Absence: React.FC<AbsenceProps> = (props) => {
         className={clsx(
           "card shadow",
           isVisible && "glassy",
-          !isVisible && "hidden",
+          // !isVisible && "hidden",
           styles["container"],
           styles["animate"]
         )}
@@ -62,7 +62,7 @@ const Absence: React.FC<AbsenceProps> = (props) => {
       className={clsx(
         "card shadow",
         isVisible && "glassy",
-        !isVisible && "hidden",
+        // !isVisible && "hidden",
         styles["container"]
       )}
     >

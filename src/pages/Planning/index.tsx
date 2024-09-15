@@ -8,19 +8,21 @@ import { useContext, useRef, useState } from "react";
 import Button from "../../components/common/Layout/Button/Button";
 import { fetchPlanning } from "../../utils/api/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffectOnce, useReadLocalStorage } from "usehooks-ts";
+import { useReadLocalStorage } from "usehooks-ts";
 import { AurionEventType } from "../../types/event";
 import { ToastContext, ToastContextType } from "../../contexts/toastContext";
 import "./planning.scss";
 import styles from "./planning.module.scss";
 import { ModalContext, ModalContextType } from "../../contexts/modalContext";
-import { getICS } from "./logic";
+import { exportCalendar } from "./logic";
 import AddEventModalContent from "./AddEventModal";
 import ModifyEventModalContent from "./ModifyEventModal";
 import dayjs from "dayjs";
 import PageTemplate from "../Template";
+import moment from "moment-timezone";
+import CalendarSelectModal from "./Calendar";
+import { Calendar } from "@ebarooni/capacitor-calendar";
 
-// TODO : Delete event
 
 const calendarQuery = async (planning: AurionEventType[] | null) => {
   if (planning) {
@@ -31,6 +33,7 @@ const calendarQuery = async (planning: AurionEventType[] | null) => {
 
 const Planning = () => {
   const queryClient = useQueryClient();
+
   const storedPlanning = useReadLocalStorage<AurionEventType[] | null>(
     "planning"
   );
@@ -39,11 +42,6 @@ const Planning = () => {
     JSON.parse(localStorage.getItem("userEvents") || "[]")
   );
 
-  // const { isLoading, data } = useQuery({
-  //   queryKey: ["planning"],
-  //   queryFn: async () => await calendarQuery(storedPlanning),
-  //   networkMode: "always",
-  // });
 
   const { isLoading, data } = useQuery({
     queryKey: ["planning"], // Ajoutez userEvents comme dépendance
@@ -74,21 +72,14 @@ const Planning = () => {
   };
 
   const { openModal } = useContext(ModalContext) as ModalContextType;
+  const { closeModal } = useContext(ModalContext) as ModalContextType;
+
 
   const calendarRef = useRef<FullCalendar>(null);
   // const lastUpdate = useReadLocalStorage<Date>("lastPlanningUpdate");
 
   // problème avec la date, le type était pas lu par useReadLocalStorage (v2.9.1 de usehooks-ts)
   const lastUpdate = localStorage.getItem("lastPlanningUpdate");
-
-  useEffectOnce(() => {
-    // This is to prevent fullCalendar lag
-    // setTimeout(function () {
-    //   window.dispatchEvent(new Event("resize"));
-    // }, 500);
-
-    setTimeout(() => calendarRef.current?.doResize(), 100);
-  });
 
   const openAddEventModal = () => {
     openModal(<AddEventModalContent setUserEvents={setUserEvents} />);
@@ -111,6 +102,22 @@ const Planning = () => {
     </Button>
   );
 
+  // Gestion de l'export du calendrier
+  const handleExportCalendar = () => {
+    openModal(<CalendarSelectModal
+        isOpen={true}
+        onClose={() => closeModal()}
+        onSelect={handleSelectCalendar}
+      />);
+  };
+
+  const handleSelectCalendar = async (calendar: Calendar) => {
+    if (data) {
+      await exportCalendar(data, calendar); // Passez le calendrier sélectionné à exportCalendar
+    }
+    closeModal();
+  };
+
   if (isLoading) {
     return (
       <PageTemplate
@@ -129,6 +136,9 @@ const Planning = () => {
     >
       <section>
         <FullCalendar
+          datesSet={() => {
+            window.dispatchEvent(new Event('resize'));
+          }}
           ref={calendarRef}
           locale={FrLocale}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -158,7 +168,12 @@ const Planning = () => {
           // eventDragMinDistance={0}
 
           eventClick={(info) => {
-            openModifyModal(info.event);
+            const startTime = moment(info.event.start).tz('Europe/Paris').format('HH:mm');
+            const endTime = moment(info.event.end).tz('Europe/Paris').format('HH:mm');
+
+            const newEvent = { ...info.event, start: startTime, end: endTime };
+
+            openModifyModal(newEvent);
           }}
         />
         <div className="last-update">
@@ -167,9 +182,11 @@ const Planning = () => {
         </div>
       </section>
 
-      <Button size={"sm"} round={true} onClick={() => getICS(data)}>
+      <Button size="sm" round onClick={handleExportCalendar}>
         Exporter le planning
       </Button>
+
+
     </PageTemplate>
   );
 };

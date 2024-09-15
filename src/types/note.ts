@@ -7,6 +7,11 @@ export type MauriaNoteType = {
   epreuve: string;
   note: string;
   commentaire: string;
+  moyenne: string;
+  min : string;
+  max : string;
+  mediane : string;
+  ecartType : string;
 };
 
 export type MauriaNoteStatsType = {

@@ -40,7 +40,7 @@ const Header = ({ isAuth }: { isAuth?: boolean }) => {
 
   if (!isAuth) {
     return (
-      <IonHeader className={styles["header-container"]} placeholder={undefined}>
+      <IonHeader className={styles["header-container"]} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
         <header className={styles["header"]}>
           <div className={styles["logo"]}>Mauria</div>
         </header>
@@ -55,7 +55,7 @@ const Header = ({ isAuth }: { isAuth?: boolean }) => {
           styles["header-container"],
           isShown && styles["isShown"]
         )}
-        ref={navRef} placeholder={undefined}      >
+        ref={navRef} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}      >
         <header className={styles["header"]}>
           <div className={styles["logo"]}>Mauria</div>
           <div

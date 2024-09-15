@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import { useEffectOnce, useLocalStorage, useReadLocalStorage, } from "usehooks-ts";
-import { fetchNotes, fetchNoteStats } from "../../utils/api/api";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocalStorage, useReadLocalStorage, } from "usehooks-ts";
+import { fetchNotes } from "../../utils/api/api";
 import { MauriaNoteStatsType, MauriaNoteType } from "../../types/note";
 import { getCurrentYearMergedNotesData, mergeNewNotesData, mergeNotesData } from "./logic";
 
@@ -9,6 +9,7 @@ import Note from "../../components/Pages/Notes/Note";
 import { ToastContext, ToastContextType } from "../../contexts/toastContext";
 import PageTemplate from "../Template";
 import YearSelector from "../../components/common/Features/YearSelector";
+import Input from "../../components/common/Layout/Input/Input";
 
 
 // Récupère l'année scolaire actuelle
@@ -35,7 +36,7 @@ const notesQuery = async (localNote: MauriaNoteType[], isThisYear: boolean) => {
 };
 
 const Notes: React.FC = () => {
-  const thisYear = useReadLocalStorage<boolean>("thisYear") ?? true;
+  const thisYear = useReadLocalStorage<boolean>("thisYear") as boolean;
 
   const currentNotes = useReadLocalStorage<MauriaNoteType[]>(
     "notes"
@@ -45,10 +46,10 @@ const Notes: React.FC = () => {
     "newNotes",
     []
   );
-  const userStats = useReadLocalStorage<MauriaNoteStatsType[]>("userStats");
-  const notesShared = useReadLocalStorage<boolean>("notesShared");
 
   const { openToast } = useContext(ToastContext) as ToastContextType;
+
+  const [filtredNotes, setFiltredNotes] = useState<{note: MauriaNoteType,stats?: MauriaNoteStatsType,}[]>([]);
 
   const queryClient = useQueryClient();
 
@@ -60,6 +61,8 @@ const Notes: React.FC = () => {
     networkMode: "always",
     cacheTime: 0, // https://tanstack.com/query/latest/docs/react/guides/caching?from=reactQueryV3&original=https%3A%2F%2Ftanstack.com%2Fquery%2Fv3%2Fdocs%2Fguides%2Fcaching
   });
+
+  useEffect(() => setFiltredNotes(data || []), [data]);
 
   const refreshMutation = useMutation({
     mutationFn: async (isThisYear: boolean) => {
@@ -96,11 +99,6 @@ const Notes: React.FC = () => {
     yearFilterMutation.mutate();
   };
 
-  useEffectOnce(() => {
-    if (notesShared && userStats?.length === 0) {
-      fetchNoteStats();
-    }
-  });
 
   if (isLoading) {
     return <PageTemplate title={"Notes"} isLoading />;
@@ -109,7 +107,6 @@ const Notes: React.FC = () => {
   return (
     <PageTemplate title={"Notes"} onRefresh={handleRefresh}>
       <YearSelector handleToggle={handleToggle} />
-
       {(((getCurrentYearMergedNotesData(data ?? [], schoolYear) ?? []).length === 0) && thisYear) ? (
         <div className={"no-content-container"}>
           <span className={"no-content-text"}>
@@ -118,6 +115,21 @@ const Notes: React.FC = () => {
         </div>
       ) : (
         <>
+          <Input
+            placeholder={"Chercher une note..."}
+            onChange={(e: any) => {
+              const search = e.target.value.toLowerCase();
+              if (search !== "") {
+                setFiltredNotes(
+                  data?.filter((note) =>
+                    note.note.epreuve.toLowerCase().includes(search)
+                  ) || []
+                );
+              } else {
+                setFiltredNotes(data || []);
+              }
+            }}
+          />
           {newNotes.length > 0 && (
             <section>
               <h2 className="sectionTitle text-primary">Nouvelles notes ! </h2>
@@ -128,8 +140,6 @@ const Notes: React.FC = () => {
                       key={element.note.code}
                       index={index}
                       exam={element.note}
-                      stats={element.stats}
-                      notesShared={notesShared ?? false}
                     />
                   )
                 )}
@@ -141,15 +151,14 @@ const Notes: React.FC = () => {
             {newNotes.length > 0 && (
               <h2 className="sectionTitle text-primary">Toutes les notes : </h2>
             )}
+
             <div className={"list"}>
-              {data ? (
-                data.map((element, index: number) => (
+              {filtredNotes ? (
+                filtredNotes.map((element, index: number) => (
                   <Note
                     key={element.note.code}
                     index={newNotes.length + index}
                     exam={element.note}
-                    stats={element.stats}
-                    notesShared={notesShared ?? false}
                   />
                 ))
               ) : (

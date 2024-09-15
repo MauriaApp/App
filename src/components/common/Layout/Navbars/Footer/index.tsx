@@ -41,7 +41,7 @@ const Footer = () => {
   };
 
   return (
-    <IonFooter className={styles["footer"]} placeholder={undefined}>
+    <IonFooter className={styles["footer"]} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
       <nav className={styles["footer-nav"]}>
         <NavLink
           onClick={handleClick}

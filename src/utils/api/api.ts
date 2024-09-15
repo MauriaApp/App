@@ -24,7 +24,7 @@ export async function login(email: string, password: string) {
     .then((response) => {
       response.status === 302
         ? AddToStorage(email, password)
-        : window.alert("Identifiants incorrect !");
+        : console.log("Erreur de connexion");
       fetchFirstName();
     })
     .catch((error) => {
@@ -68,7 +68,7 @@ export async function fetchPlanning() {
       return data;
     });
   }
-  localStorage.setItem("planning", " ");
+  // localStorage.setItem("planning", " ");
   return null;
 }
 
@@ -76,9 +76,6 @@ export async function fetchPlanning() {
 export const fetchNotes = async (): Promise<{
   data: MauriaNoteType[] | null;
 }> => {
-  const shared = JSON.parse(
-    localStorage.getItem("notesShared") || "false"
-  ) as boolean;
 
   const setNewNotes = (data: MauriaNoteType[]) =>
     localStorage.setItem("newNotes", JSON.stringify(data));
@@ -100,15 +97,12 @@ export const fetchNotes = async (): Promise<{
     body: JSON.stringify({
       username: localStorage.getItem("email"),
       password: localStorage.getItem("password"),
-      shared,
+      shared : ""
     }),
   });
 
   if (response.status === 200) {
     return response.json().then((data) => {
-      if (shared) {
-        fetchNoteStats();
-      }
 
       const newNotes = data.filter(
         (note: MauriaNoteType) =>
@@ -194,7 +188,7 @@ export async function fetchAbsences() {
       return data;
     });
   }
-  localStorage.setItem("absences", " ");
+  // localStorage.setItem("absences", " ");
   return null;
 }
 

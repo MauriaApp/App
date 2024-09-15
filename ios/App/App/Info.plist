@@ -47,5 +47,9 @@
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Mauria a besoin d'avoir accès au calendrier pour exporter.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Mauria a besoin d'avoir accès au calendrier pour exporter.</string>
 </dict>
 </plist>
