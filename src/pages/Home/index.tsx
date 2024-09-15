@@ -29,9 +29,9 @@ import PageTemplate from "../Template";
 import styles from "./Home.module.scss";
 import clsx from "clsx";
 import EventJunia from "../../components/Pages/Home/Events";
-import { Capacitor } from "@capacitor/core";
+// import { Capacitor } from "@capacitor/core";
 import { LocalNotifications } from "@capacitor/local-notifications";
-import { AppUpdate } from "@capawesome/capacitor-app-update";
+// import { AppUpdate } from "@capawesome/capacitor-app-update";
 import { MauriaNoteType } from "../../types/note";
 
 
