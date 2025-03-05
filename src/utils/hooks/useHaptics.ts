@@ -2,14 +2,14 @@ import { useLocalStorage } from "usehooks-ts";
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 export const useHaptics = () => {
-  const [haptics, setHaptics] = useLocalStorage("useHaptics", true);
+  const [haptics, setHaptics] = useLocalStorage("useHaptics", false);
 
   const toggle = () => {
     setHaptics(!haptics);
   };
 
   const enable = () => {
-    setHaptics(true);
+    setHaptics(false);
   };
 
   const disable = () => {
