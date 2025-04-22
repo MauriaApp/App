@@ -68,7 +68,7 @@ const ModifyEventModalContent = ({ ...event }: EventProps) => {
 
       <footer className={clsx(styles["footer"], styles["code"])}>
         <h3 className={styles["rawDataTitle"]}>Données brutes:</h3>
-        <p className={"no-margins"}>{event.title}</p>
+        <p className={"no-margins"}>{currentEvent.title}</p>
       </footer>
     </>
   );
