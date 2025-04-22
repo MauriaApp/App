@@ -1,33 +1,22 @@
-import { FC } from "react";
 import styles from "./YearSelector.module.scss";
-import { IonToggle } from "@ionic/react";
-import { useLocalStorage } from "usehooks-ts";
+// import { IonToggle } from "@ionic/react";   ==> Implique des erreurs 
+import Switch from 'react-ios-switch';   // Corrige les erreurs, mais c'est un package js donc erreur de déclaration
+import { useSchoolYear } from "../../../../contexts/schoolYearContext";
 
-type YearSelectorProps = {
-  handleToggle: () => void;
-};
 
-const YearSelector: FC<YearSelectorProps> = ({ handleToggle }) => {
-  const [thisYear, setThisYear] = useLocalStorage("thisYear", true);
+const YearSelector = () => {
+  const { thisYear, toggleYear } = useSchoolYear();
 
-  // Handler for toggle change
-  const onToggleChange = () => {
-    // Toggle the state and ensure it is stored correctly in localStorage
-    setThisYear((prev) => !prev);
-
-    // Call the parent component's handler if it doesn't trigger re-renders
-    if (typeof handleToggle === 'function') {
-      handleToggle();
-    }
-  };
 
   return (
     <div className={styles["year-row"]}>
       <h2 className="sectionTitle text-primary no-margins">Année actuelle</h2>
-      <IonToggle
-        mode="ios"
+      <Switch
         checked={thisYear}
-        onIonChange={onToggleChange} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}      />
+        onChange={toggleYear}
+        onColor="rgb(240, 107, 66)"
+        offColor="grey"
+      />
     </div>
   );
 };

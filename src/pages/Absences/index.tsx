@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Absence from "../../components/Pages/Absences/Absence";
-import { fetchAbsences, getAbsences } from "../../utils/api/api";
+import { fetchAbsences } from "../../utils/api/api";
 import { useReadLocalStorage } from "usehooks-ts";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import {
-  getCurrentYearAbsences,
+  filterAbsencesBySchoolYear,
   getJustifiedAbsencesDuration,
   getTotalAbsencesDuration,
   getUnjustifiedAbsencesDuration,
@@ -14,49 +14,43 @@ import Stats from "../../components/Pages/Absences/Stats";
 import { ToastContext, ToastContextType } from "../../contexts/toastContext";
 import PageTemplate from "../Template";
 import YearSelector from "../../components/common/Features/YearSelector";
+import { useSchoolYear } from "../../contexts/schoolYearContext";
 
-const absencesQuery = async (
-  absences: AurionAbsenceType[] | null,
-  isThisYear: boolean | null
-) => {
-  if (absences) {
-    if (isThisYear) {
-      return getCurrentYearAbsences(absences);
-    }
-    return absences;
-  }
-  const apiAbsences = await fetchAbsences();
-
-  if (isThisYear) {
-    return getCurrentYearAbsences(apiAbsences);
-  }
-
-  return apiAbsences;
-};
 
 const Absences = () => {
-  const thisYear = useReadLocalStorage<boolean>("thisYear") ?? true;
-  const absences = useReadLocalStorage<AurionAbsenceType[] | null>("absences");
+  const { schoolYear, thisYear } = useSchoolYear();
 
   const { openToast } = useContext(ToastContext) as ToastContextType;
 
-  const queryClient = useQueryClient();
+  const absences = useReadLocalStorage<AurionAbsenceType[] | null>("absences");
 
-  const { isLoading, data } = useQuery({
-    queryKey: ["absences"],
-    queryFn: async () => await absencesQuery(absences, thisYear),
-    networkMode: "always",
-  });
+  const [data, setData] = useState<AurionAbsenceType[] | null>(absences);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // setIsLoading(true);
+      const absencesData = async () => {
+        if (absences) {
+          return filterAbsencesBySchoolYear(absences, schoolYear, thisYear);
+        }
+        const apiAbsences = await fetchAbsences();
+
+        return filterAbsencesBySchoolYear(apiAbsences, schoolYear, thisYear);
+      }
+
+      setData(await absencesData());
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [absences, thisYear, schoolYear]);
+
 
   const refreshMutation = useMutation({
     mutationFn: async (isThisYear: boolean) => {
       const apiAbsences = await fetchAbsences();
 
-      if (isThisYear) {
-        return getCurrentYearAbsences(apiAbsences);
-      }
-
-      return apiAbsences;
+      return filterAbsencesBySchoolYear(apiAbsences, schoolYear, isThisYear);
     },
     onSuccess: (data) => {
       openToast({
@@ -65,21 +59,8 @@ const Absences = () => {
         content: "Absences actualisées avec succès !",
       });
 
-      queryClient.setQueryData(["absences"], data);
-    },
-  });
-
-  const yearFilterMutation = useMutation({
-    mutationFn: async () => {
-      const newYearState = !thisYear;
-      if (newYearState) {
-        return getCurrentYearAbsences(getAbsences());
-      }
-
-      return getAbsences();
-    },
-    onSuccess: (data) => {
-      queryClient.setQueryData(["absences"], data);
+      setData(data);
+      setIsLoading(false);
     },
   });
 
@@ -89,37 +70,34 @@ const Absences = () => {
     });
   };
 
-  const handleToggle = () => {
-    yearFilterMutation.mutate();
-  };
-
   if (isLoading) {
     return <PageTemplate title={"Absences"} isLoading={true} />;
   }
 
   return (
     <PageTemplate title={"Absences"} onRefresh={handleRefresh}>
-      <YearSelector handleToggle={handleToggle} />
-      <Stats
-        total={getTotalAbsencesDuration(data)}
-        justified={getJustifiedAbsencesDuration(data)}
-        unjustified={getUnjustifiedAbsencesDuration(data)}
-      />
-
-      {data.length > 0 ? (
-        <div className={"list"}>
-          {data.map((absence: AurionAbsenceType, index: number) => (
-            <Absence
-              key={absence.date + index}
-              index={index}
-              title={absence.type}
-              class={absence.classe}
-              duration={absence.duree}
-              date={absence.date}
-              interval={absence.heure}
-            />
-          ))}
-        </div>
+      <YearSelector />
+      {data && data.length > 0 ? (
+        <>
+          <Stats
+            total={getTotalAbsencesDuration(data, schoolYear, thisYear)}
+            justified={getJustifiedAbsencesDuration(data, schoolYear, thisYear)}
+            unjustified={getUnjustifiedAbsencesDuration(data, schoolYear, thisYear)}
+          />
+          <div className={"list"}>
+            {data.map((absence: AurionAbsenceType, index: number) => (
+              <Absence
+                key={absence.date + index}
+                index={index}
+                title={absence.type}
+                class={absence.classe}
+                duration={absence.duree}
+                date={absence.date}
+                interval={absence.heure}
+              />
+            ))}
+          </div>
+        </>
       ) : (
         <div className={"no-content-container"}>
           <span className={"no-content-text"}>

@@ -1,157 +1,85 @@
 import { AurionAbsenceType } from "../../types/absence";
-import { parse } from 'date-fns';
+import { parse } from "date-fns";
 
-export const getCurrentYearAbsences = (
-    absences: AurionAbsenceType[] | null
-  ) => {
-    if (!absences) {
-      return null;
-    }
-  
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth();  // janvier = 0, décembre = 11
-    const currentYear = currentDate.getFullYear();
-  
-    // Définir la date de début et de fin de l'année scolaire
-    let schoolYearStart: Date, schoolYearEnd : Date;
+// Filtre les absences par année scolaire
+export const filterAbsencesBySchoolYear = (
+  absences: AurionAbsenceType[] | null,
+  schoolYear: number | null,
+  thisYear: boolean
+): AurionAbsenceType[] => {
+  if (!absences || !schoolYear) return absences ?? [];
 
-    if (currentMonth >= 8) {
-      schoolYearStart = new Date(currentYear, 8, 1); // septembre = 8
-      schoolYearEnd = new Date(currentYear + 1, 6, 31); // juillet = 6
-    } else {
-      schoolYearStart = new Date(currentYear - 1, 8, 1);
-      schoolYearEnd = new Date(currentYear, 6, 31);
-    }
-    
-  
-    if (currentMonth >= 8) {
-      // Si le mois actuel est août ou plus tard, l'année scolaire commence en septembre de cette année
-      schoolYearStart = new Date(currentYear, 8, 1); // septembre = 8
-      schoolYearEnd = new Date(currentYear + 1, 6, 31); // juillet = 6
-    } else {
-      // Si le mois actuel est antérieur à août, l'année scolaire commence en septembre de l'année précédente
-      schoolYearStart = new Date(currentYear - 1, 8, 1);
-      schoolYearEnd = new Date(currentYear, 6, 31);
-    }
-  
-    return absences.filter((absence: AurionAbsenceType) => {
-      const absenceDate = parse(absence.date, 'dd/MM/yy', new Date());    
-      return (
-        absenceDate >= schoolYearStart && absenceDate <= schoolYearEnd
-      );
-    });
-  };
-  
+  if (!thisYear) return absences ?? [];
 
+  const formattedYear = parseInt(`20${schoolYear.toString().slice(-2)}`);
 
+  const schoolYearStart = new Date(`${formattedYear -1}-09-01`);
+  const schoolYearEnd = new Date(`${formattedYear}-08-31`);
 
+  // console.log(schoolYearStart, schoolYearEnd);
+
+  return absences.filter((absence) => {
+    const absenceDate = parse(absence.date, "dd/MM/yy", new Date());
+    return absenceDate >= schoolYearStart && absenceDate <= schoolYearEnd;
+  });
+};
+
+// Calcule la durée totale des absences selon un filtre facultatif
+export const computeAbsenceDuration = (
+  absences: AurionAbsenceType[] | null,
+  schoolYear: number,
+  thisYear: boolean,
+  typeFilter?: (absence: AurionAbsenceType) => boolean
+): string => {
+  let filtered = thisYear ? filterAbsencesBySchoolYear(absences, schoolYear, thisYear) : absences ?? [];
+
+  if (typeFilter) {
+    filtered = filtered.filter(typeFilter);
+  }
+
+  const total = filtered.reduce(
+    (acc, absence) => {
+      const [h, m] = absence.duree.split(":").map(Number);
+      return { hours: acc.hours + h, minutes: acc.minutes + m };
+    },
+    { hours: 0, minutes: 0 }
+  );
+
+  const hoursCarry = Math.floor(total.minutes / 60);
+  const minutesLeft = total.minutes % 60;
+
+  return `${total.hours + hoursCarry}h${minutesLeft.toString().padStart(2, "0")}`;
+};
+
+// Total toutes absences
 export const getTotalAbsencesDuration = (
   absences: AurionAbsenceType[] | null,
-  thisYear?: boolean
-) => {
-  let absenceList: AurionAbsenceType[] | null = absences;
+  schoolYear: number,
+  thisYear = false
+) => computeAbsenceDuration(absences, schoolYear, thisYear);
 
-  if (thisYear) {
-    absenceList = getCurrentYearAbsences(absences);
-  }
-
-  if (!absenceList) {
-    return "00h00";
-  }
-
-  const hours = absenceList.reduce((accumulator, absence) => {
-    return accumulator + parseInt(absence.duree.split(":")[0]);
-  }, 0);
-  const minutes = absenceList.reduce((accumulator, absence) => {
-    return accumulator + parseInt(absence.duree.split(":")[1]);
-  }, 0);
-
-  const timeCarry = handleTimeCarry(minutes);
-  return `${hours + timeCarry.hoursCarry}h${formatMinutes(
-    timeCarry.minutesLeft
-  )}`;
-};
-
+// Absences justifiées (type sans "non")
 export const getJustifiedAbsencesDuration = (
   absences: AurionAbsenceType[] | null,
-  thisYear?: boolean
-) => {
-  let absenceList: AurionAbsenceType[] | null = absences;
+  schoolYear: number,
+  thisYear = false
+) =>
+  computeAbsenceDuration(
+    absences,
+    schoolYear,
+    thisYear,
+    (absence) => !absence.type.includes(" non ")
+  );
 
-  if (thisYear) {
-    absenceList = getCurrentYearAbsences(absences);
-  }
-
-  if (!absenceList) {
-    return "00h00";
-  }
-
-  const hours = absenceList.reduce((accumulator, absence) => {
-    if (absence.type.includes(" non ")) {
-      return accumulator;
-    }
-
-    return accumulator + parseInt(absence.duree.split(":")[0]);
-  }, 0);
-  const minutes = absenceList.reduce((accumulator, absence) => {
-    if (absence.type.includes(" non ")) {
-      return accumulator;
-    }
-    return accumulator + parseInt(absence.duree.split(":")[1]);
-  }, 0);
-
-  const timeCarry = handleTimeCarry(minutes);
-  return `${hours + timeCarry.hoursCarry}h${formatMinutes(
-    timeCarry.minutesLeft
-  )}`;
-};
-
+// Absences non justifiées (type contient "non")
 export const getUnjustifiedAbsencesDuration = (
   absences: AurionAbsenceType[] | null,
-  thisYear?: boolean
-) => {
-  let absenceList: AurionAbsenceType[] | null = absences;
-
-  if (thisYear) {
-    absenceList = getCurrentYearAbsences(absences);
-  }
-
-  if (!absenceList) {
-    return "00h00";
-  }
-
-  const hours = absenceList.reduce((accumulator, absence) => {
-    if (!absence.type.includes(" non ")) {
-      return accumulator;
-    }
-
-    return accumulator + parseInt(absence.duree.split(":")[0]);
-  }, 0);
-  const minutes = absenceList.reduce((accumulator, absence) => {
-    if (!absence.type.includes(" non ")) {
-      return accumulator;
-    }
-    return accumulator + parseInt(absence.duree.split(":")[1]);
-  }, 0);
-
-  const timeCarry = handleTimeCarry(minutes);
-
-  return `${hours + timeCarry.hoursCarry}h${formatMinutes(
-    timeCarry.minutesLeft
-  )}`;
-};
-
-const handleTimeCarry = (minutes: number) => {
-  const hours = Math.floor(minutes / 60);
-  const minutesLeft = minutes % 60;
-
-  return { hoursCarry: hours, minutesLeft };
-};
-
-const formatMinutes = (minutes: number) => {
-  if (minutes < 10) {
-    return "0" + minutes;
-  }
-
-  return minutes;
-};
+  schoolYear: number,
+  thisYear = false
+) =>
+  computeAbsenceDuration(
+    absences,
+    schoolYear,
+    thisYear,
+    (absence) => absence.type.includes(" non ")
+  );

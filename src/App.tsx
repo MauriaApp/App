@@ -31,6 +31,14 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import AppBackground from "./theme/AppBackground";
 
 import { RouterAnimation } from "./utils/animations/transition";
+import { SchoolYearProvider } from "./contexts/schoolYearContext";
+import { ErrorProvider } from "./contexts/errorContext";
+import { Capacitor } from "@capacitor/core";
+import { LocalNotifications } from "@capacitor/local-notifications";
+import { AppUpdate } from "@capawesome/capacitor-app-update";
+import { MauriaNoteType } from "./types/note";
+import { fetchAbsences, fetchPlanning, fetchNotes } from "./utils/api/api";
+import { useEffect } from "react";
 
 
 dayjs.locale("fr");
@@ -47,28 +55,100 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const { isDarkMode } = useDarkMode();
+
+
+  LocalNotifications.checkPermissions().then((permission) => {
+    if (permission.display !== "granted") {
+      LocalNotifications.requestPermissions()
+    }
+  });
+
+
+  let notificationCounter = 1; // Compteur pour générer des IDs uniques
+
+  const intervalFetch = async () => {
+    try {
+      fetchAbsences();
+      fetchPlanning();
+      fetchNotes();
+      // console.log("Données en cours d'actualisation...");
+      if (localStorage.getItem("newNotes") !== null) {
+        const newNotes = JSON.parse(localStorage.getItem("newNotes") || "[]");
+        if (newNotes.length > 0) {
+          const existingNotifications = JSON.parse(localStorage.getItem("scheduledNotifications") || "[]");
+          const notificationsToSchedule = newNotes.slice(0, 5).filter((note: MauriaNoteType) => {
+            return !existingNotifications.includes(note.code); // Vérifie si la notification est déjà planifiée
+          });
+          const notifications = notificationsToSchedule.map((note: MauriaNoteType) => {
+            const date = new Date();
+            date.setSeconds(date.getSeconds() + 10);
+            return {
+              title: "Nouvelle note !",
+              body: `Vous avez une nouvelle note en ${note.epreuve}`,
+              id: notificationCounter++, // Utilise un compteur pour générer des IDs uniques
+              schedule: { at: date, allowWhileIdle: true },
+            };
+          });
+          await LocalNotifications.schedule({
+            notifications: notifications,
+          });
+          localStorage.setItem("scheduledNotifications", JSON.stringify([...existingNotifications, ...notificationsToSchedule.map((note: MauriaNoteType) => note.code)]));
+        }
+      }
+      // console.log("Données actualisées avec succès");
+    } catch (e) {
+      console.log("Erreur lors de l'actualisation automatique des données");
+    }
+    // interval de 4h pour les fetchs
+    setTimeout(intervalFetch, 14400000);
+
+    // setTimeout(intervalFetch, 30000);
+    if (Capacitor) {
+      const available = await AppUpdate.getAppUpdateInfo();
+      console.log(available);
+    }
+  }
+
+  useEffect(() => {
+    const isFirstLaunch = localStorage.getItem("isFirstLaunch");
+
+    if (isFirstLaunch === null) {
+      return localStorage.setItem("isFirstLaunch", "true");
+    }
+
+    if (!isFirstLaunch) {
+      intervalFetch(); // Appel initial de la fonction intervalFetch
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <ToastContextProvider>
-        <ModalContextProvider>
-          <IonApp className={isDarkMode ? "dark" : ""}>
-            <IonReactRouter>
-              <IonRouterOutlet animation={RouterAnimation} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                <Route exact path="/login">
-                  <Login />
-                </Route>
-                <Route
-                  path="/app"
-                  render={(props) => <AppRouter {...props} />}
-                />
-                <Route render={() => <Redirect to="/app/home" />} />
-              </IonRouterOutlet>
-            </IonReactRouter>
-            <AppBackground />
-          </IonApp>
-        </ModalContextProvider>
-      </ToastContextProvider>
-    </QueryClientProvider>
+    <ErrorProvider>
+      <QueryClientProvider client={queryClient}>
+        <ToastContextProvider>
+          <ModalContextProvider>
+            <SchoolYearProvider>
+              <IonApp className={isDarkMode ? "dark" : ""}>
+                <IonReactRouter>
+                  <IonRouterOutlet animation={RouterAnimation} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                    <Route exact path="/login">
+                      <Login />
+                    </Route>
+                    <Route
+                      path="/app"
+                      render={(props) => <AppRouter {...props} />}
+                    />
+                    <Route render={() => <Redirect to="/app/home" />} />
+                  </IonRouterOutlet>
+                </IonReactRouter>
+                <AppBackground />
+              </IonApp>
+            </SchoolYearProvider>
+          </ModalContextProvider>
+        </ToastContextProvider>
+      </QueryClientProvider>
+    </ErrorProvider>
   );
 };
 export default App;

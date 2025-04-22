@@ -10,7 +10,7 @@ type EventProps = {
   index?: number;
   className?: string;
   isCurrent?: boolean;
-  data?: string;
+  data: string;
   title: string;
   room: string;
   teacher: string;

@@ -138,7 +138,7 @@ export const fetchTomorrowLessons = (): MauriaEventType[] => {
 };
 
 
-export const fetchEvent = (event: AurionEventType): MauriaEventType => {
+export const fetchEvent = (event: AurionEventType): MauriaEventType => {  
   const data = event.title.split("\n\n");
 
   const isCurrent = isInInterval(event.start, event.end);
