@@ -20,7 +20,7 @@ type EventProps = {
 
 const ModifyEventModalContent = ({ ...event }: EventProps) => {
 
-  console.log(event);
+  // console.log(event);
   
 
   const id = event.id;

@@ -1,7 +1,6 @@
 import React, { useCallback, useContext, useEffect } from "react";
 
 import {
-  fetchEventJunia,
   fetchImportantMessage,
   fetchPlanning,
   getFirstName,
@@ -40,9 +39,9 @@ const messageQueryFunction = async () => {
   return await fetchImportantMessage();
 };
 
-const eventJuniaQueryFunction = async () => {
-  return await fetchEventJunia();
-};
+// const eventJuniaQueryFunction = async () => {
+//   return await fetchEventJunia();
+// };
 
 const Home: React.FC = () => {
 
@@ -59,8 +58,8 @@ const Home: React.FC = () => {
   const { openModal } = useContext(ModalContext) as ModalContextType;
 
   useEffect(() => {
-    const fetchData = async () => {
-      await fetchPlanning();
+    const fetchData = () => {
+      fetchPlanning();
     };
     fetchData();
   }, []);
@@ -80,11 +79,11 @@ const Home: React.FC = () => {
         queryFn: async () => await calendarQuery(livePlanning),
         networkMode: "always",
       },
-      {
-        queryKey: ["eventJunia"],
-        queryFn: async () => await eventJuniaQueryFunction(),
-        networkMode: "always",
-      },
+      // {
+      //   queryKey: ["eventJunia"],
+      //   queryFn: async () => await eventJuniaQueryFunction(),
+      //   networkMode: "always",
+      // },
     ],
   });
 

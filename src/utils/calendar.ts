@@ -58,28 +58,23 @@ export const fetchLivePlanning = (): { planning: MauriaEventType[], isTomorrow: 
       return isToday(event.end) && currentTime <= endTime;
     })
     .map((event: any) => {
-      const data = event.title.split("\n");
-
-      const isCurrent = isInInterval(event.start, event.end);
+      const data = fetchEvent(event);
 
       const startTime = new Date(event.start);
       const endTime = new Date(event.end);
 
-      return Object.assign({
-        id: parseInt(event.id),
-        isCurrent,
-        data: event,
-        title: data[2],
-        type: event.className,
-        room: data[0],
-        teacher: data[5],
+      const newEvent = {
+        ...data,
         start: `${("0" + startTime.getHours()).slice(-2)}:${(
           "0" + startTime.getMinutes()
         ).slice(-2)}`,
         end: `${("0" + endTime.getHours()).slice(-2)}:${(
           "0" + endTime.getMinutes()
-        ).slice(-2)}`,
-      });
+        ).slice(-2)}`
+      };
+      
+
+      return newEvent;
     });
 
   // console.log(livePlanning);
@@ -114,31 +109,28 @@ export const fetchTomorrowLessons = (): MauriaEventType[] => {
       return isTomorrow(event.end) && currentTime <= endTime;
     })
     .map((event: any) => {
-      const data = event.title.split("\n");
+      const data = fetchEvent(event);
 
       const startTime = new Date(event.start);
       const endTime = new Date(event.end);
 
-      return Object.assign({
-        id: parseInt(event.id),
-        isCurrent: false,
-        data: event,
-        title: data[2],
-        type: event.className,
-        room: data[0],
-        teacher: data[5],
-        start: `${("0" + (startTime.getHours())).slice(-2)}:${(
+      const newEvent = {
+        ...data,
+        start: `${("0" + startTime.getHours()).slice(-2)}:${(
           "0" + startTime.getMinutes()
         ).slice(-2)}`,
-        end: `${("0" + (endTime.getHours())).slice(-2)}:${(
+        end: `${("0" + endTime.getHours()).slice(-2)}:${(
           "0" + endTime.getMinutes()
-        ).slice(-2)}`,
-      });
+        ).slice(-2)}`
+      };
+      
+
+      return newEvent;
     });
 };
 
 
-export const fetchEvent = (event: AurionEventType): MauriaEventType => {  
+export const fetchEvent = (event: AurionEventType): MauriaEventType => {
   const data = event.title.split("\n\n");
 
   const isCurrent = isInInterval(event.start, event.end);
@@ -153,7 +145,7 @@ export const fetchEvent = (event: AurionEventType): MauriaEventType => {
   const title = reste[0];
   const teacher = reste[reste.length - 1];
 
-  const cours =  Object.assign({
+  const cours = Object.assign({
     id: event.id,
     isCurrent,
     data: event,
