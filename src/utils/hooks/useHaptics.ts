@@ -1,5 +1,6 @@
 import { useLocalStorage } from "usehooks-ts";
-import { Haptics, ImpactStyle } from "@capacitor/haptics";
+import { ImpactStyle } from "@capacitor/haptics";
+import { hapticImpact } from "../haptics";
 
 export const useHaptics = () => {
   const [haptics, setHaptics] = useLocalStorage("useHaptics", true);
@@ -17,15 +18,15 @@ export const useHaptics = () => {
   };
 
   const hapticsImpactHeavy = async () => {
-    haptics && (await Haptics.impact({ style: ImpactStyle.Heavy }));
+    haptics && (await hapticImpact(ImpactStyle.Heavy));
   };
 
   const hapticsImpactMedium = async () => {
-    haptics && (await Haptics.impact({ style: ImpactStyle.Medium }));
+    haptics && (await hapticImpact(ImpactStyle.Medium));
   };
 
   const hapticsImpactLight = async () => {
-    haptics && (await Haptics.impact({ style: ImpactStyle.Light }));
+    haptics && (await hapticImpact(ImpactStyle.Light));
   };
 
   return {
