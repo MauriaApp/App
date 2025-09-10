@@ -139,26 +139,58 @@ export const fetchTomorrowLessons = (): MauriaEventType[] => {
 
 
 export const fetchEvent = (event: AurionEventType): MauriaEventType => {
-  const data = event.title.split("\n\n");
-
+  // Exemple d'event :
+  // {
+  //   id: "67476251",
+  //   title: "IC2 C406 - Salle Prépa OZANAM - VidéoProj\n\nMathématiques - 1er  semestre\nCOURS_TD\nMonsieur LUQUET",
+  //       OU "\nInterrogation en C854\nMathématiques - 1er  semestre\nDS_SURV\n "
+  //       OU "Je suis un test\n 14:15:00 - 14:45:00"
+  //   start: "10:10",
+  //   end: "12:00",
+  //   allDay: false,
+  //   className: "COURS_TD",
+  //           OU "est_epreuve"
+  //           OU "est_perso"
+  //   editable: undefined
+  // }
+  
   const isCurrent = isInInterval(event.start, event.end);
-
   const startTime = event.start;
   const endTime = event.end;
 
-  // const title = data[2] ? (data[2].length > 0 ? data[2] : data[1]) : data[1];
-  const salle = data[0];
-  const reste = data[1].split("\n");
+  let salle = "";
+  let title = "";
+  let teacher = "";
 
-  const title = reste[0];
-  const teacher = reste[reste.length - 1];
+  // SI C'EST UNE EPREUVE --------------------------------------------------------------------------------------------------------------------
+  if (event.className === "est-epreuve") {
+    const data = strip(event.title).split("\n");  // ["\nInterrogation en C854", "Mathématiques - 1er  semestre", "DS_SURV", " "]
+
+    const reste = data[0].split(" en ");          // ["Interrogation", "C854"]
+    salle = "Salle " + reste[1];                  // Salle C854
+    title = data[1] + " - " + reste[0];           // Mathématiques - 1er  semestre - Interrogation
+  
+  // SI C'EST UN EVENEMENT PERSO -------------------------------------------------------------------------------------------------------------
+  } else if (event.className === "est-perso") {
+    title = event.title.split("\n")[0]; // "Je suis un test"
+  
+  // AUTRE (COURS, TD, ATERLIERS) ------------------------------------------------------------------------------------------------------------
+  } else {
+    const data = event.title.split("\n\n"); // ["Salle Prépa OZANAM - VidéoProj", "Mathématiques - 1er  semestre\nCOURS_TD\nMonsieur LUQUET"]
+
+    salle = data[0];                        // "Salle Prépa OZANAM - VidéoProj"
+    const reste = data[1].split("\n");      // ["Mathématiques - 1er  semestre", "COURS_TD", "Monsieur LUQUET"]
+
+    title = reste[0];                       // "Mathématiques - 1er  semestre"
+    teacher = reste[reste.length - 1];      // "Monsieur LUQUET"
+  }
 
   const cours =  Object.assign({
     id: event.id,
     isCurrent,
     data: event,
     title: title,
-    type: event.className,
+    type: formatClassName(event.className),
     room: salle,
     teacher: teacher,
     start: startTime,
@@ -167,3 +199,13 @@ export const fetchEvent = (event: AurionEventType): MauriaEventType => {
 
   return cours;
 };
+
+function formatClassName(input: string): string {
+  return input
+  .replace("COURS_TD", "Cours / TD")
+  .replace("ATELIER", "Atelier");
+}
+
+function strip(input: string): string {
+  return input.replace(/^\s+|\s+$/g, "");
+}

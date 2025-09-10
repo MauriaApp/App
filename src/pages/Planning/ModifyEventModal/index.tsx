@@ -66,7 +66,11 @@ const ModifyEventModalContent = ({ setUserEvents, ...event }: any) => {
         </div>
       </header>
       <span className={styles["date"]}>
-        {newCurrentEvent.type} avec {newCurrentEvent.teacher || "Professeur non renseigné"}
+        {newCurrentEvent.type === "est-epreuve"
+          ? <>Bonnes révisions et bon courage !</>
+          : newCurrentEvent.type === "est-perso"
+            ? null
+            : <>{newCurrentEvent.type} avec {newCurrentEvent.teacher || "un professeur non renseigné"}</>}
       </span>
       <div className={modalStyles["content"]}>
         {newCurrentEvent.type === "est-perso" && (
