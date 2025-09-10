@@ -33,7 +33,7 @@ const Outils = () => {
     <PageTemplate title={"Outils"}>
       <section>
         <div>
-          <label className={"label"}>Vous retrouverez les outils Junia mis à disposition pour vous ici !</label>
+          <label className={"label"}>Vous retrouverez les outils JUNIA mis à disposition pour vous ici !</label>
         </div>
       </section>
 

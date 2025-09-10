@@ -108,7 +108,7 @@ const Header = ({ isAuth }: { isAuth?: boolean }) => {
             onClick={onTabClick}
           >
             <Aurion />
-            <span>Outils Junia</span>
+            <span>Outils JUNIA</span>
           </Link>
 
           {/* <div

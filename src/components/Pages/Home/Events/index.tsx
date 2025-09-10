@@ -35,7 +35,7 @@ const EventJunia: React.FC<EventJuniaProps> = ({ events, loading }) => {
       {!events || events.length === 0 ? (
         <div className={"no-content-container"}>
           <span className={"no-content-text"}>
-            Aucun événements à venir...
+            Aucun événement à venir...
           </span>
         </div>
       ) : (

@@ -16,7 +16,7 @@ const Support = () => {
             <p className={"text"}>
               Mauria est une application permettant l'accès aux données des
               étudiants JUNIA. Cette dernière est l'accomplissement de plusieurs
-              projets passé.
+              projets passés.
               <br></br>
               Vous pouvez consulter vos informations étudiantes ainsi que des
               renseignements sur JUNIA (comme les associations).
@@ -29,8 +29,9 @@ const Support = () => {
               Milo Montuori.
               <br></br>
               La dernière version de Mauria est co-développée par Milo Montuori
-              et Louis Lecouturier, 2 étudiants JUNIA ISEN Lille. Merci spécial
-              à Audran Tourneur pour les Statistiques des notes !<br></br>
+              et Louis Lecouturier, 2 étudiants JUNIA ISEN Lille. Un merci
+              spécial à Audran Tourneur pour les statistiques des notes !
+              <br></br>
               N'hésitez pas à nous contacter avec le bouton ci-dessous si vous
               avez des questions ou des idées d'améliorations, nous serons ravis
               de faire évoluer l'application !
