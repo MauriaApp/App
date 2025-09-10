@@ -59,7 +59,7 @@ const Event: React.FC<EventProps> = (props) => {
           </h3>
 
           <h4 className={styles["teacher"]}>
-            Clique pour plus d'info !
+            Clique pour en savoir plus !
           </h4>
         </div>
       </div>

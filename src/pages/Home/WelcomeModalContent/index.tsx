@@ -37,7 +37,7 @@ const WelcomeModalContent = () => {
         ce fait, tu peux l'utiliser sans connexion internet ! (Mais tu ne
         pourras pas actualiser les données)
         <br />
-        Le Planning, les Notes et les Absences sont récupérées automatiquement à la connexion, et à chaque fois que tu ouvres l'application
+        Le Planning, les Notes et les Absences sont récupérés automatiquement à la connexion, et à chaque fois que tu ouvres l'application
         <br />
         Tu peux toujours le faire manuellement : il suffit de faire un
         geste vers le bas sur la page (un swipe)
