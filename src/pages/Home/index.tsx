@@ -29,9 +29,8 @@ import PageTemplate from "../Template";
 import styles from "./Home.module.scss";
 import clsx from "clsx";
 import EventJunia from "../../components/Pages/Home/Events";
-import { Capacitor } from "@capacitor/core";
 import { LocalNotifications } from "@capacitor/local-notifications";
-import { AppUpdate } from "@capawesome/capacitor-app-update";
+import { getAppUpdateInfoSafe } from "../../utils/appUpdate";
 import { MauriaNoteType } from "../../types/note";
 
 
@@ -81,8 +80,8 @@ const intervalFetch = async () => {
   setTimeout(intervalFetch, 14400000);
 
   // setTimeout(intervalFetch, 30000);
-  if (Capacitor) {
-    const available = await AppUpdate.getAppUpdateInfo();
+  const available = await getAppUpdateInfoSafe();
+  if (available) {
     console.log(available);
   }
 }
