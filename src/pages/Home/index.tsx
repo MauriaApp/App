@@ -6,6 +6,7 @@ import {
   fetchImportantMessage,
   fetchNotes,
   fetchPlanning,
+  fetchUpdates,
   getFirstName,
 } from "../../utils/api/api";
 
@@ -24,14 +25,14 @@ import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { ToastContext, ToastContextType } from "../../contexts/toastContext";
 import { ModalContext, ModalContextType } from "../../contexts/modalContext";
 import WelcomeModalContent from "./WelcomeModalContent";
+import UpdateModalContent from "./UpdateModalContent";
 import PageTemplate from "../Template";
 
 import styles from "./Home.module.scss";
 import clsx from "clsx";
 import EventJunia from "../../components/Pages/Home/Events";
-import { Capacitor } from "@capacitor/core";
 import { LocalNotifications } from "@capacitor/local-notifications";
-import { AppUpdate } from "@capawesome/capacitor-app-update";
+import { getAppUpdateInfoSafe } from "../../utils/appUpdate";
 import { MauriaNoteType } from "../../types/note";
 
 
@@ -81,8 +82,8 @@ const intervalFetch = async () => {
   setTimeout(intervalFetch, 14400000);
 
   // setTimeout(intervalFetch, 30000);
-  if (Capacitor) {
-    const available = await AppUpdate.getAppUpdateInfo();
+  const available = await getAppUpdateInfoSafe();
+  if (available) {
     console.log(available);
   }
 }
@@ -178,6 +179,23 @@ const Home: React.FC = () => {
     if (isFirstLaunch) {
       openModal(<WelcomeModalContent />, () => setIsFirstLaunch(false));
     }
+
+   (async () => {
+      try {
+        const updates = await fetchUpdates();
+        const currentUpdateVersion = updates?.[0]?.version;
+        if (!currentUpdateVersion) return;
+
+        const lastSeenVersion = localStorage.getItem("lastSeenVersion");
+
+        if (lastSeenVersion !== currentUpdateVersion) {
+          openModal(<UpdateModalContent />);
+          localStorage.setItem("lastSeenVersion", currentUpdateVersion);
+        }
+      } catch {
+        console.log("Update modal error")
+      }
+    })();
 
     const interval = setInterval(() => {
       updateMutation.mutate();
