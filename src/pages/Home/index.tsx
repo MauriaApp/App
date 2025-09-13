@@ -24,6 +24,7 @@ import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { ToastContext, ToastContextType } from "../../contexts/toastContext";
 import { ModalContext, ModalContextType } from "../../contexts/modalContext";
 import WelcomeModalContent from "./WelcomeModalContent";
+import UpdateModalContent from "./UpdateModalContent";
 import PageTemplate from "../Template";
 
 import styles from "./Home.module.scss";
@@ -177,6 +178,8 @@ const Home: React.FC = () => {
     if (isFirstLaunch) {
       openModal(<WelcomeModalContent />, () => setIsFirstLaunch(false));
     }
+
+    openModal(<UpdateModalContent />);
 
     const interval = setInterval(() => {
       updateMutation.mutate();
