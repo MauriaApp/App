@@ -6,6 +6,7 @@ import {
   fetchImportantMessage,
   fetchNotes,
   fetchPlanning,
+  fetchUpdates,
   getFirstName,
 } from "../../utils/api/api";
 
@@ -179,7 +180,22 @@ const Home: React.FC = () => {
       openModal(<WelcomeModalContent />, () => setIsFirstLaunch(false));
     }
 
-    openModal(<UpdateModalContent />);
+   (async () => {
+      try {
+        const updates = await fetchUpdates();
+        const currentUpdateVersion = updates?.[0]?.version;
+        if (!currentUpdateVersion) return;
+
+        const lastSeenVersion = localStorage.getItem("lastSeenVersion");
+
+        if (lastSeenVersion !== currentUpdateVersion) {
+          openModal(<UpdateModalContent />);
+          localStorage.setItem("lastSeenVersion", currentUpdateVersion);
+        }
+      } catch {
+        console.log("Update modal error")
+      }
+    })();
 
     const interval = setInterval(() => {
       updateMutation.mutate();
